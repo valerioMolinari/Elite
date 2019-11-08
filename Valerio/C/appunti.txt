@@ -1,0 +1,27 @@
+Segmentation fault è un errore che si presenta
+a tempo di esecuzione poiché a tempo di compilazione
+non si verifica alcun problema
+
+
+char = 1byte
+short = 2byte
+int = 4byte
+long int = 8byte
+float = 16byte
+double = 32byte
+long long int
+long double
+long long double
+unsigned: bool
+
+10 Novembre 2019
+
+una string literal è un array statico di char che contiene codici di caratteri
+seguiti dal carattere di fine stringa ovvero il carattere nullo "\0"
+
+18 Novembre 2019
+
+Esercitazione 1
+es1
+con un char si può esprimere, in complemento a due, un range di [-128, 127]
+oppure da 0 a 255 senza segno
