@@ -1,5 +1,0 @@
-if (a, b)
-  if (b == 4)
-    if (6, 9)
-      if (false)
-        if (String)
