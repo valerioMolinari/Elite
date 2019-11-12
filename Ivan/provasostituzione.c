@@ -8,13 +8,13 @@ char alfabeto[26] = {"abcdefghijklmnopqrstuvwxyz"};
 
 
 void sostituzione () {
-  // printf("Inserire una parola di sole minuscole e senza ripetizioni di lettere:\n");
-  // scanf("%s", parola);
+  printf("Inserire l'alfabeto chiave per la sostituzione con tutte e sole le lettere dalla A alla Z: ");
+  scanf("%s", parola);
 
-  //potresti fare semplicemente
-  printf("Inserisci una stringa di testo: ");
-  fgets(text, SIZE, stdin);
-  //così non devi porre condizioni
+  // trasforma tutto in minuscolo
+  for (size_t i = 0; i < strlen(parola); i++) {
+    parola[i] = tolower(parola[i]);
+  }
 
   for (int i = 0; i < strlen(parola); i++) {
     alfabeto[i] = parola[i];
