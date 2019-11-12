@@ -14,6 +14,7 @@ suggerisco di lanciare questi comandi per assicurarvi che github
 funzioni con atom:
 
 git config --global user.name "vostro username di github dentro le virgolette"
+
 git config --global user.email "vostra email di github dentro le virgolette"
 
 Il MIT ha creato un app online (Terminus) per imparare a utilizzare il terminale sui sistemi POSIX (OS X & Linux), non richiede registrazione ;)
