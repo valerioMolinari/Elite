@@ -6,6 +6,7 @@ char parola[100];     //parola chiave
 char alfabeto[26]={"abcdefghijklmnopqrstuvwxyz"};
 
 void sostituzione () {
+  // Perché senza ripetizioni
   printf("Inserire una parola di sole minuscole e senza ripetizioni di lettere:\n");
   scanf("%s", parola);
 
