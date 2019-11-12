@@ -1,6 +1,6 @@
 const fs = require('fs')
 const { execSync } = require("child_process")
-const bash_profile = process.platform === 'darwin' ? '~/.zshenv' : '~/.bashrc'
+const bash_profile = process.platform === 'darwin' ? '~/.zshenv' : '~/.bash_aliases'
 const error = 'Error: 2 parameters expected (alias and body) but'
 if (process.argv[2] === '--edit')
   return execSync(`atom ${__filename}`)
