@@ -1,3 +1,5 @@
+//Versione per modifica in branch "esonero-ivan"
+
 #include <stdio.h>
 #include <string.h>
 
