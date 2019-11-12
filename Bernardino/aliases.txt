@@ -1,1 +1,1 @@
-cp ~/git/Elite/Valerio/myshells/myshells/newalias.js ~/myshells; echo "alias newalias='node ~/myshells/newalias.js'" >> ~/.zshenv; rbp; newalias elite "cd ~/git/Elite"
+newalias berna "cd ~/git/Elite/Bernardino"; newalias C "cd ~/git/Elite/Bernardino/C"

@@ -1,0 +1,1 @@
+newalias sasà "cd ~/git/Elite/Sasà"; newalias C "cd ~/git/Elite/Bernardino/C"
