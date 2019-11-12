@@ -14,6 +14,8 @@ altrimenti:
     echo "alias rbp='source ~/.zshenv'" >> ~/.zshenv
   Linux:
     echo "alias rbp='source ~/.bash_aliases'" >> ~/.bash_aliases
+   Se avete eseguito questo step:
+    riavviate il terminale
 
 Mac:
   mkdir ~/myshells; rm ~/myshells/newalias.js; cp ~/git/Elite/Valerio/myshells/newalias.js ~/myshells || cp ~/github/Elite/Valerio/myshells/newalias.js ~/myshells; echo "alias newalias='node ~/myshells/newalias.js'" >> ~/.zshenv; rbp;
