@@ -21,5 +21,5 @@ void main()
     printf("%c\n", r[i]);
   }
 
-  printf("La lettera generata e': %c\n", c);
+  printf("La lettera generata è: %c\n", c);
 }
