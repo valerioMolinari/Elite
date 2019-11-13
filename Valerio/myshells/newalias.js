@@ -7,7 +7,7 @@ const fs = require('fs')
 const { execSync } = require("child_process")
 const dirsplit = __dirname.split('/')
 const mainFolder = dirsplit.slice(0, 3).join('/')
-if (dirsplit[dirsplit.length - 1] !== 'myShells')
+if (dirsplit[dirsplit.length - 1] !== 'myshells')
   return console.log(`\nError: newalias.js must be located in ${mainFolder}/myshells to work, now it is in ${__dirname}\n`);
 const bash_profile = process.platform === 'darwin' ? `${mainFolder}/.zshenv` : `${mainFolder}/.bash_aliases`
 const error = 'Error: 2 parameters expected (alias and body) but'
