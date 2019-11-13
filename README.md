@@ -1,6 +1,8 @@
 # Elite
 Proudly the official, magnificent repository of the real unbeatable Élite team!
 
+--------------------------------------------------------------------
+
 Mac/Linux installation:
   mkdir ~/git; cd ~/git; git clone https://github.com/valerioMolinari/Elite.git; atom .
 
