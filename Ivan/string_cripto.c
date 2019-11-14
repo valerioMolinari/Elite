@@ -1,3 +1,16 @@
+/*
+  Chiedere all'utente l'alfabeto chiave;
+  Leggerlo;
+  Verificare se contiene tutte e sole le lettere dell'alfabeto,
+  ovvero verificare se non ci sono lettere mancanti o ripetute;
+  Possibile approccio: riordinare l'alfabeto chiave e confrontarlo
+  con quello originale;
+  Ripetere tutta la procedura finché l'utente non inserisce un alfabeto corretto;
+  Per ogni lettera della parola/frase inserita dall'utente, trovare l'indice
+  di quella lettera nell'alfabeto normale e sostituirla con la lettera che
+  ha lo stesso indice nell'alfabeto chiave
+*/
+
 #include <stdio.h>
 #include <string.h>
 
