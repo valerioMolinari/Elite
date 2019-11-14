@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
   Chiedere all'utente l'alfabeto chiave;
   Leggerlo;
@@ -12,6 +13,8 @@
 */
 
 
+=======
+>>>>>>> 26f31478c22fc4eb1402875a8d0d622cc4aefe60
 #include <stdio.h>
 #include <string.h>
 
