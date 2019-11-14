@@ -28,8 +28,12 @@ const getLib = (flag) => Object.entries(libraries).filter(x => x[1].flag == flag
 
 let message = 'usage: [-i, -n, --edit]'
 message += '\n\t-i: show this message'
-message += '\n\t-n: create new file.c with stdio.h and main inside'
-message += '\n\t-s: create new file.c with stdio.h, stdlib.h, main and system("clear") inside'
+message += '\n\t-n: create new file.c with stdio.h and main (-n is also applied to all the other flags)'
+message += '\n\t-l: create new file.c with stdlib.h and system("clear")'
+message += '\n\t-t: create new file.c with time.h'
+message += '\n\t-u: create new file.c with unistd.h'
+message += '\n\t-m: create new file.c with math.h'
+message += '\n\t-s: create new file.c with string.h'
 message += '\n\t--edit: edit this program in atom'
 
 if (!(/^-/.test(flag)))
@@ -41,33 +45,16 @@ else if (flag === '-i')
   console.log(message);
 else {
   const slicedFlag = flag.slice(1)
+  const file = /\.c$/.test(fileName) ? fileName.slice(0, fileName.length - 2) : fileName
+  let head = libraries.stdio.include;
   for (letter of slicedFlag)
     if (flagArr.indexOf(letter) === -1)
       throw `Error: -${letter} is an unknown flag\n\n${message}`
-  let head = libraries.stdio.include;
   for (letter of slicedFlag)
-    head += '\n' + getLib(letter)[1].include
-  return console.log(head);
-
-}
-
-
-switch (flag) {
-  case '--edit':
-    exec(`atom ${__filename}`)
-    break;
-  case '-i':
-    console.log(message);
-    break;
-  case '-n':
-    main(/\.c$/.test(fileName) ? fileName.slice(0, fileName.length - 2) : fileName, '#include <stdio.h>\n\nint main(void) {\n\n}')
-    break;
-  case '-s':
-    main(/\.c$/.test(fileName) ? fileName.slice(0, fileName.length - 2) : fileName, '#include <stdio.h>\n#include <stdlib.h>\n\nint main(void) {\n\tsystem("clear");\n\n}')
-    break;
-  default:
-    console.error('Error: unknown flag')
-    console.log(message);
+    if (letter !== 'n')
+      head += '\n' + getLib(letter)[1].include
+  head += /l/.test(flag) ? '\n\nint main(void){\n\tsystem("clear");\n\n}' : '\n\nint main(void){\n\n}'
+  main(file, head)
 }
 
 function main(fileName, text, number = 0) {
