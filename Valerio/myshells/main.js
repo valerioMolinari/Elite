@@ -1,3 +1,9 @@
+/*
+  il contenuto del flag -n va applicato a tutti
+  infatti inserito un flag diverso da -n stdio e main saranno inclusi
+  i flag possono essere composti per inserire più librerie
+*/
+
 const fs = require('fs')
 const { exec } = require("child_process")
 
