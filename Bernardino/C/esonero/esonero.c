@@ -13,6 +13,8 @@ int main(void) {
 
   printf("Inserisci la frase che vuoi cifrare:\n");
   fgets(stringa, sizeof(stringa), stdin);
+  /*fgets legge caratteri dallo stardard input e li memorizza nel suo primo argomento
+  (un array di char)*/
   system("clear");
 
   printf("Per utilizzare il cifrario di Cesare premere il tasto 1\n");
@@ -26,7 +28,7 @@ int main(void) {
     scanf("%d", &k);
 
     for (size_t i = 0; i < strlen(stringa) - 1; i++) {
-      if(stringa[i] >= 97 && stringa[i] <= 122) {
+      if(stringa[i] >= 97 && stringa[i] <= 122){
         frasecriptata[i] = 97 + (((stringa[i] % 97) + k % 25) % 25);
       } else {
         frasecriptata[i] = stringa[i];
@@ -34,7 +36,6 @@ int main(void) {
     }
 
     frasecriptata[strlen(stringa)-1] = '\0';
-
     printf("La frase inserita criptata con il cifrario di Cesare è: %s\n", frasecriptata);
   }
 
