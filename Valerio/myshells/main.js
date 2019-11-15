@@ -1,5 +1,5 @@
-// installazione: rm ~/myshells/main.js; cp ~/git/Elite/Valerio/myshells/main.js ~/myshells
-// alias: newalias main "node ~/myshells/main.js"
+// installazione: se avete valeshell -> valeshell -n main.js
+// altrimenti -> rm ~/myshells/main.js; cp ~/git/Elite/Valerio/myshells/main.js ~/myshells;newalias main "node ~/myshells/main.js"
 
 //Funziona solo sui sistemi POSIX
 
@@ -24,6 +24,7 @@ newLib('time', 't', '#include <time.h>')
 newLib('unistd', 'u', '#include <unistd.h>')
 newLib('math', 'm', '#include <math.h>')
 newLib('string', 's', '#include <string.h>')
+newLib('ctype', 'c', '#include <ctype.h>')
 
 const flagArr = Object.entries(libraries).map(x => x[1].flag)
 const getLib = (flag) => Object.entries(libraries).filter(x => x[1].flag == flag)[0]
@@ -36,6 +37,7 @@ message += '\n\t-t: create new file.c with time.h'
 message += '\n\t-u: create new file.c with unistd.h'
 message += '\n\t-m: create new file.c with math.h'
 message += '\n\t-s: create new file.c with string.h'
+message += '\n\t-c: create new file.c with ctype.h'
 message += '\n\t--edit: edit this program in atom'
 
 if (!(/^-/.test(flag)))
