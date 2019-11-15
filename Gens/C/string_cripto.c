@@ -23,19 +23,21 @@ int main(void){
   printf("1: Il Cifrario di Cesare\n");
   printf("2: Il Cifrario a sostituzione\n");
   scanf("%d", &cifrario);
+  system("clear");
 
   // l'utente dovrà scegliere la chiave di cifratura e la frase verrà crittografata in base alla sua scelta
   if(cifrario == 1){
     printf("Hai scelto il Cifrario di Cesare\n");
-    printf("Scegli la chiave per decifrare: ");
+    printf("Scegli la chiave per decifrare con valori da 1 a 26: \n");
     scanf("%d", &k);
     if(k < 26 && k > 0){
       for (size_t i = 0; i < strlen(frase) - 1; i++) {
        cripto[i] = 97 + (((frase[i] % 97) +k) %26); // questa formula serve per cifrare la frase inserita dall'utente
-       char tolower(frase[i]);
      }
      printf("La frase criptata è: %s", cripto);
-    }
+   }else{
+     printf("Chiave non valida");
+   }
   // ho usato la funzione strlen perchè serve per calcolare la lunghezza di una stringa
 
   }else if(cifrario == 2){
