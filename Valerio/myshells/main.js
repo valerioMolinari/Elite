@@ -1,9 +1,5 @@
-/*
-  il contenuto del flag -n va applicato a tutti
-  infatti inserito un flag diverso da -n stdio e main saranno inclusi
-  i flag possono essere composti per inserire più librerie
-*/
-
+// installazione: rm ~/myshells/main.js; cp ~/git/Elite/Valerio/myshells/main.js ~/myshells
+// alias: newalias main "node ~/myshells/main.js"
 const fs = require('fs')
 const { exec } = require("child_process")
 
