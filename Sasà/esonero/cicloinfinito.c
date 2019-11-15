@@ -16,6 +16,7 @@ int main(void) {
 	}else if(contatore = 0){
 		printf("Non è scritto in carattere miniscolo\n");
 
+		
 	}
 	}
 
