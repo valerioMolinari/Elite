@@ -1,5 +1,11 @@
 // installazione: rm ~/myshells/main.js; cp ~/git/Elite/Valerio/myshells/main.js ~/myshells
 // alias: newalias main "node ~/myshells/main.js"
+
+//Funziona solo sui sistemi POSIX
+
+if (process.platform === 'win32')
+  return console.log('Unfortunately this program doesn\'t work on window, change OS ;)');
+
 const fs = require('fs')
 const { exec } = require("child_process")
 
