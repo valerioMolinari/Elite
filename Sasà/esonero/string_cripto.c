@@ -32,8 +32,8 @@ scanf("%d", &scelta);
 				for (size_t i = 0; i < strlen(parola_da_criptare) - 1; i++) {
 					frase_criptata[i] = 97 + (((parola_da_criptare[i] % 97) + key) %26);
 				}
-					printf("La frase cifrata è: %d\n" );
-					scanf("%s", frase_criptata[i] );
+					printf("La frase cifrata è: %s\n" );
+					scanf( frase_criptata[i] );
 
 			}
 
