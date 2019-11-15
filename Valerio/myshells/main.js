@@ -1,4 +1,4 @@
-// installazione: se avete valeshell -> valeshell main.js
+// installazione: se avete valeshell -> valeshell -n main.js
 // altrimenti -> rm ~/myshells/main.js; cp ~/git/Elite/Valerio/myshells/main.js ~/myshells;newalias main "node ~/myshells/main.js"
 
 //Funziona solo sui sistemi POSIX
