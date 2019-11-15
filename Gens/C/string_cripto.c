@@ -65,7 +65,8 @@ int main(void){
      }
       for (size_t i = 0; i < 26; i++) {
         for (size_t j = i + 1; j < 26; j++) {
-          if(alfabeto_mescolato[i] == alfabeto_mescolato[j]){
+          if(alfabeto_mescolato[i] == alfabeto_mescolato[j]) {
+            printf("lol\n");
         }
       }
     }
