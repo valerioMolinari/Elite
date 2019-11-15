@@ -15,8 +15,8 @@ printf("Immetti la frase da codificare:\n");
 fgets(parola_da_criptare, sizeof(parola_da_criptare), stdin);
 
 printf("decidere la modalità di cifratura:\n");
-printf("Scegli '1' se vuoi usare il cifrario di Cesare.\n");
-printf("Scegli '2' se vuoi usare il crifrario a Sostituzione.\n");
+printf("Scegli 1 se vuoi usare il cifrario di Cesare.\n");
+printf("Scegli 2 se vuoi usare il crifrario a Sostituzione.\n");
 scanf("%d", &scelta);
 
 	switch (scelta) {
@@ -32,8 +32,7 @@ scanf("%d", &scelta);
 				for (size_t i = 0; i < strlen(parola_da_criptare) - 1; i++) {
 					frase_criptata[i] = 97 + (((parola_da_criptare[i] % 97) + key) %26);
 				}
-					printf("La frase cifrata è: %d\n" );
-					scanf("%s", frase_criptata[i] );
+				printf("La frase cifrata è: %s\n", frase_criptata);
 
 			}
 
