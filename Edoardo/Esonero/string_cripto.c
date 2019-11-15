@@ -5,7 +5,6 @@
 #define MAX 256
 
 void cypherPrint (char stringa[], char cypher[]){
-  system("clear");
   printf("Stringa originale ------> %s ",stringa );
   printf("Stringa criptata ------> %s\n", cypher);
 }
@@ -47,37 +46,92 @@ void cesare(char stringa[]){
   }
 
   cypher[lunghezza]='\0';
+  system("clear");
   cypherPrint( stringa, cypher);
 }
 
 
-void sostituzione (char stringa[], char alfaMescolato[]){
+void sostituzione (char stringa[]){
 
-  int indice, flag=0;
+  int indice, l;
+  char alfaMescolato[26];
+  char alfa[27]=("abcdefghijklmnopqrstuvwxyz");
 
+  system("clear");
+  printf("Inserire un alfabeto mescolato:\n" );
   for (int i=0; i<26; i++){
-    if (alfaMescolato[i]<96||alfaMescolato[i]>122)
-      flag=1;
-  }
 
-  if (flag==0){
-    int lunghezza = strlen(stringa);
-    char cypher[lunghezza];
+    if (i<9)
+      printf("%d.  %c: ", i+1, alfa[i] );
+    else
+      printf("%d. %c: ", i+1, alfa[i] );
 
-    for (int i=0; i<lunghezza; i++){
-      indice=((int)stringa[i])-97;
-      if (indice<0){
-        cypher[i]= ' ';
-      }else{
-        cypher[i]=alfaMescolato[indice];
+    scanf(" %c", &alfaMescolato[i] );
+    getchar();
+
+    l=0;
+    while(l==0){
+      if (alfaMescolato[i]<97||alfaMescolato[i]>122){
+        printf("\nhai inserito un carattere non corretto.\n" );
+        printf("Inserisci un carattere corretto\n" );
+
+        if (i<9)
+          printf("%d.  %c: ", i+1, alfa[i] );
+        else
+          printf("%d. %c: ", i+1, alfa[i] );
+
+        scanf(" %c", &alfaMescolato[i] );
+        getchar();
+      } else{
+        l=1;
       }
+
     }
 
-    cypher[lunghezza]='\0';
-    cypherPrint( stringa, cypher);
-  }else{
-    printf("hai sbagliato caratteri\n");
+
+    if(i>0){
+      l=0;
+      while(l==0){
+        for (int k=0; k<i; k++){
+          if (alfaMescolato[i]==alfaMescolato[k]){
+            printf("\nHai ripetuto un carattere 2 volte.\n" );
+            printf("Inserisci un carattere diverso\n" );
+
+            if (i<9)
+              printf("%d.  %c: ", i+1, alfa[i] );
+            else
+              printf("%d. %c: ", i+1, alfa[i] );
+
+            scanf(" %c", &alfaMescolato[i] );
+            getchar();
+          }
+        }
+        l=1;
+      }
+
+    }
+
   }
+
+
+  int lunghezza = strlen(stringa);
+  char cypher[lunghezza];
+
+  for (int i=0; i<lunghezza; i++){
+    indice=((int)stringa[i])-97;
+    if (indice<0){
+      cypher[i]= ' ';
+    }else{
+      cypher[i]=alfaMescolato[indice];
+    }
+  }
+
+  cypher[lunghezza]='\0';
+  system("clear");
+  alfa[26] = '\0';
+  printf("Alfabeto:           %s\n",alfa );
+  printf("Alfabeto mescolato: %s\n\n",alfaMescolato );
+  cypherPrint( stringa, cypher);
 
 }
 
@@ -87,8 +141,6 @@ int main(int argc, char const *argv[]) {
   system("clear");
   int scelta;
   char stringa [MAX];
-  char alfaMescolato [26];
-  char alfa[26]=("abcdefghijklmnopqrstuvwxyz");
 
 
   printf("Questo programma cripta una stringa tramite Cesare o Sostituzione\n");
@@ -105,18 +157,8 @@ int main(int argc, char const *argv[]) {
   }
 
   if (scelta==2){
-    system("clear");
-    printf("Inserire un alfabeto mescolato:\n" );
-    for (int i=0; i<26; i++){
-      if (i<9)
-        printf("%d.  %c: ", i+1, alfa[i] );
-      else
-        printf("%d. %c: ", i+1, alfa[i] );
-      scanf("%c\n",&alfaMescolato[i] );
-    }
-    printf("%s\n",alfaMescolato );
-    //char alfaMescolato [26]=("opqrstabhijklmncdefguvwxyz");
-    sostituzione(stringa, alfaMescolato);
+
+    sostituzione(stringa);
 
   }
 
