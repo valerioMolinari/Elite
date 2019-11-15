@@ -53,7 +53,6 @@ else {
   let slicedFlag = flag.slice(1)
   let file = /\.c$/.test(mergedName) ? mergedName.slice(0, mergedName.length - 2) : mergedName
   if (/_/.test(flag)) {
-    console.log(file);
     file = file.split(/\s/).join('_')
     slicedFlag = Array.from(slicedFlag).filter(x => x !== '_').join('')
   }
@@ -64,7 +63,7 @@ else {
   for (letter of slicedFlag)
     if (letter !== 'n')
       head += '\n' + getLib(letter)[1].include
-  head += /l/.test(flag) ? '\n\nint main(void){\n\tsystem("clear");\n\n}' : '\n\nint main(void){\n\n}'
+  head += /l/.test(flag) ? '\n\nint main(void) {\n\tsystem("clear");\n\n}' : '\n\nint main(void) {\n\n}'
   main(file, head)
 }
 
