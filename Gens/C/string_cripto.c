@@ -34,6 +34,7 @@ int main(void){
       for (size_t i = 0; i < strlen(frase) - 1; i++) {
        cripto[i] = 97 + (((frase[i] % 97) +k) %26); // questa formula serve per cifrare la frase inserita dall'utente
      }
+     cripto[strlen(frase)-1] = '\0';
      printf("La frase criptata è: %s", cripto);
    }else{
      printf("Chiave non valida");
