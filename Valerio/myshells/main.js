@@ -9,7 +9,7 @@ if (process.platform === 'win32')
 const fs = require('fs')
 const { exec } = require("child_process")
 
-const [flag, fileName] = process.argv.slice(2)
+const [flag, ...fileName] = process.argv.slice(2)
 const libraries = {
   stdio: {
     flag: 'n',
@@ -38,6 +38,7 @@ message += '\n\t-u: create new file.c with unistd.h'
 message += '\n\t-m: create new file.c with math.h'
 message += '\n\t-s: create new file.c with string.h'
 message += '\n\t-c: create new file.c with ctype.h'
+message += '\n\t-_: insert low dash to separate_name_like_this'
 message += '\n\t--edit: edit this program in atom'
 
 if (!(/^-/.test(flag)))
@@ -48,8 +49,14 @@ if (flag === '--edit')
 else if (flag === '-i')
   console.log(message);
 else {
-  const slicedFlag = flag.slice(1)
-  const file = /\.c$/.test(fileName) ? fileName.slice(0, fileName.length - 2) : fileName
+  const mergedName = fileName.join(' ')
+  let slicedFlag = flag.slice(1)
+  let file = /\.c$/.test(mergedName) ? mergedName.slice(0, mergedName.length - 2) : mergedName
+  if (/_/.test(flag)) {
+    console.log(file);
+    file = file.split(/\s/).join('_')
+    slicedFlag = Array.from(slicedFlag).filter(x => x !== '_').join('')
+  }
   let head = libraries.stdio.include;
   for (letter of slicedFlag)
     if (flagArr.indexOf(letter) === -1)
