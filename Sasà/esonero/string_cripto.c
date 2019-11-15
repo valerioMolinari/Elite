@@ -39,7 +39,7 @@ scanf("%d", &scelta);
 
 		  else printf("Hai inserito %d, UTONTO riprova", key );
 
-			//break;
+			break;
 
 
 	}
