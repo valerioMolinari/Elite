@@ -1,5 +1,5 @@
 // installazione: rm ~/myshells/valeshell.js; cp ~/git/Elite/Valerio/myshells/valeshell.js ~/myshells
-// alias: newalias main "node ~/myshells/valeshell.js"
+// alias: newalias valeshell "node ~/myshells/valeshell.js"
 
 //Funziona solo sui sistemi POSIX
 
