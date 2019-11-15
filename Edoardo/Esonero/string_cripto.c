@@ -4,11 +4,13 @@
 #include <stdlib.h>
 #define MAX 256
 
+//stampa in maniera ordinata l'output del programma
 void cypherPrint (char stringa[], char cypher[]){
   printf("Stringa originale ------> %s ",stringa );
   printf("Stringa criptata ------> %s\n", cypher);
 }
 
+//modula il valore della chiave in un valore contenuto in 26
 int controlloChiave(int k){
 
   if (k>26)
@@ -21,7 +23,7 @@ int controlloChiave(int k){
   return k;
 }
 
-
+//funzione che cripta un stringa tramite cifrario di cesare
 void cesare(char stringa[]){
 
   int k;
@@ -50,7 +52,7 @@ void cesare(char stringa[]){
   cypherPrint( stringa, cypher);
 }
 
-
+//funzione che cripta una stringa tramite cifrario a sostituzione
 void sostituzione (char stringa[]){
 
   int indice, l;
@@ -136,6 +138,7 @@ void sostituzione (char stringa[]){
 }
 
 
+//funziomne main che gestisce il flusso del programma 
 int main(int argc, char const *argv[]) {
 
   system("clear");
