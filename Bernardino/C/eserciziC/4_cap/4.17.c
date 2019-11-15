@@ -19,29 +19,29 @@ stampare il numero del conto del cliente;
 #include <stdlib.h>
 
 int main(void) {
-system("clear");
+  system("clear");
 
-int numero; //numero di conto del cliente
-double lc; //limite di credito del cliente prima della recessione
-double saldo; //saldo attuale di credito
+  int numero; //numero di conto del cliente
+  double lc; //limite di credito del cliente prima della recessione
+  double saldo; //saldo attuale di credito
+  double nlc; //nuovo limite di credito dimezzato dall'azienda
+  //Valerio: nei limiti del possibile metti le operazioni a monte
+  //e le stampe (printf, puts) a valle
+  nlc = lc / 2;
 
-double nlc; //nuovo limite di credito dimezzato dall'azienda
-
-for (unsigned int counter = 1; counter <= 3; ++counter){
+  for (size_t counter = 1; counter <= 3; ++counter) {
     printf("Inserire il numero del conto: \n");
     scanf("%d", &numero);
-    if(numero < 0){
+    //Valerio: Quando if, while, for ecc. sono seguiti da una sola espressione
+    //puoi omettere le graffe
+    if(numero < 0)
       return 0;
-    }
     printf("Inserire il limite attuale di credito: \n");
     scanf("%lf", &lc);
     printf("Inserire il saldo attuale di credito: \n");
     scanf("%lf", &saldo);
-
-    nlc = lc / 2;
     printf("Il nuovo limite di credito equivale a: %lf\n", nlc);
-
-    if(saldo > nlc){
+    if(saldo > nlc) {
       printf("Numero conto:");
       printf("%d\n", numero);
       printf("Il tuo saldo attuale di credito supera i nuovi limiti di credito. \n");
