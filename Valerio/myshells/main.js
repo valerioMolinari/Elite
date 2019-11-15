@@ -22,7 +22,7 @@ newLib('string', 's', '#include <string.h>')
 const flagArr = Object.entries(libraries).map(x => x[1].flag)
 const getLib = (flag) => Object.entries(libraries).filter(x => x[1].flag == flag)[0]
 
-let message = 'usage: [-i, -n, --edit]'
+let message = 'usage: [-i, -nltums, --edit]'
 message += '\n\t-i: show this message'
 message += '\n\t-n: create new file.c with stdio.h and main (-n is also applied to all the other flags)'
 message += '\n\t-l: create new file.c with stdlib.h and system("clear")'
