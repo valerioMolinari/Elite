@@ -26,12 +26,14 @@ int controlloChiave(int k){
 //funzione che cripta un stringa tramite cifrario di cesare
 void cesare(char stringa[]){
 
-  int k;
+  int k, flag=0;
   int lunghezza= strlen(stringa);
   char cypher [lunghezza];
 
   printf("Inserire chiave:\n" );
   scanf("%d",&k );
+  if (k>26||k<0)
+    flag=1;
   k = controlloChiave(k);
 
   for(int i=0; i<lunghezza; i++){
@@ -49,6 +51,11 @@ void cesare(char stringa[]){
 
   cypher[lunghezza]='\0';
   system("clear");
+  if (flag==0)
+    printf("Chiave di cifratura: %d\n\n", k );
+  if(flag==1)
+    printf("Chiave di cifratura modulata tra 0 e 26: %d\n\n", k );
+
   cypherPrint( stringa, cypher);
 }
 
@@ -138,7 +145,7 @@ void sostituzione (char stringa[]){
 }
 
 
-//funziomne main che gestisce il flusso del programma 
+//funziomne main che gestisce il flusso del programma
 int main(int argc, char const *argv[]) {
 
   system("clear");
