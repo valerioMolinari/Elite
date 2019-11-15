@@ -20,7 +20,7 @@ printf("Scegli '2' se vuoi usare il crifrario a Sostituzione.\n");
 scanf("%d", &scelta);
 
 	switch (scelta) {
-		case '1':
+		case 1:
 
 		printf("Hai scelto il Cifrario di Cesare\n" );
 
