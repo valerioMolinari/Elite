@@ -7,7 +7,7 @@ int main(void) {
 
   int k; //chiave k del cifrario di sostituzione
   char stringa[256]; // frase inserita da tastiera ancora da criptare
-  char frasecriptata; //frase criptata mediante il cifrario di Cesare
+  char frasecriptata[256]; //frase criptata mediante il cifrario di Cesare
   char alfabetomescolato[26]; //l'utente decide con quale codice cifrare la frase da lui inserita
   int scelta; //valore di scelta fra cifrario di Cesare e cifrario a sostituzione
 
@@ -26,12 +26,16 @@ int main(void) {
     scanf("%d", &k);
 
     for (size_t i = 0; i < strlen(stringa) - 1; i++) {
-      if(stringa[i] >= 97 && stringa[i] <= 122){
-        frasecriptata = 97 + (((stringa[i] % 97) + k % 25) % 25);
+      if(stringa[i] >= 97 && stringa[i] <= 122) {
+        frasecriptata[i] = 97 + (((stringa[i] % 97) + k % 25) % 25);
+      } else {
+        frasecriptata[i] = stringa[i];
       }
     }
 
-    printf("La frase inserita criptata con il cifrario di Cesare è:%s", frasecriptata);
+    frasecriptata[strlen(stringa)-1] = '\0';
+
+    printf("La frase inserita criptata con il cifrario di Cesare è: %s\n", frasecriptata);
   }
 
   if(scelta == 2){
