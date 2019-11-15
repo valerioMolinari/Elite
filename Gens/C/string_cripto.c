@@ -16,6 +16,7 @@ int main(void){
 
   printf("Immettere la frase da crittografare in minuscolo e solo lettere dell'alfabeto inglese:\n");
   fgets(frase, sizeof(frase), stdin); // input di una stringa
+  system("clear");
 
   // l'utente sceglie la tipologia di cifratura
   printf("Con quale tipo di cifrario vuoi crittografare la tua frase:\n");
@@ -23,7 +24,7 @@ int main(void){
   printf("2: Il Cifrario a sostituzione\n");
   scanf("%d", &cifrario);
 
-  // l'utente dovrà scegliere la chiave di cifratura e la frase verrà crittografata
+  // l'utente dovrà scegliere la chiave di cifratura e la frase verrà crittografata in base alla sua scelta
   if(cifrario == 1){
     printf("Hai scelto il Cifrario di Cesare\n");
     printf("Scegli la chiave per decifrare: ");
@@ -31,10 +32,11 @@ int main(void){
     if(k < 26 && k > 0){
       for (size_t i = 0; i < strlen(frase) - 1; i++) {
        cripto[i] = 97 + (((frase[i] % 97) +k) %26); // questa formula serve per cifrare la frase inserita dall'utente
+       char tolower(frase[i]);
      }
-     printf("%s", cripto);
+     printf("La frase criptata è: %s", cripto);
     }
-
+  // ho usato la funzione strlen perchè serve per calcolare la lunghezza di una stringa
 
   }else if(cifrario == 2){
     printf("Hai scelto Il Cifrario a sostituzione");
