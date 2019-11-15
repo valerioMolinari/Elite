@@ -9,16 +9,15 @@ int main(void) {
 char frase_criptata[SIZE];//frase criptata con il cifrario di cesare
 char parola_da_criptare[SIZE];//frase inserita da tastiera
 int key = 0;
-int lun = 0;
-int scelta = 0 ;
+int scelta;
 
-printf("Immetti la frase da codificare:\n" );
+printf("Immetti la frase da codificare:\n");
 fgets(parola_da_criptare, sizeof(parola_da_criptare), stdin);
 
-printf("decidere la modalità di cifratura:\n" );
-printf("Scegli '1' se vuoi usare il cifrario di Cesare.\n" );
-printf("Scegli '2' se vuoi usare il crifrario a Sostituzione.\n" );
-scanf("%d\n", scelta );
+printf("decidere la modalità di cifratura:\n");
+printf("Scegli '1' se vuoi usare il cifrario di Cesare.\n");
+printf("Scegli '2' se vuoi usare il crifrario a Sostituzione.\n");
+scanf("%d", &scelta);
 
 	switch (scelta) {
 		case '1':
@@ -40,7 +39,7 @@ scanf("%d\n", scelta );
 
 		  else printf("Hai inserito %d, UTONTO riprova", key );
 
-			break;
+			//break;
 
 
 	}
