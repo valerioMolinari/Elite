@@ -6,21 +6,38 @@
 int main(void){
 
   system("clear");
+
   // variabili usate per il codice
   int k; // chiave per decifrare a scelta dall'utente
   int cifrario; // scelta tra cifrario di Cesare e a Sostituzione
   int count = 0; // serve per il ciclo se la k è minore di 0 o maggiore di 26
+  int controllo = 0; // variabile che serve nel controllo delle lettere ripetute nell'alfabeto mescolato
+  //int c = 1; // variabile che controlla che non ci sono numeri nella frase
 
   char frase[256]; // frase presa da tastiera da codificare
   char cripto[256]; // frase criptata
   char alfabeto_mescolato[27] = {0}; // serve per l'alfabeto mescolato a scelta dell'utente
-  const char alfabeto_inglese[] = "abcdefghijklmnopqrstuvwxyz"; //alfabeto inglese
-
+  const char alfabeto_inglese[] = "abcdefghijklmnopqrstuvwxyz"; // alfabeto inglese
+  
   printf("Immettere la frase da crittografare:\n");
   fgets(frase, sizeof(frase), stdin); // input di una stringa
-
   for(int i = 0; i < sizeof(frase); i++)
     frase[i] = tolower(frase[i]); // la funzione tolower cambia le lettere maiuscole in minuscole
+
+  // ho provato a creare un ciclo che serve a controllare se ci sono caratteri numerici
+  /*while(c == 1){
+    for (size_t i = 0; i < sizeof(frase); i++){
+      if(frase[i] >= 97 && frase[i] <= 122){
+          c = 0;
+      }
+    }if(c == 0){
+      printf("Ho trovato caratteri numerici\n");
+    }
+      printf("Immettere la frase da crittografare:\n");
+      fgets(frase, sizeof(frase), stdin);
+      for(int i = 0; i < sizeof(frase); i++)
+        frase[i] = tolower(frase[i]); // la funzione tolower cambia le lettere maiuscole in minuscole
+  }*/
 
   system("clear");
 
@@ -53,7 +70,6 @@ int main(void){
       }else{
         printf("Chiave non valida\n");
       }
-
     }while(count == 0);
 
   // inizio cifrario a sostituzione: l'utente dovrà immettere l'alfabeto mescolato poi verrà criptata la frase in base alla sua scelta
@@ -62,23 +78,29 @@ int main(void){
      printf("Immettere l'alfabeto mescolato a scelta dell'utente:\n");
      scanf("%s", alfabeto_mescolato);
 
-     int p = 0;
+     // ho provato a far controllare che l'alfabeto sia di 26 caratteri
+     /*while(c == 1){
+       if(sizeof(alfabeto_mescolato) < 26 && sizeof(alfabeto_mescolato) > 26){
+         printf("Reinserisci l'alfabeto mescolato");
+       }else if(sizeof(alfabeto_mescolato) == 26){
+         printf("Alfabeto accettato");
+       }
+     }*/
 
      // ciclo per il controllo di ripetizione degli elementi nell'array dell'alfabeto
-     for(int i = 0; i < 26; i++){
+     for(int i = 0; i < 25; i++){
        for (int l = i + 1; l < 25; l++){
-         if(alfabeto_mescolato[l] != alfabeto_inglese[i] && p == 0){
+         if(alfabeto_mescolato[l] != alfabeto_inglese[i] && controllo == 0){
            printf("L'alfabeto può essere utilizzato\n");
-           p = 1;
-        }
+           controllo = 1;
+         }
+       }
+     }
+     for(int i = 0; i < frase[i]; i++ ){
+      if(frase[i] >= 97 && frase[i] <= 122 ){
+        cripto[i] = alfabeto_mescolato[frase[i] - 97];
       }
-    }
-        for(int i = 0; i < frase[i]; i++ ){
-          if(frase[i] >= 97 && frase[i] <= 122 ){
-            cripto[i] = alfabeto_mescolato[frase[i] - 97];
-          }
-        }
-        system("clear");
-        printf("La frase criptata è: %s", cripto);
-    }
+     }
+    printf("La frase criptata è: %s", cripto);
   }
+}
