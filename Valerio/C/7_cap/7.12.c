@@ -5,6 +5,7 @@
 #define FACES 13
 #define CARDS 20
 #define HAND 5
+#define POINTS 8
 
 void mischia(unsigned int *wDeck);
 
@@ -32,6 +33,9 @@ unsigned int poker(unsigned int *wHand);
 
 unsigned int scalaReale(unsigned int *wHand);
 
+unsigned int point(unsigned int *wHand, unsigned int (*arrayFun[])(unsigned int *), size_t arrayFunSize);
+
+void printPoint(unsigned int point);
 
 int main(void) {
 	system("clear");
@@ -44,27 +48,19 @@ int main(void) {
 		"Due", "Tre", "Quattro", "Cinque", "Sei", "Sette",
 		"Otto", "Nove", "Dieci", "Jack", "Regina", "Re",  "Asso"
 	};
+	unsigned int (*pointArray[POINTS])(unsigned int *) = {
+		scalaReale, poker, full, colore, scala, tris, doppiaCoppia, coppia
+	};
 
-	int sc = 0;
-	do {
-		sc++;
-		mischia(deck);
-		creaMano(deck, hand);
-		stampaCarte(hand, face, suit, HAND);
+	mischia(deck);
+	creaMano(deck, hand);
+	stampaCarte(hand, face, suit, HAND);
 
-		printf("\n%s\n", coppia(hand) ? "Coppia" : "Nessuna coppia");
-		printf("\n%s\n", tris(hand) ? "Tris" : "Nessun tris");
-		printf("\n%s\n", scala(hand) ? "Scala" : "Nessuna scala");
-		printf("\n%s\n", colore(hand) ? "Colore" : "Nessun colore");
-		printf("\n%s\n", poker(hand) ? "Poker" : "Nessun poker");
-		printf("\n%s\n", scalaReale(hand) ? "Scala Reale" : "Nessuna Scala Reale");
+	printPoint(point(hand, pointArray, POINTS));
 
-		for (size_t i = 0; i < CARDS; i++)
-			deck[i] = 0;
-	} while(!scalaReale(hand));
-	printf("%d\n", sc);
 	puts("");
 }
+
 
 void mischia(unsigned int *wDeck) {
 	for (size_t card = 0; card < 52; card++)
@@ -114,6 +110,20 @@ unsigned int coppia(unsigned int *wHand) {
 	return 0;
 }
 
+unsigned int doppiaCoppia(unsigned int *wHand) {
+	unsigned int checked = 0;
+	for (size_t i = 0; i < 4; i++) {
+		if (!checked) {
+			if (wHand[i] % 13 == wHand[i + 1] % 13)
+				checked = wHand[i] % 13;
+		} else {
+			if (wHand[i] % 13 == wHand[i + 1] % 13 && wHand[i] % 13 != checked)
+				return 2;
+		}
+	}
+	return 0;
+}
+
 unsigned int tris(unsigned int *wHand) {
 	unsigned int count = 0;
 	for (size_t i = 0; i < 4; i++) {
@@ -148,6 +158,28 @@ unsigned int colore(unsigned int *wHand) {
 	return count == 4 ? 5 : 0;
 }
 
+unsigned int full(unsigned int *wHand) {
+	unsigned int trisCount = 0;
+	unsigned int trisFace = 0;
+	for (size_t i = 0; i < 4; i++) {
+		if (wHand[i] % 13 == wHand[i + 1] % 13) {
+			trisCount++;
+			if (trisCount == 2) {
+				trisFace = wHand[i] % 13;
+				break;
+			}
+		} else
+			trisCount = 0;
+	}
+	if (trisFace) {
+		for (size_t i = 0; i < 4; i++)
+			if (wHand[i] % 13 == wHand[i + 1] % 13 && trisFace != wHand[i] % 13)
+				return 6;
+	}
+	return 0;
+}
+
+
 unsigned int poker(unsigned int *wHand) {
 	unsigned int count = 0;
 	for (size_t i = 0; i < 4; i++) {
@@ -162,4 +194,26 @@ unsigned int poker(unsigned int *wHand) {
 
 unsigned int scalaReale(unsigned int *wHand) {
 	return scala(wHand) && colore(wHand) ? 8 : 0;
+}
+
+unsigned int point(unsigned int *wHand, unsigned int (*arrayFun[])(unsigned int *), size_t arrayFunSize) {
+	for (size_t i = 0; i < arrayFunSize; i++)
+		if (arrayFun[i](wHand))
+			return arrayFun[i](wHand);
+	return 0;
+}
+
+void printPoint(unsigned int point) {
+	printf("Punto: ");
+	switch (point) {
+		case 1: puts("Coppia"); break;
+		case 2: puts("Doppia coppia"); break;
+		case 3: puts("Tris"); break;
+		case 4: puts("Scala"); break;
+		case 5: puts("Colore"); break;
+		case 6: puts("Full"); break;
+		case 7: puts("Poker"); break;
+		case 8: puts("Scala Reale"); break;
+		default: puts("Nessun punto");
+	}
 }
