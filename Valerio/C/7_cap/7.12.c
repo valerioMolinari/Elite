@@ -92,7 +92,7 @@ void stampaCarte(unsigned int *wDeck, const char *wFace[], const char *wSuit[], 
 	for (size_t card = 0; card < size; card++) {
 		const char *face = wFace[(wDeck[card] - 1) % 13];
 		const char *suit = wSuit[(wDeck[card] - 1) / 13];
-		printf("%5s di %-8s\n", face, suit);
+		printf("%6s di %-6s\n", face, suit);
 	}
 	puts("");
 }
