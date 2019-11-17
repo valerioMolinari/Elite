@@ -45,14 +45,17 @@ int main(void) {
 		"Otto", "Nove", "Dieci", "Jack", "Regina", "Re"
 	};
 
-	mischia(deck);
-	creaMano(deck, hand);
+	do {
+		mischia(deck);
+		creaMano(deck, hand);
+		stampaCarte(hand, face, suit, HAND);
 
-	//stampaCarte(deck, face, suit, CARDS);
-	stampaCarte(hand, face, suit, HAND);
-
-	printf("\n%s\n", coppia(hand) ? "Coppia" : "Nessun punto");
-	printf("\n%s\n", tris(hand) ? "Tris" : "Nessun punto");
+		printf("\n%s\n", coppia(hand) ? "Coppia" : "Nessuna coppia");
+		printf("\n%s\n", tris(hand) ? "Tris" : "Nessun tris");
+		printf("\n%s\n", scala(hand) ? "Tris" : "Nessuna scala");
+		for (size_t i = 0; i < CARDS; i++)
+			deck[i] = 0;
+	} while(!scala(hand));
 
 	puts("");
 }
@@ -101,7 +104,7 @@ void creaMano(unsigned int *wDeck, unsigned int *wHand) {
 
 unsigned int coppia(unsigned int *wHand) {
 	for (size_t i = 0; i < 4; i++)
-		if ((wHand[i] % 13) == (wHand[i + 1] % 13))
+		if (wHand[i] % 13 == wHand[i + 1] % 13)
 			return 1;
 	return 0;
 }
@@ -109,11 +112,22 @@ unsigned int coppia(unsigned int *wHand) {
 unsigned int tris(unsigned int *wHand) {
 	unsigned int count = 0;
 	for (size_t i = 0; i < 4; i++) {
-		if ((wHand[i] % 13) == (wHand[i + 1] % 13)) {
+		if (wHand[i] % 13 == wHand[i + 1] % 13) {
 			count++;
 			if (count == 2) break;
 		} else
 			count = 0;
 	}
 	return count == 2 ? 3 : 0;
+}
+
+unsigned int scala(unsigned int *wHand) {
+	unsigned int count = 0;
+	for (size_t i = 0; i < 4; i++) {
+		if (wHand[i] % 13 == wHand[i + 1] % 13 + 1)
+			count++;
+		else
+			count = 0;
+	}
+	return count == 4 ? 4 : 0;
 }
