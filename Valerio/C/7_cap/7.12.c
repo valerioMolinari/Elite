@@ -45,24 +45,24 @@ int main(void) {
 		"Otto", "Nove", "Dieci", "Jack", "Regina", "Re",  "Asso"
 	};
 
-	//do {
+	int sc = 0;
+	do {
+		sc++;
 		mischia(deck);
-		//module13Sort(deck, CARDS);
-		// for (size_t i = 0; i < CARDS; i++) {
-		// 	printf("%u, ", deck[i]);
-		// }
-		//puts("");
-		//stampaCarte(deck, face, suit, CARDS);
 		creaMano(deck, hand);
 		stampaCarte(hand, face, suit, HAND);
 
 		printf("\n%s\n", coppia(hand) ? "Coppia" : "Nessuna coppia");
 		printf("\n%s\n", tris(hand) ? "Tris" : "Nessun tris");
 		printf("\n%s\n", scala(hand) ? "Scala" : "Nessuna scala");
-	// 	for (size_t i = 0; i < CARDS; i++)
-	// 		deck[i] = 0;
-	// } while(!scala(hand));
+		printf("\n%s\n", colore(hand) ? "Colore" : "Nessun colore");
+		printf("\n%s\n", poker(hand) ? "Poker" : "Nessun poker");
+		printf("\n%s\n", scalaReale(hand) ? "Scala Reale" : "Nessuna Scala Reale");
 
+		for (size_t i = 0; i < CARDS; i++)
+			deck[i] = 0;
+	} while(!scalaReale(hand));
+	printf("%d\n", sc);
 	puts("");
 }
 
@@ -129,13 +129,37 @@ unsigned int tris(unsigned int *wHand) {
 unsigned int scala(unsigned int *wHand) {
 	unsigned int count = 0;
 	for (size_t i = 0; i < 4; i++) {
-		// printf("count: %u, wHand[i]: %u, wHand[i + 1]: %u\n", count, wHand[i], wHand[i+1]);
-		// printf("i %% 13: %u, (i + 1) %% 13 + 1: %u\n", (wHand[i] ) % 13, (wHand[i + 1]) % 13 + 1);
-		if ((wHand[i] - 1) % 13 + 1 == (wHand[i + 1] - 1) % 13 ) {
+		if ((wHand[i] - 1) % 13 + 1 == (wHand[i + 1] - 1) % 13 )
 			count++;
-			// printf("count: %u, wHand[i]: %u, wHand[i + 1]: %u\n", count, wHand[i], wHand[i+1]);
-		} else
+		else
 			count = 0;
 	}
 	return count == 4 ? 4 : 0;
+}
+
+unsigned int colore(unsigned int *wHand) {
+	unsigned int count = 0;
+	for (size_t i = 0; i < 4; i++) {
+		if ((wHand[i] - 1) / 13 == (wHand[i + 1] - 1) / 13 )
+			count++;
+		else
+			count = 0;
+	}
+	return count == 4 ? 5 : 0;
+}
+
+unsigned int poker(unsigned int *wHand) {
+	unsigned int count = 0;
+	for (size_t i = 0; i < 4; i++) {
+		if (wHand[i] % 13 == wHand[i + 1] % 13) {
+			count++;
+			if (count == 3) break;
+		} else
+			count = 0;
+	}
+	return count == 3 ? 7 : 0;
+}
+
+unsigned int scalaReale(unsigned int *wHand) {
+	return scala(wHand) && colore(wHand) ? 8 : 0;
 }
