@@ -3,7 +3,7 @@
 #include <time.h>
 #define SUITS 4
 #define FACES 13
-#define CARDS 52
+#define CARDS 20
 #define HAND 5
 
 void mischia(unsigned int *wDeck);
@@ -41,35 +41,40 @@ int main(void) {
 	unsigned int hand[5] = {0};
 	const char *suit[SUITS] = {"Cuori", "Quadri", "Fiori", "Picche"};
 	const char *face[FACES] = {
-		"Asso", "Due", "Tre", "Quattro", "Cinque", "Sei", "Sette",
-		"Otto", "Nove", "Dieci", "Jack", "Regina", "Re"
+		"Due", "Tre", "Quattro", "Cinque", "Sei", "Sette",
+		"Otto", "Nove", "Dieci", "Jack", "Regina", "Re",  "Asso"
 	};
 
-	do {
+	//do {
 		mischia(deck);
+		//module13Sort(deck, CARDS);
+		// for (size_t i = 0; i < CARDS; i++) {
+		// 	printf("%u, ", deck[i]);
+		// }
+		//puts("");
+		//stampaCarte(deck, face, suit, CARDS);
 		creaMano(deck, hand);
 		stampaCarte(hand, face, suit, HAND);
 
 		printf("\n%s\n", coppia(hand) ? "Coppia" : "Nessuna coppia");
 		printf("\n%s\n", tris(hand) ? "Tris" : "Nessun tris");
-		printf("\n%s\n", scala(hand) ? "Tris" : "Nessuna scala");
-		for (size_t i = 0; i < CARDS; i++)
-			deck[i] = 0;
-	} while(!scala(hand));
+		printf("\n%s\n", scala(hand) ? "Scala" : "Nessuna scala");
+	// 	for (size_t i = 0; i < CARDS; i++)
+	// 		deck[i] = 0;
+	// } while(!scala(hand));
 
 	puts("");
 }
 
 void mischia(unsigned int *wDeck) {
-	for (size_t card = 1; card <= CARDS; card++) {
-		size_t row;
-		size_t column;
-		do {
-			row = rand() % SUITS;
-			column = rand() % FACES;
-		} while(wDeck[row * FACES + column] != 0);
-		wDeck[row * FACES + column] = card;
-	}
+	for (size_t card = 0; card < 52; card++)
+		if (card % 13 >= 8) {
+			size_t slot;
+			do {
+				slot = rand() % 20;
+			} while(wDeck[slot] != 0);
+			wDeck[slot] = card + 1;
+		}
 }
 
 void swap(unsigned int *ptr1, unsigned int *ptr2) {
@@ -81,7 +86,7 @@ void swap(unsigned int *ptr1, unsigned int *ptr2) {
 void module13Sort(unsigned int * const array, const size_t size) {
 	for (size_t i = 0; i < size - 1; i++) {
 		for (size_t j = 0; j < size - 1; j++)
-			if (array[j] % 13 > array[j + 1] % 13) {
+			if ((array[j] - 1) % 13 > (array[j + 1] - 1) % 13) {
 				swap(&array[j], &array[j + 1]);
 			}
 	}
@@ -124,9 +129,12 @@ unsigned int tris(unsigned int *wHand) {
 unsigned int scala(unsigned int *wHand) {
 	unsigned int count = 0;
 	for (size_t i = 0; i < 4; i++) {
-		if (wHand[i] % 13 == wHand[i + 1] % 13 + 1)
+		// printf("count: %u, wHand[i]: %u, wHand[i + 1]: %u\n", count, wHand[i], wHand[i+1]);
+		// printf("i %% 13: %u, (i + 1) %% 13 + 1: %u\n", (wHand[i] ) % 13, (wHand[i + 1]) % 13 + 1);
+		if ((wHand[i] - 1) % 13 + 1 == (wHand[i + 1] - 1) % 13 ) {
 			count++;
-		else
+			// printf("count: %u, wHand[i]: %u, wHand[i + 1]: %u\n", count, wHand[i], wHand[i+1]);
+		} else
 			count = 0;
 	}
 	return count == 4 ? 4 : 0;
