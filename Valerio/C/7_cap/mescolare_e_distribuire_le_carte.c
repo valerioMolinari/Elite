@@ -40,10 +40,10 @@ int main(void) {
 	srand(time(NULL));
 
 	unsigned int deck[SUITS][FACES] = {0};
-	const char *suit[SUITS] = {"Heart", "Diamonds", "Clubs", "Spades"};
+	const char *suit[SUITS] = {"Cuori", "Quadri", "Fiori", "Picche"};
 	const char *face[FACES] = {
-		"Axe", "Deuce", "Three", "Four", "Five", "Six", "Seven",
-		"Eight", "Nine", "Ten", "Jack", "Queen", "King"
+		"Asso", "Due", "Tre", "Quattro", "Cinque", "Sei", "Sette",
+		"Otto", "Nove", "Dieci", "Jack", "Regina", "Re"
 	};
 
 	shuffle(deck);
