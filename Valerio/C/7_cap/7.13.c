@@ -8,11 +8,15 @@
 #define POINTS 8
 #define PLAYERS 2
 
+enum enumPoint {ZERO, COPPIA, DOPPIA_COPPIA, TRIS, SCALA, COLORE, FULL, POKER, SCALA_REALE};
+
 void mischia(unsigned int *wDeck);
 
 void swap(unsigned int *ptr1, unsigned int *ptr2);
 
 void module13Sort(unsigned int * const array, const size_t size);
+
+unsigned int m13(unsigned int cardNumber);
 
 void stampaCarte(unsigned int *wDeck, const char *wFace[], const char *wSuit[], size_t size);
 
@@ -77,14 +81,14 @@ int main(void) {
 			deck[i] = 0;
 		}
 		k++;
-		printf("\nk: %d\n", k);
-	} while(!(full(hand1) && full(hand2)));
+		printf("k: %u\nprobabilità: %f%%\n", k, ((float) 1 / k)*100);
+	} while(!(colore(hand1) || colore(hand2)));
 }
 
 
 void mischia(unsigned int *wDeck) {
 	for (size_t card = 0; card < 52; card++)
-		if (card % 13 >= 8) {
+		if (m13(card) >= 8) {
 			size_t slot;
 			do {
 				slot = rand() % 20;
@@ -99,10 +103,14 @@ void swap(unsigned int *ptr1, unsigned int *ptr2) {
 	*ptr2 = hold;
 }
 
+unsigned int m13(unsigned int cardNumber) {
+	return cardNumber % 13;
+}
+
 void module13Sort(unsigned int * const array, const size_t size) {
 	for (size_t i = 0; i < size - 1; i++) {
 		for (size_t j = 0; j < size - 1; j++)
-			if ((array[j] - 1) % 13 > (array[j + 1] - 1) % 13) {
+			if (m13(array[j] - 1) > m13(array[j + 1] - 1)) {
 				swap(&array[j], &array[j + 1]);
 			}
 	}
@@ -110,7 +118,7 @@ void module13Sort(unsigned int * const array, const size_t size) {
 
 void stampaCarte(unsigned int *wDeck, const char *wFace[], const char *wSuit[], size_t size) {
 	for (size_t card = 0; card < size; card++) {
-		const char *face = wFace[(wDeck[card] - 1) % 13];
+		const char *face = wFace[m13(wDeck[card] - 1)];
 		const char *suit = wSuit[(wDeck[card] - 1) / 13];
 		printf("%6s di %-6s\n", face, suit);
 	}
@@ -127,67 +135,67 @@ void creaMano(unsigned int *wDeck, unsigned int *wHand) {
 
 unsigned int coppia(unsigned int *wHand) {
 	for (size_t i = 0; i < 4; i++)
-		if (wHand[i] % 13 == wHand[i + 1] % 13)
-			return 1;
-	return 0;
+		if (m13(wHand[i]) == m13(wHand[i + 1]))
+			return COPPIA;
+	return ZERO;
 }
 
 unsigned int doppiaCoppia(unsigned int *wHand) {
 	unsigned int checked = 0;
 	for (size_t i = 0; i < 4; i++) {
 		if (!checked) {
-			if (wHand[i] % 13 == wHand[i + 1] % 13)
-				checked = wHand[i] % 13;
+			if (m13(wHand[i])== m13(wHand[i + 1]))
+				checked = m13(wHand[i]);
 		} else {
-			if (wHand[i] % 13 == wHand[i + 1] % 13 && wHand[i] % 13 != checked)
-				return 2;
+			if (m13(wHand[i]) == m13(wHand[i + 1]) && m13(wHand[i]) != checked)
+				return DOPPIA_COPPIA;
 		}
 	}
-	return 0;
+	return ZERO;
 }
 
 unsigned int tris(unsigned int *wHand) {
 	unsigned int count = 0;
 	for (size_t i = 0; i < 4; i++) {
-		if (wHand[i] % 13 == wHand[i + 1] % 13) {
+		if (m13(wHand[i]) == m13(wHand[i + 1])) {
 			count++;
 			if (count == 2) break;
 		} else
 			count = 0;
 	}
-	return count == 2 ? 3 : 0;
+	return count == 2 ? TRIS : ZERO;
 }
 
 unsigned int scala(unsigned int *wHand) {
 	unsigned int count = 0;
 	for (size_t i = 0; i < 4; i++) {
-		if ((wHand[i] - 1) % 13 + 1 == (wHand[i + 1] - 1) % 13 )
+		if (m13((wHand[i] - 1)) + 1 == m13((wHand[i + 1] - 1)))
 			count++;
 		else
 			count = 0;
 	}
-	return count == 4 ? 4 : 0;
+	return count == 4 ? SCALA : ZERO;
 }
 
 unsigned int colore(unsigned int *wHand) {
 	unsigned int count = 0;
 	for (size_t i = 0; i < 4; i++) {
-		if ((wHand[i] - 1) / 13 == (wHand[i + 1] - 1) / 13 )
+		if ((wHand[i] - 1) / 13 == (wHand[i + 1] - 1) / 13)
 			count++;
 		else
 			count = 0;
 	}
-	return count == 4 ? 5 : 0;
+	return count == 4 ? COLORE : ZERO;
 }
 
 unsigned int full(unsigned int *wHand) {
 	unsigned int trisCount = 0;
 	unsigned int trisFace = 0;
 	for (size_t i = 0; i < 4; i++) {
-		if (wHand[i] % 13 == wHand[i + 1] % 13) {
+		if (m13(wHand[i]) == m13(wHand[i + 1])) {
 			trisCount++;
 			if (trisCount == 2) {
-				trisFace = wHand[i] % 13;
+				trisFace = m13(wHand[i]);
 				break;
 			}
 		} else
@@ -195,27 +203,27 @@ unsigned int full(unsigned int *wHand) {
 	}
 	if (trisFace) {
 		for (size_t i = 0; i < 4; i++)
-			if (wHand[i] % 13 == wHand[i + 1] % 13 && trisFace != wHand[i] % 13)
-				return 6;
+			if (m13(wHand[i]) == m13(wHand[i + 1]) && trisFace != m13(wHand[i]))
+				return FULL;
 	}
-	return 0;
+	return ZERO;
 }
 
 
 unsigned int poker(unsigned int *wHand) {
 	unsigned int count = 0;
 	for (size_t i = 0; i < 4; i++) {
-		if (wHand[i] % 13 == wHand[i + 1] % 13) {
+		if (m13(wHand[i]) == m13(wHand[i + 1])) {
 			count++;
 			if (count == 3) break;
 		} else
 			count = 0;
 	}
-	return count == 3 ? 7 : 0;
+	return count == 3 ? POKER : ZERO;
 }
 
 unsigned int scalaReale(unsigned int *wHand) {
-	return scala(wHand) && colore(wHand) ? 8 : 0;
+	return scala(wHand) && colore(wHand) ? SCALA_REALE : ZERO;
 }
 
 unsigned int point(unsigned int *wHand, unsigned int (*arrayFun[])(unsigned int *), size_t arrayFunSize) {
@@ -242,48 +250,41 @@ void stampaPunto(unsigned int point) {
 }
 
 unsigned int evaluatePoint(unsigned int *wHand1, unsigned int *wHand2, unsigned int (*arrayFun[])(unsigned int *)) {
+	unsigned int count = 4;
 	unsigned int a = point(wHand1, arrayFun, POINTS);
 	unsigned int b = point(wHand2, arrayFun, POINTS);
 	unsigned int full1[3] = {0};
 	unsigned int full2[3] = {0};
+	wHand1 += 4;
+	wHand2 += 4;
 	if (a == b) {
-		if (a == 8 || a == 5 || a == 4) {
-			// SCALA REALE, COLORE, SCALA
-			for (size_t i = HAND - 1; i >= 0; i--)
-				// Continua finché le carte ordinate dei giocatori hanno lo stesso valore
-				if ((wHand1[i] - 1) % FACES == (wHand2[i] - 1) % FACES)
-					continue;
-				// Il giocatore con la prima carta più alta vince
-				else if ((wHand1[i] - 1) % FACES > (wHand2[i] - 1) % FACES)
-					return 1;
-				else
-					return 2;
-		} else if (a == 6) {
-			// FULL
-			for (size_t i = 0; i < 3; i++) {
-				full1[i] = wHand1[HAND - i - 1];
-				full2[i] = wHand2[HAND - i - 1];
-			}
-			// Nessuno dei due ha un tris tra le prime tre carte
-			if (!(tris(full1) || tris(full2)))
-				for (size_t i = 0; i < 3; i++) {
-					full1[i] = wHand1[HAND - i - 3];
-					full2[i] = wHand2[HAND - i - 3];
-				}
-			// Il giocatore 1 non ha un tris tra le prime 3 carte
-			else if (!(tris(full1)))
-				for (size_t i = 0; i < 3; i++)
-					full1[i] = wHand1[HAND - i - 3];
-			// Il giocatore 2 non ha un tris tra le prime 3 carte
-			else if (!(tris(full2)))
-				for (size_t i = 0; i < 3; i++)
-					full2[i] = wHand2[HAND - i - 3];
-			return full1[0] % FACES > full2[0] % FACES ? 1 : 2;
-		}	else {
-			// POKER, TRIS, DOPPIA COPPIA, COPPIA
+		switch (a) {
+			case COPPIA:
+			case DOPPIA_COPPIA:
+			case TRIS:
+			case POKER:
+				while (m13(*wHand1) != m13(*(wHand1 - 1))) wHand1--;
+				while (m13(*wHand2) != m13(*(wHand2 - 1))) wHand2--;
 
-			return 0;
+				if (m13(*wHand1) == m13(*wHand2))
+					return (*wHand1 < *(wHand1 - 1) ? *wHand1 : *(wHand1 - 1)) < (*wHand2 < *(wHand2 - 1) ? *wHand2 : *(wHand2 - 1)) ? 1 : 2;
+				break;
+			case FULL:
+				while (m13(*wHand1) != m13(*(wHand1 - 1)) || m13(*(wHand1 - 1)) != m13(*(wHand1 - 2))) wHand1--;
+				while (m13(*wHand2) != m13(*(wHand2 - 1)) || m13(*(wHand2 - 1)) != m13(*(wHand2 - 2))) wHand2--;
+				break;
+			case SCALA:
+			case COLORE:
+			case SCALA_REALE:
+				while (m13(*wHand1) == m13(*wHand2) && count ) {
+					wHand1--;
+					wHand2--;
+					count--;
+				}
+				if (count == 0)
+					return *(wHand1 + 4) < *(wHand2 + 4) ? 1 : 2;
 		}
+		return m13((*wHand1 - 1)) > m13((*wHand2 - 1)) ? 1 : 2;
 	}
 	return a > b ? 1 : 2;
 }
