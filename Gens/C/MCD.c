@@ -17,6 +17,7 @@ int main(void) {
   }
   if(b == 0){
     printf("L'MCD è: %d\n", a);
+    return 0;
   }else if(b > 0){
     while(b != 0){
       resto = a % b;
