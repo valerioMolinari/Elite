@@ -1,13 +1,9 @@
 #include <stdio.h>
 
-//Si realizzi un programma in linguaggio C che legga un numero intero N e
-// visualizzi un quadrato di asterischi di lato N (vedi esempio con N = 5).
-//Si realizzi una variante del programma per visualizzare solo i lati del quadrato (vedi esempio con N = 5).
-
 void quad(int base, int alt);
 void perimetro(int base, int alt);
-void triangR(int base, int alt);
-void blend(int base, int alt);
+void triangR1(int base, int alt);
+void triangR2(int base, int alt);
 int main(void) {
 
   int alt, base, scelta;
@@ -15,7 +11,7 @@ int main(void) {
   scanf("%d", &base);
   scanf("%d", &alt);
 
-  printf("scegli arte:\n");
+  printf("Scegli tra:\n 1: Quadrato\n 2: Perimetro\n 3: Triangolo Rettangolo1\n 4: Triangolo Rettangolo2\n");
   scanf("%d", &scelta );
 
   switch (scelta) {
@@ -23,20 +19,19 @@ int main(void) {
       break;
     case 2: perimetro(base, alt);
       break;
-    case 3:triangR(base, alt);
+    case 3: triangR1(base, alt);
       break;
-    case 4:blend(base, alt);
+    case 4: triangR2(base, alt);
       break;
   }
 
 }
 
+//Dichiarazione funzioni
 
-
+//funzione quadrato
 void quad(int base, int alt) {
-
     int x;
-
     for(int i=0;i<alt;i++){
       x=0;
       while(x<base){
@@ -47,9 +42,9 @@ void quad(int base, int alt) {
     }
 }
 
+//funzione perimetro
 void perimetro(int base, int alt){
   for(int i=1; i<=alt; i++){
-
     if(i==1||i==alt){
       for(int i=1;  i<=base;i++){
         printf("* " );
@@ -63,16 +58,14 @@ void perimetro(int base, int alt){
         }
       }
     }
-
     printf("\n" );
   }
-
 }
 
-void triangR(int base, int alt){
+//funzione triangolo Rettangolo1
+void triangR1(int base, int alt){
   int x=1;
   for(int i=1; i<=alt; i++){
-
     for(int i=0; i<x; i++){
       printf("* " );
     }
@@ -81,10 +74,10 @@ void triangR(int base, int alt){
   }
 }
 
-void blend(int base,int alt){
+//funzione triangolo Rettangolo2
+void triangR2(int base,int alt){
   int x=1;
   for(int i=1; i<=alt; i++){
-
     for(int i=0; i<base; i++){
       if(i<x){
         printf("* " );
@@ -92,7 +85,6 @@ void blend(int base,int alt){
         printf("+ " );
       }
     }
-
     x++;
     printf("\n" );
   }
