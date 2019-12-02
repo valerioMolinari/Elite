@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 
 //Crescita della popolazione mondiale
 //aumento popolazione mondiale 1,1% all'anno
@@ -8,8 +7,8 @@
 
 int main(void) {
 
-  int x = 75; // anno finale
-  int anno = 0;
+  int x = 2095; // anno finale
+  int anno = 2020;
   float tasso = 1.1;
   float popolazione = 7.7;
   float totpopolazione;
@@ -19,13 +18,14 @@ system("clear");
 
   printf("Crescita della popolazione mondiale\n");
   printf("Attuale popolazione mondiale: 7.7 mld\nAumento annuale: 1.1 percento\n");
-  printf("\n%3s%26s%22s\n", "Anno","Popolazione in mld","Aumento in mln");
+  printf("\nSe il tasso di crescita rimane invariato nel 2084 la popolazione sarà il doppio di quella del 2020\n");
+  printf("\n%3s%26s%27s\n", "Anno","Popolazione in mld","Aumento in mln");
 
-  for(int i = 0; i < x; i++){
+  for(int i = 2020; i < x; i++){
     anno++;
     aumento = (popolazione * tasso) / 100;
     totpopolazione = popolazione + aumento;
     popolazione = totpopolazione;
-    printf("%2d%20.3f%30.3f\n", anno, totpopolazione, aumento);
+    printf("%2d%20.5f%30.5f\n", anno, totpopolazione, aumento);
   }
 }

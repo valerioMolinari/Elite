@@ -9,7 +9,7 @@ int main(void){
 
   // per la scelta del personaggio
   int personaggio;
-  printf("Inizio Gioco\n Scegli un personaggio\n 1: Zacca\n Salute: 50\n Danno: 70\n 2: Agrid\n Salute: 70\n Danno: 60\n 3: Enfisema\n Salute: 90\n Danno: 50\n");
+  printf("Inizio Gioco\n \nScegli un personaggio\n \n1: Zacca\n Salute: 50\n Danno: 70\n \n2:Agrid\n Salute: 70\n Danno: 60\n \n3:Enfisema\n Salute: 90\n Danno: 50\n");
   scanf("%d", &personaggio);
   if(personaggio == 1){
     printf("Hai scelto Zacca\n");
@@ -28,18 +28,18 @@ int main(void){
     printf("Il tuo bonus è:\n Potere dell'Oscurità\n (Una volta per turno la probabilità per trovare più bonus sale di +1.5)\n");
   }
 
-  system("clear");
+  //system("clear");
 
-  printf("Hai fino a 3 scelte per l'inventario\n");
+  //printf("Hai fino a 3 scelte per l'inventario\n");
 
-  system("clear");
+  //system("clear");
   // per la scelta di armi o medicine
   int contatore = 1;
 
   while(contatore <= 3){
 
     int menu;
-    char inventario[3] = {0};
+    int x;
 
     system("clear");
 
@@ -51,8 +51,8 @@ int main(void){
     switch(menu){
       case 1:
       printf("Seleziona Armi\n 1: Glock\n 2: Ak-47\n 3: Katana\n");
-      scanf("%d", &inventario[3]);
-      switch(inventario[3]){
+      scanf("%d", &x);
+      switch(x){
         case 0:
         printf("Danno +15\n");
         break;
@@ -65,9 +65,9 @@ int main(void){
       }
       break;
       case 2:
-      printf("Seleziona Medicine\n 4: Scudo\n 5: Bende\n 6: Pozione\n");
-      scanf("%d", &inventario[3]);
-      switch(inventario[3]){
+      printf("Seleziona Medicine\n 1: Scudo\n 2: Bende\n 3: Pozione\n");
+      scanf("%d", &x);
+      switch(x){
         case 4:
         printf("Salute +50\n");
         break;
@@ -80,7 +80,6 @@ int main(void){
       break;
     }
     ++contatore;
-    printf("%c",inventario[3]);
   }
 
 
