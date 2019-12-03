@@ -69,7 +69,7 @@ void printStack(StackNodePtr currentPtr) {
 }
 
 void instructions(void) {
-	puts("Enter choice:\n"
+	puts("Enter a choice:\n"
 			 "\t1. Push a value on the stack\n"
 			 "\t2. Pop a value off the stack\n"
 			 "\t3. Exit\n"
