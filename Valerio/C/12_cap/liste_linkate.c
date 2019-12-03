@@ -117,17 +117,28 @@ char delete (ListNodePtr *sPtr, char value) {
 	ListNodePtr previousPtr = NULL;
 	ListNodePtr currentPtr = *sPtr;
 
-	while (currentPtr != NULL && value != currentPtr->data) {
+	while (!isEmpty(currentPtr) && value != currentPtr->data) {
+		// Scorro la lista finché non trovo il carattere che sto cercando o finché
+		// non arrivo alla fine
 		previousPtr = currentPtr;
 		currentPtr = currentPtr->nextPtr;
 	}
+
+	// Se sono arrivato alla fine senza risultati indico che il carattere non
+	// è stato trovato e termino la funzione
 	if (isEmpty(currentPtr))
 		return 0;
 	else {
 		if (isEmpty(previousPtr)) {
+			// Se ho trovato una corrispondenza al primo nodo della lista sostituisco
+			// il primo nodo con il secondo e libero la memoria allocata per immagazzinare
+			// il primo nodo
 			*sPtr = currentPtr->nextPtr;
 			free(currentPtr);
 		} else {
+			// Se il nodo che mi interessa si trova da qualche parte nella lista
+			// faccio puntare il nodo precedente al nodo successivo e libero la memoria
+			// per il nodo corrente
 			previousPtr->nextPtr = currentPtr->nextPtr;
 			free(currentPtr);
 		}
