@@ -10,6 +10,7 @@ typedef struct list List;
 typedef List *ListPtr;
 
 void addNode(ListPtr *lPtr, char value);
+void firstNode(ListPtr *currentPtr, char value);
 void build(ListPtr *lPtr);
 void reverse(ListPtr lPtr, ListPtr *rPtr);
 void printList(ListPtr currentPtr);
@@ -28,10 +29,15 @@ int main(void) {
 	puts("");
 }
 
+void firstNode(ListPtr *currentPtr, char value) {
+	*currentPtr = malloc(sizeof(List));
+	(*currentPtr)->data = value;
+	(*currentPtr)->nextPtr = NULL;
+}
+
 void addNode(ListPtr *lPtr, char value) {
-	ListPtr newPtr = malloc(sizeof(List));
-	newPtr->data = value;
-	newPtr->nextPtr = NULL;
+	ListPtr newPtr = NULL;
+	firstNode(&newPtr, value);
 
 	ListPtr previousPtr = NULL;
 	ListPtr currentPtr = *lPtr;
@@ -45,9 +51,7 @@ void addNode(ListPtr *lPtr, char value) {
 }
 
 void build(ListPtr *lPtr) {
-	*lPtr = malloc(sizeof(List));
-	(*lPtr)->data = 97;
-	(*lPtr)->nextPtr = NULL;
+	firstNode(lPtr, 97);
 
 	for (size_t i = 1; i <= 10; i++)
 		addNode(lPtr, 97 + i);
@@ -73,12 +77,10 @@ void reverse(ListPtr lPtr, ListPtr *rPtr) {
 	reverse(lPtr->nextPtr, rPtr);
 	// Se il puntatore della lista rovesciata è nullo alloco memoria per un primo nodo
 	// con i dati dell'ultimo nodo della lista normale
-	if (*rPtr == NULL) {
-		*rPtr = malloc(sizeof(List));
-		(*rPtr)->data = lPtr->data;
-		(*rPtr)->nextPtr = NULL;
-	} else
+	if (*rPtr == NULL)
+		firstNode(rPtr, lPtr->data);
+	else
 		// Tornando all'indietro per ogni nodo della lista normale aggiungo un nodo
-		// alla lista rovesciata 
+		// alla lista rovesciata
 		addNode(rPtr, lPtr->data);
 }
