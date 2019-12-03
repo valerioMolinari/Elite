@@ -27,6 +27,8 @@ int main(void) {
 		switch (choice) {
 			case 1:
 				printf("\nEnter a character: ");
+				// Occorre includere il \n su scanf per assicurarsi che il carattere di 
+				// invio non rimanga nel buffer
 				scanf("\n%c", &item);
 				insert(&startPtr, item);
 				printList(startPtr);
