@@ -29,6 +29,7 @@ unsigned int cambiaScelta(enum classe classe);
 
 int main(void) {
 	system("clear");
+
 	PersonaPtr passeggeri = NULL;
 	int scelta;
 	unsigned int disponibilità;
@@ -194,6 +195,7 @@ unsigned int isEmpty(PersonaPtr currentPtr) {
 void removeReturnChar(char * string) {
 	string[strlen(string)-1] = '\0';
 }
+
 unsigned int cambiaScelta(enum classe classe) {
 	char conferma;
 	printf("\nPurtroppo i posti per la %s sono esauiriti, vorresti comunque comprare un biglietto di %s? (Y/n)\n> ",
@@ -208,20 +210,15 @@ unsigned int cambiaScelta(enum classe classe) {
 }
 
 void listaPasseggeri(PersonaPtr listaPersone) {
-	PersonaPtr temp = listaPersone;
-	while (temp != NULL) {
-		if (temp->classe == PRIMA) {
-			system("sleep 0.3");
-			cartaImbarco(temp);
+	PersonaPtr temp = NULL;
+	for (size_t i = 0; i < 2; i++) {
+		temp = listaPersone;
+		while (temp != NULL) {
+			if (temp->classe == (!i ? PRIMA : ECONOMY)) {
+				system("sleep 0.3");
+				cartaImbarco(temp);
+			}
+			temp = temp->nextPtr;
 		}
-		temp = temp->nextPtr;
-	}
-	temp = listaPersone;
-	while (temp != NULL) {
-		if (temp->classe == ECONOMY) {
-			system("sleep 0.3");
-			cartaImbarco(temp);
-		}
-		temp = temp->nextPtr;
 	}
 }
