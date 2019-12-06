@@ -63,8 +63,18 @@ int main(void) {
 				istruzioni();
 		}
 		if (!postiDisponibili(passeggeri)) {
+			system("sleep 1");
+			system("clear");
+			puts("\nLista Passeggeri");
+			for (size_t i = 0; i < 50; i++)
+				putchar('-');
+			puts("");
+			system("sleep 1");
 			listaPasseggeri(passeggeri);
-			puts("Purtroppo i posti sono esauiriti");
+			puts("");
+			for (size_t i = 0; i < 50; i++)
+				putchar('-');
+			puts("\n\nPurtroppo i posti sono esauiriti");
 			break;
 		}
 		printf("\n> ");
@@ -200,14 +210,18 @@ unsigned int cambiaScelta(enum classe classe) {
 void listaPasseggeri(PersonaPtr listaPersone) {
 	PersonaPtr temp = listaPersone;
 	while (temp != NULL) {
-		if (temp->classe == PRIMA)
+		if (temp->classe == PRIMA) {
+			system("sleep 0.3");
 			cartaImbarco(temp);
+		}
 		temp = temp->nextPtr;
 	}
 	temp = listaPersone;
 	while (temp != NULL) {
-		if (temp->classe == ECONOMY)
+		if (temp->classe == ECONOMY) {
+			system("sleep 0.3");
 			cartaImbarco(temp);
+		}
 		temp = temp->nextPtr;
 	}
 }
