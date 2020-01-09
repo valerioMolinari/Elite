@@ -6,7 +6,7 @@
   ./testDiscreta.js numeroDiDomandeACuiSieteArrivati
   in questa cartella per eseguirlo.
 
-  Per l'alias: newalias discreta "~/git/Elite/Valerio/matematica\ discreta/testDiscreta.js"
+  Per l'alias: newalias discreta "~/git/Elite/Valerio/matematica\ discreta/testDiscreta.js"; rbp
 */
 
 const { execSync } = require("child_process");
