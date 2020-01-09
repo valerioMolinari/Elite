@@ -36,6 +36,8 @@ const sorteggio = (n) => {
 }
 
 const q = process.argv[2];
+if (!q || q < 10)
+  return console.error(`\n\x1b[91mErrore:\x1b[0m Non è stato inserito il numero di domande studiate finora o il numero è minore di 10.\n`);
 const sorted = sorteggio(q).map((x, i) => `${i+1}. ${x}`);
 const min = process.argv[3] * 60000 || 20 * 60000;
 const limit = process.argv[4] * 60000 || 2 * 60000;
