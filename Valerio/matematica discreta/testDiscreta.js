@@ -19,7 +19,7 @@ const sorteggio = (n) => {
         return true;
     return false;
   }
-  const array = domande.slice(0, n);
+  const array = domande.slice(0, n).map(x => x.replace(/^\d+\.\s/, ''));
   const result = [];
   let random;
   for (let i = 0; i < 10; i++) {
@@ -30,7 +30,7 @@ const sorteggio = (n) => {
         random = Math.floor(Math.random() * n);
       } while (desiqual(array[random], result));
     }
-    result.push(array[random].slice(array[random].match(/^\d+/)[0].length === 1 ? 3 : 4));
+    result.push(array[random]);
   }
   return result;
 }
@@ -53,7 +53,7 @@ const clock = (sec) => {
 }
 
 const startClock = (sound = 'Glass', flowTime = true) => {
-  execSync(`afplay /System/Library/Sounds/${sound}.aiff`)
+  execSync(process.platform === 'darwin' ? `afplay /System/Library/Sounds/${sound}.aiff` : 'printf \\a');
   if (flowTime) {
     console.log(clock(secs--));
     const int = setInterval(() => { console.log(clock(secs--)) }, 1000);
