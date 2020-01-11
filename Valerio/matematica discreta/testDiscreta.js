@@ -12,7 +12,7 @@
 const { execSync } = require("child_process");
 const { domande } = require("./question database.json");
 
-const sorteggio = (n) => {
+const sorteggio = (n, options) => {
   const desiqual = (element, array) => {
     for (let i = 0; i < array.length; i++)
       if (array[i] === element)
@@ -28,7 +28,7 @@ const sorteggio = (n) => {
     } else {
       do {
         random = Math.floor(Math.random() * n);
-      } while (desiqual(array[random], result));
+      } while (desiqual(array[random], result) || desiqual(random + 1, options.non || []));
     }
     result.push(array[random]);
   }
@@ -36,9 +36,13 @@ const sorteggio = (n) => {
 }
 
 const q = process.argv[2];
+const op = {};
+if (process.argv[3] === 'non') {
+  op.non = process.argv.slice(4).map(x => Number(x));
+}
 if (!q || q < 10)
   return console.error(`\n\x1b[91mErrore:\x1b[0m Non è stato inserito il numero di domande studiate finora o il numero è minore di 10.\n`);
-const sorted = sorteggio(q).map((x, i) => `${i+1}. ${x}`);
+const sorted = sorteggio(q, op).map((x, i) => `${i+1}. ${x}`);
 const min = process.argv[3] * 60000 || 20 * 60000;
 const limit = process.argv[4] * 60000 || 2 * 60000;
 let secs = min / 1000;
