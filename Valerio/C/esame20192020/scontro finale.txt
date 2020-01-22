@@ -1,0 +1,26 @@
+Durante il gioco esiste una piccola probabilità di raccogliere degli oggetti
+speciali che poi possono essere utilizzati o combinati nello scontro finale.
+La famiglia Arvais può usare il Modulo Estraniante che richiede un turno
+per essere attivato mentre la famiglia Hartorner può usare un Cercatore Assassino
+che richiede ugualmente un turno per essere attivato. Queste armi sottraggono
+dal 20% al 45% della salute e consumano 2 unità di melassa del serbatoio di energia.
+Entrambi possono usare la pistola laser che toglie dal 10% al 20% della salute
+e consuma un'unità di melassa di energia.
+Se la famiglia Arvais possiede un Dente di Leto può consumarlo attaccando col modulo
+Estraniante aspettando un turno in più e spendendo una melassa in più può togliere dal 35% fino al 75% della salute,
+stessa cosa per la famiglia Hartorner con l'amplificatore di dolore e il cercatore assassino.
+Nel raro caso in cui qualcuno dei due si trovi contemporaneamente in possesso
+dell'anello del sigillo e dell'acqua della vita, consumando 3 turni e l'intero serbatoio
+di raccolta melassa, può attivare il risveglio del dormiente quindi richiamare un
+baco delle sabbie (richiamo del baco) contro l'altro giocatore provocandone
+l'istantaneo annientamento, questo attacco può essere evitato esclusivamente
+eliminando l'avversario prima che abbia completato il caricamento del colpo finale.
+In qualsiasi momento si può trasferire, se disponibile, un'unità di melassa dal
+serbatoio di raccolta a quello di energia consumando un turno.
+È possibile utilizzare un'unità di melassa nel serbatoio dell'energia per
+ricaricare la salute di 10pt.
+Il giocatore che riesce ad azzerare la salute dell'avversario vince.
+Se entrambi i giocatori finiscono la melassa nel serbatoio di raccolta
+senza aver inferto il colpo di grazia, vince il giocatore con più salute,
+in caso di pareggio vince il giocatore con più melassa nel serbatoio di energia,
+in ulteriore caso di pareggio la partita è patta.

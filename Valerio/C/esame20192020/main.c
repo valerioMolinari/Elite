@@ -1,10 +1,11 @@
 #include "gamelib.h"
 
 int main(void) {
-	system("clear");
-	srand(time(NULL));
-
-	bool keepPlay = 1;
-
-	FirstMenu(&keepPlay);
+	clr;
+	bool keepPlay = true;
+	do {
+		FirstMenu(&keepPlay);
+	} while(keepPlay);
+	clr;
+	system("less grazie.txt");
 }

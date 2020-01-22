@@ -23,13 +23,13 @@ const sorteggio = (n, options) => {
   const result = [];
   let random;
   for (let i = 0; i < 10; i++) {
-    if (n == 76) {
-      random = Math.floor(Math.random() * (i === 9 ? 4 : 8) + i * 8);
-    } else {
-      do {
-        random = Math.floor(Math.random() * n);
-      } while (desiqual(array[random], result) || desiqual(random + 1, options.non || []));
-    }
+    // if (n == 76) {
+    //   random = Math.floor(Math.random() * (i === 9 ? 4 : 8) + i * 8);
+    // } else {
+    do {
+      random = Math.floor(Math.random() * n);
+    } while (desiqual(array[random], result) || desiqual(random + 1, options.non || []));
+    //}
     result.push(array[random]);
   }
   return result;
@@ -42,9 +42,9 @@ if (process.argv[3] === 'non') {
 }
 if (!q || q < 10)
   return console.error(`\n\x1b[91mErrore:\x1b[0m Non è stato inserito il numero di domande studiate finora o il numero è minore di 10.\n`);
-const sorted = sorteggio(q, op).map((x, i) => `${i+1}. ${x}`);
-const min = process.argv[3] * 60000 || 20 * 60000;
-const limit = process.argv[4] * 60000 || 2 * 60000;
+const sorted = sorteggio(q, op).map((x, i) => `${i+1}. ${x}`).join('\n');
+const min = 20 * 60000;
+const limit = 2 * 60000;
 let secs = min / 1000;
 
 const clock = (sec) => {

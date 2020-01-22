@@ -1,0 +1,110 @@
+ ___         _                          _                   _
+|_ _|  ___  | |_   _ __   _   _   ____ (_)   ___    _ __   (_)
+ | |  / __| | __| | '__| | | | | |_  / | |  / _ \  | '_ \  | |
+ | |  \__ \ | |_  | |    | |_| |  / /  | | | (_) | | | | | | |
+|___| |___/  \__| |_|     \__,_| /___| |_|  \___/  |_| |_| |_|
+
+
+Creazione cunicoli:
+	Il cunicolo rappresenta la mappa del giocatore. Un cunicolo è composto da 10 caverne.
+	All'avvio i cunicoli non esistono per cui vanno creati con la voce "Crea cunicoli"
+	quindi "Inserisci caverna". La creazione può avvenire in maniera casuale o manuale,
+	comunque, una volta finito, si torna al menù di "Crea cunicoli" da cui è possibile
+	terminare la creazione con "Chiudi cunicoli" o eventualmente correggerla con "Cancella
+	caverna".
+	È inoltre possibile resettare entrambi i cunicoli tornando alla voce "Inserisci caverna"
+	e accettare di eliminare quanto finora creato.
+	Chiusi i cunicoli si torna al menù principale da cui ora è possibile giocare.
+
+Gioca:
+	Ciascun giocatore dispone di una scavatrice dotata di due serbatoi per lo stoccaggio
+	della preziosa melassa, sostanza di vitale importanza sul pianeta Sabbie. Lo scopo del
+	gioco è riuscire ad uscire dai cunicoli con la maggiore quantità di melassa raccolta
+	possibile o, eventualmente, eliminare la scavatrice avversaria in uno scontro diretto.
+	Il gioco si succede in turni alterni in cui ciascun giocatore può effettuare delle scelte.
+
+	Report eventi:
+		Ad ogni turno il giocatore viene informato circa gli eventi che si sono verificati
+		sulla sua caverna, eventi che influenzano la quantità di melassa a sua
+		disposizione. Di tanto in tanto è possibile raccogliere un oggetto speciale
+		che potrebbe essere consumato dal giocatore nello scontro finale. Esiste inoltre
+		la possibilità che la caverna attuale collida con quella in cui si trova l'avversario,
+		questo da il via allo scontro finale.
+
+	Scelte:
+		Dopo il report il giocatore può effettuare delle scelte.
+
+		avanzare:
+			spostarsi nella caverna successiva, se questo non è possibile a causa di un
+			crollo improvviso allora occorre
+			aggirare:
+				creare una nuova caverna verso un percorso alternativo che si congiunge
+				con la caverna successiva, consuma 1 unità di melassa di energia.
+		abbattere:
+			consuma un'unità di melassa dal serbatoio di energia.
+			Consiste nello scavare una nuova caverna in una direzione alternativa al percorso
+			facendo crollare il corridoio che permetteva di muoversi nel cunicolo.
+			Questo comporta che il giocatore intraprenderà un nuovo percorso che dovrà
+			scavarsi in autonomia.
+			Il vantaggio di abbattere consiste nella probabilità di trovare l'uscita a forza
+			di scavare.
+		uscire:
+			se la caverna in cui si trova il giocatore rappresenta l'uscita conviene farlo.
+
+	Scontro Finale:
+		I giocatori si trovano ora l'uno contro l'altro e, oltre i vecchi parametri di energia
+		e raccolta melassa, dispongono del parametro salute. Quando quest'ultimo parametro
+		scende sotto lo zero il giocatore perde.
+		Avranno ora un ruolo importante gli oggetti raccolti durante il gioco:
+		il modulo estraniante e il dente di Leto per la famiglia Arvais,
+		il cercatore assassino e l'amplificatore di dolore per la famiglia Hartornen e,
+		per entrambi, l'anello del sigillo e l'acqua della vita.
+		Alcuni oggetti vengono consumati da soli o in combinazione con altri per produrre
+		potenti attacchi, altri invece possono essere consumati solo in combinazione secondo
+		questo schema:
+			modulo estraniante (da solo):
+				sottrae all'avversario tra 20 e 45 punti salute
+			modulo estraniante + dente di Leto = super modulo estraniante:
+				sottrae all'avversario tra 40 e 80 punti salute
+			cercatore assassino:
+				vedi modulo estraniante
+			amplificatore di dolore:
+				vedi dente di leto
+			anello del sigillo + acqua della vita = risveglio del dormiente:
+				consuma tutta la melassa di raccolta e rende disponibile
+				la catastrofica opzione "richiamo del baco"
+			richiamo del baco:
+				annienta immediatamente l'avversario
+		se non sono disponibili gli oggetti speciali è possibile utilizzare la pistola laser
+		che sottrae dai 10 ai 20 punti salute.
+
+		È possibile inoltre:
+			scegliere di curarsi recuperando 10 punti salute;
+			trasferire un'unità di melassa dal serbatoio di energia a quello di raccolta;
+			passare il turno.
+
+		Ciascuna azione prevede un consumo in termini di melassa del serbatoio di energia
+		e di turni (ovvero turni da aspettare prima che l'azione sortisca effetto).
+		Tali consumi sono indicati affianco all'azione nella forma:
+			{M: Consumo melassa di energia, T: Attesa di turni}
+
+		Casualmente i giocatori possono ricevere un'unità di melassa extra in uno dei
+		serbatioi
+
+   		 N.B.: Le mosse compaiono sullo schermo solo se, oltre agli oggetti necessari
+		       il giocatore dispone della melassa necessaria.
+		       Se si dispone di oggetti potenti da combinare conviene passare aspettando
+		       che arrivi melassa a sufficienza
+
+Esci dal gioco:
+	Resetta tutte le impostazioni permettendo di ricominciare o uscire
+
+
+
+
+Per un'esperienza ottimale giocare in fullscreen con font Monaco 16pt, colori preferibilmente verdi
+
+
+
+
+								   ® Sviluppato da Valerio Molinari
