@@ -7,7 +7,9 @@ const cap = s => s.slice(0, 1).toUpperCase().concat(s.slice(1));
 const classes = process.argv.slice(2).map(c => cap(c));
 const slice = s => (/\..*$/.test(s) ? s.slice(0, -s.match(/\..*$/)[0].length) : s)
 const usage = `Utilizzo: classes [fileNames[,.ieap]]
-  classes main: crea un file contenente class Main e il metodo main all'interno;
+  classes main:
+  classes name.m: crea un file contenente class Main o Name e
+                  il metodo main all'interno;
   classes name: crea una class Name senza specificatore di visibilità
                 (o meglio con specificatore default);
   classes name.p: crea public class Name;
@@ -20,7 +22,7 @@ const usage = `Utilizzo: classes [fileNames[,.ieap]]
 `
 
 function body(name) {
-  const main = name === 'Main' ? "\tpublic static void main(String[] args) {\n\n\t}" : ''
+  const main = name === 'Main' || /\..*m/.test(name) ? "\tpublic static void main(String[] args) {\n\n\t}" : ''
   let type = 'class'
   if (/\..*i/.test(name))
     type = 'interface'
