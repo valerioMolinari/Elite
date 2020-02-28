@@ -1,0 +1,12 @@
+Java è un linguaggio orientato a oggetti sviluppato da Sun Microsystem
+
+Java consente di realizzare applicazioni e applet
+
+
+Un applet è un programma scaricabile della rete ed eseguibile
+
+
+
+Il sorgente Java viene compilato creando un file scritto in Bytecode Java, quindi
+l'interprete java del sistema operativo che stiamo utilizzando trasforma
+il Bytecode in linguaggio macchina che quindi viene eseguito

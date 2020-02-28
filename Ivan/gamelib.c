@@ -11,7 +11,6 @@ static int prob ();    //probabilità
 static void stato_caverna (struct Caverna **Pc);   //tipo caverna
 static void fmelassa (struct Caverna **Pc);  // randomizzazione quantità melassa
 static void fimprevisto (struct Caverna **Pc);  // randomizzazione imprevisto
-static int probabilita;
 static void turnoArvais ();
 static void turnoHartornen ();
 static void avanza (struct Caverna **Pc, struct Scavatrice **fam);
@@ -218,13 +217,11 @@ static void stato_caverna (struct Caverna **Pc) {
 }
 
 static int prob () {
-  probabilita = (rand () % 100);
-  return probabilita;
+  return rand() % 101;
 }
 
 static void fmelassa (struct Caverna **Pc) {
-  probabilita = 0;
-  prob ();
+  probabilita = prob();
   if (probabilita <= 50)
     (*Pc)->melassa = nessuna;
   else if (probabilita > 50 && probabilita <= 80)
@@ -234,8 +231,7 @@ static void fmelassa (struct Caverna **Pc) {
 }
 
 static void fimprevisto (struct Caverna **Pc) {
-  probabilita = 0;
-  prob ();
+  probabilita = prob();
   if (probabilita <= 50)
     (*Pc)->imprevisto = nessun_imprevisto;
   else if (probabilita > 50 && probabilita <= 85)
