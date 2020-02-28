@@ -1,0 +1,3 @@
+enum Taglia {
+    EXTRASMALL, SMALL, MEDIUM, LARGE, EXTRALARGE;
+}
