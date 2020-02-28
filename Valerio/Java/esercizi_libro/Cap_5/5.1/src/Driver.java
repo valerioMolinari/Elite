@@ -7,9 +7,8 @@
 
 class Driver {
 	public static void main(String[] args) {
-		MyClass m = new MyClass();
-		System.out.println(m.confronta(5, 9));
-		System.out.println(m.confronta(8, 3));
-		System.out.println(m.confronta(12, 12));
+		System.out.println(MyClass.confronta(5, 9));
+		System.out.println(MyClass.confronta(8, 3));
+		System.out.println(MyClass.confronta(12, 12));
 	}
 }
