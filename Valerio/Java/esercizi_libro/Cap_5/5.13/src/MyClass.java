@@ -1,3 +1,15 @@
+/*
+* Si realizzi una classe java che definisce:
+* a: il metodo cercaCarattere che accetta in ingresso due stringhe, confronta a
+* 	 uno ad uno i caratteri delle due stringhe e restituisce il primo carattere
+* 	 uguale trovato oppure restituisce il carattere '*' se le due stringhe
+* 	 non hanno nemmeno un carattere uguale.
+* b: il metodo main che continua a leggere in input due stringhe e invoca il
+* 	 metodo cercaCarattere passandogli le stringhe inserite dall'utente,
+* 	 finché il carattere restituito dal metodo è diverso dall'ultimo carattere
+* 	 della prima stringa
+*/
+
 import java.util.Scanner;
 
 class MyClass {
