@@ -24,6 +24,7 @@ const usage = `Utilizzo: classes [fileNames[,.ieap]]\n
 function body(name) {
   const main = name === 'Main' || /\..*m/.test(name) ? "\tpublic static void main(String[] args) {\n\n\t}" : ''
   let type = 'class'
+  let more = ''
   if (/\..*i/.test(name))
     type = 'interface'
   if (/\..*e/.test(name))
@@ -32,8 +33,12 @@ function body(name) {
     type = 'abstract class'
   if (/\..*p/.test(name))
     type = `public ${type}`
+  // if (/.*->.*/.test(name))
+  //   more += `extends ${name.split('->')[1].split('.')[0]}`
+  // if (/.*=>.*/.test(name))
+  //   more += `implements ${name.split('=>')[1].split('.')[0]}`
   name = slice(name)
-  return `${type} ${name} {\n${main}\n}`;
+  return `${type} ${name} ${more} {\n${main}\n}`;
 }
 
 if (!classes.length)
