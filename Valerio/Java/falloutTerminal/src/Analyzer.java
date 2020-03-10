@@ -56,6 +56,6 @@ class Analyzer {
             analyze();
             printAnalisys();
         } while (words.size() > 1);
-        System.out.println("\nHAI HACKERATO IL TERMINALE! 🤘");
+        System.out.println("\nHAI HACKERATO IL TERMINALE! 🤘\n");
     }
 }
