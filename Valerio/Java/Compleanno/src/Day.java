@@ -16,10 +16,9 @@ public class Day  {
     }
 
     private int[] daysYear(int year) {
-        int[] array = {
+        return new int[] {
                 31, 28 + (year % 4 == 0 ? 1 : 0), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
         };
-        return array;
     }
 
     private int reduce(int[] array) {
@@ -30,12 +29,11 @@ public class Day  {
     }
 
     public int[] getDate() {
-        int[] array = {
+        return new int[] {
                 this.year,
                 this.month,
                 this.day
         };
-        return array;
     }
 
     public int daysFrom(Day date) {
@@ -62,5 +60,4 @@ public class Day  {
 
         return days;
     }
-
 }
