@@ -1,0 +1,1 @@
+rm gioco main.o gamelib.o; clear; gcc -c main.c -std=c11 -Wall; gcc -c gamelib.c -std=c11 -Wall; gcc -o gioco main.o gamelib.o; ./gioco

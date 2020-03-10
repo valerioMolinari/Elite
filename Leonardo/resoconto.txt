@@ -1,0 +1,8 @@
+Ho spostato in le librerie da includere, il typedef e la dichiarazione
+della funzione che hai deciso di fare non static "creaCunicoli" dentro
+a gamelib.h;
+
+Ho aggiunto il prototipo di ins_Caverna in testa a gamelib.c
+
+Ho fatto passare sia creaCunicoli che ins_Caverna da int a void poiché
+non è necessario che ritornino un valore

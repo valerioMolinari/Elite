@@ -1,12 +1,12 @@
 #include "gamelib.h"
 
-static struct Caverna *primo_cunicolo_Arvais;
+static void ins_Caverna(char f);
 
+static struct Caverna *primo_cunicolo_Arvais;
 static struct Caverna *primo_cunicolo_Hartornen;
 
-typedef struct Caverna Caverna;
 
-int creaCunicoli(void){
+void creaCunicoli(void) {
     printf("CREA MAPPA \n\n Inserire:\nI - inserisci caverna;\nD - cancella caverna;\nS - stampa cunicolo;\nC - chiudi cunicoli.");
     int input=0;
     int scelta=0;
@@ -17,7 +17,7 @@ int creaCunicoli(void){
             scelta=1;
             int team=0;
             team=getchar();
-            insCaverna(team);
+            ins_Caverna(team);
             break;
         }
         if (input=='D' || input=='d')
@@ -44,10 +44,10 @@ int creaCunicoli(void){
     printf("yes");
 }
 
-static int ins_Caverna(char f){
+static void ins_Caverna(char f) {
     if (f == 'h' || f=='H')
     {
-        if (primo_cunicolo_Hartornen==null)
+        if (primo_cunicolo_Hartornen == NULL)
         {
             primo_cunicolo_Hartornen=(struct Caverna*)malloc(sizeof(struct Caverna));
             primo_cunicolo_Hartornen->quantita_melassa=poca;
