@@ -49,7 +49,7 @@ static void ins_Caverna(char f) {
     {
         if (primo_cunicolo_Hartornen == NULL)
         {
-            primo_cunicolo_Hartornen=(struct Caverna*)malloc(sizeof(struct Caverna));
+            primo_cunicolo_Hartornen=(Caverna*)malloc(sizeof(Caverna));
             primo_cunicolo_Hartornen->quantita_melassa=poca;
             primo_cunicolo_Hartornen->imprevisto=nessuno;
         }
