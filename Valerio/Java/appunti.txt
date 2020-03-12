@@ -24,3 +24,12 @@ Convenzioni:
   metodi con la minuscola
   classi con la maiuscola
   costanti (final) tutto maiuscolo
+
+
+12/03/20
+
+Per creare un'applicazione grafica estendo la classe javax.swing.JFrame.
+Questo tipo di approccio si chiama bottom-up, ovvero usare classi più
+semplici e costruirle insieme creandone di più complicate.
+Un altro approccio è il top-down, ovvero dal generico allo specifico.
+Questo viene utilizzato per costruire una gerarchia di classi
