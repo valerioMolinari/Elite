@@ -32,4 +32,13 @@ Per creare un'applicazione grafica estendo la classe javax.swing.JFrame.
 Questo tipo di approccio si chiama bottom-up, ovvero usare classi più
 semplici e costruirle insieme creandone di più complicate.
 Un altro approccio è il top-down, ovvero dal generico allo specifico.
-Questo viene utilizzato per costruire una gerarchia di classi
+Questo viene utilizzato per costruire una gerarchia di classi.
+
+Un package è una collezione di classi ed interfacce (ed eventuali sottoclassi).
+
+Se voglio utilizzare il nome di una classe contenuta in un package devo
+prima importare nel codice la classe con nome e cognome (es javax.swing.JPanel)
+e poi posso usarla direttamente (JPanel).
+Se non mi va di importare ogni classe di uno stesso package posso importare
+direttamente l'intero package (java.util.*), che, al livello di prestazione,
+non cambia nulla
