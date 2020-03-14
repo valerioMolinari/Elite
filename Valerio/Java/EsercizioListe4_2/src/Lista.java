@@ -117,7 +117,19 @@ public class Lista  {
         return new Lista(array[0]);
     }
 
+    private Elemento build(Elemento head) {
+        return build(head, null);
+    }
+
+    private Elemento build(Elemento head, Elemento listToBuild) {
+        for(Elemento e = head; e != null; e = e.getNext())
+            listToBuild = new Elemento(e.getValore(), listToBuild);
+        return listToBuild;
+    }
+
     private Lista toSet(Lista list) {
+        if (list.testa == null)
+            return list;
         for (Elemento e = list.testa; e.getNext() != null; e = e.getNext()) {
             while (e.getNext().getValore() == e.getValore()) {
                 if (e.getNext().getNext() != null)
@@ -139,12 +151,11 @@ public class Lista  {
     }
 
     public Lista merge(Lista a, Lista b, String returnType) {
-        Elemento merge = null;
-        for(Elemento e = a.testa; e != null; e = e.getNext())
-            merge = new Elemento(e.getValore(), merge);
-        for(Elemento e = b.testa; e != null; e = e.getNext())
-            merge = new Elemento(e.getValore(), merge);
+        Elemento merge = build(a.testa);
+        merge = build(b.testa, merge);
+
         Lista m = new Lista(merge).sort();
+
         if (returnType.equals("set"))
             return toSet(m);
         else if (returnType.equals("full"))
@@ -173,6 +184,28 @@ public class Lista  {
         else if (returnType.equals("full"))
             return c;
         return null;
+    }
+
+    public Lista notCommon(Lista a, Lista b) {
+        Elemento notCommon = merge(a, b).testa;
+        Elemento cross = cross(a, b).testa;
+        if (cross != null) {
+            boolean flag = false;
+            for (Elemento e = notCommon; e.getNext() != null; e = e.getNext()) {
+                for (Elemento c = cross; c != null; c = c.getNext())
+                    if (e.getNext().getValore() == c.getValore()) {
+                        if (e.getNext().getNext() != null)
+                            e.setNext(e.getNext().getNext());
+                        else {
+                            e.setNext(null);
+                            flag = true;
+                        }
+                    }
+                if (flag)
+                    break;
+            }
+        }
+        return new Lista(notCommon);
     }
 
     public void visualizzaRick() {
