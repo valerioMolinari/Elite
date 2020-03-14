@@ -26,8 +26,19 @@ public class Tester  {
 		System.out.printf("\nNumeri maggiori di %d: %d\n", f, l.check(f, "sup"));
 		System.out.printf("Numeri maggiori di %d ricorsivamente: %d\n", f, l.checkRick(f, "sup"));
 
-		Lista a = new Lista(20, 10);
-		Lista b = new Lista(20, 10);
-		l.merge(a, b);
+		Lista a = new Lista(10, 15);
+		Lista b = new Lista(10, 15);
+		System.out.println("\nLista a");
+		a.visualizza();
+		System.out.println("Lista b");
+		b.visualizza();
+		System.out.println("Unione in set");
+		l.merge(a, b).visualizza();
+		System.out.println("Unione in full");
+		l.merge(a, b, "full").visualizza();
+		System.out.println("Intersezione in set");
+		l.cross(a,b).visualizza();
+		System.out.println("Intersezione in full");
+		l.cross(a,b, "full").visualizza();
 	}
 }

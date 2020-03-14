@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Lista  {
     private Elemento testa = null;
 
@@ -11,10 +8,6 @@ public class Lista  {
 
     public Lista(Elemento testa) {
         this.testa = testa;
-    }
-
-    public Elemento getTesta() {
-        return testa;
     }
 
     public int length() {
@@ -95,7 +88,13 @@ public class Lista  {
         return count;
     }
 
+    public Lista sort() {
+        return sort("crescente");
+    }
+
     public Lista sort(String senso) {
+        if (testa == null)
+            return this;
         int length = length();
         Elemento[] array = new Elemento[length];
 
@@ -118,17 +117,61 @@ public class Lista  {
         return new Lista(array[0]);
     }
 
+    private Lista toSet(Lista list) {
+        for (Elemento e = list.testa; e.getNext() != null; e = e.getNext()) {
+            while (e.getNext().getValore() == e.getValore()) {
+                if (e.getNext().getNext() != null)
+                    e.setNext(e.getNext().getNext());
+                else {
+                    e.setNext(null);
+                    break;
+                }
+            }
+            if (e.getNext() == null)
+                break;
+        }
+        return list;
+    }
+
+
     public Lista merge(Lista a, Lista b) {
         return merge(a, b, "set");
     }
 
     public Lista merge(Lista a, Lista b, String returnType) {
-        Lista c = a.sort("crescente");
-        Lista d = b.sort("crescente");
+        Elemento merge = null;
+        for(Elemento e = a.testa; e != null; e = e.getNext())
+            merge = new Elemento(e.getValore(), merge);
+        for(Elemento e = b.testa; e != null; e = e.getNext())
+            merge = new Elemento(e.getValore(), merge);
+        Lista m = new Lista(merge).sort();
+        if (returnType.equals("set"))
+            return toSet(m);
+        else if (returnType.equals("full"))
+            return m;
+        return null;
+    }
 
+    public Lista cross(Lista a, Lista b) {
+        return cross(a, b, "set");
+    }
 
-
-
+    public Lista cross(Lista a, Lista b, String returnType) {
+        Elemento cross = null;
+        for (Elemento e = a.sort().testa; e != null; e = e.getNext())
+            for (Elemento f = b.sort().testa; f != null; f = f.getNext())
+                if (e.getValore() == f.getValore()) {
+                    while (f != null && e.getValore() == f.getValore()) {
+                        cross = new Elemento(e.getValore(), cross);
+                        f = f.getNext();
+                    }
+                    break;
+                }
+        Lista c = new Lista(cross).sort();
+        if (returnType.equals("set"))
+            return toSet(c);
+        else if (returnType.equals("full"))
+            return c;
         return null;
     }
 
