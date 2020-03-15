@@ -23,6 +23,22 @@ const usage = `Utilizzo: classes [fileNames[,.ieap]]\n
 
 function body(name) {
   const main = name === 'Main' || /\..*m/.test(name) ? "\tpublic static void main(String[] args) {\n\n\t}" : ''
+  const body = /\..*f/.test(name) ? `\
+  // Attributi
+
+  // Metodi privati
+
+  // Costruttore
+
+  // Metodi pubblici
+
+  // Getters
+
+  // Setters
+
+  // Metodi astratti
+  ` : ''
+
   let type = 'class'
   let more = ''
   if (/\..*i/.test(name))
@@ -38,7 +54,7 @@ function body(name) {
   // if (/.*=>.*/.test(name))
   //   more += `implements ${name.split('=>')[1].split('.')[0]}`
   name = slice(name)
-  return `${type} ${name} ${more} {\n${main}\n}`;
+  return `${type} ${name} ${more} {\n${main}${body}\n}`;
 }
 
 if (!classes.length)
