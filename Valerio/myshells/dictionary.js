@@ -26,6 +26,7 @@ switch (flag) {
     break;
   case '-c':
     printList(dictionaryPath, length)
+    break;
   default:
     console.error(`FlagError: unknown flag\n${usage}`)
 }
