@@ -58,7 +58,7 @@ function body(name) {
 }
 
 if (!classes.length)
-  console.error(`\n${__filename}:40\n  Errore: è richiesto almeno un argomento\n\n${usage}`)
+  console.error(`\n${__filename}:60\n  Errore: è richiesto almeno un argomento\n\n${usage}`)
 
 if (classes[0] === '--edit')
   return execSync(`atom ${__filename}`);
