@@ -42,3 +42,15 @@ e poi posso usarla direttamente (JPanel).
 Se non mi va di importare ogni classe di uno stesso package posso importare
 direttamente l'intero package (java.util.*), che, al livello di prestazione,
 non cambia nulla
+
+18/03/20
+
+Quando lavoriamo con la ricorsione dobbiamo:
+  Riconoscere la dimensione del problema:
+    Per problemi sugli interi è la dimensione dell'intero;
+    Per problemi sugli interi è il numero di cifre dell'intero;
+    Per un problema sugli array la lunghezza dell’array;
+    Per un problema sulle liste la lunghezza della lista;
+    Per un problema sugli alberi il numero di elementi dell’albero;
+
+  
