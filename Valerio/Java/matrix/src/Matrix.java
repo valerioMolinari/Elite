@@ -50,6 +50,16 @@ public class Matrix {
         System.out.println();
     }
 
+    public boolean isSymmetrical() {
+        return isSymmetrical(this);
+    }
+
+    public static boolean isSymmetrical(Matrix a) {
+        if (a.dimension.getN() != a.dimension.getM())
+            return false;
+        return a.equals(a.transpose());
+    }
+
     public Matrix sum(Matrix a) {
         return Matrix.sum(this, a);
     }

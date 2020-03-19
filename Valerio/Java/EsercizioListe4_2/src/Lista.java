@@ -273,6 +273,8 @@ public class Lista  {
         return findRick(e.getNext(), value, index + 1);
     }
 
+
+
     public int parityRick(String type) {
         if (type.equals("pari"))
             return length() - parityRick(testa);
