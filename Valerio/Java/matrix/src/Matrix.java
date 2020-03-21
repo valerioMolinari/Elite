@@ -5,6 +5,7 @@ public class Matrix {
     private int[][] matrix;
     private Dimension dimension;
     private static String text;
+    static Interfaces I = new Interfaces();
 
     public Matrix(int[][] matrix) {
         this.matrix = matrix;
@@ -17,10 +18,14 @@ public class Matrix {
         boolean bool = bound.isPositive();
         int b = bound.getBound();
         Random r = new Random();
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < m; j++)
-                matrix[i][j] = bool ? r.nextInt(b) : r.nextInt(b * 2) - b;
+        // I.zeroLoop.exec(a, b, (i, j) -> blocco di codice)
+        // significa fai un ciclo dentro a un ciclo che va da 0 ad a per la i
+        // e da 0 a b per la j, quindi utilizza i e j nel tuo blocco di codice
+        // solo a patto che tale blocco non contenga dei return
+        I.zeroLoop.exec(n, m, (i, j) -> matrix[i][j] = bool ? r.nextInt(b) : r.nextInt(b * 2) - b);
     }
+
+
 
     public void visualizza() {
         visualizza(0);
@@ -71,9 +76,7 @@ public class Matrix {
         final int aM = a.dimension.getM();
         int[][] c = new int[aN][aM];
 
-        for (int i = 0; i < aN; i++)
-            for (int j = 0; j < aM; j++)
-                c[i][j] = a.matrix[i][j] + b.matrix[i][j];
+        I.zeroLoop.exec(aN, aM, (i, j) -> c[i][j] = a.matrix[i][j] + b.matrix[i][j]);
 
         return new Matrix(c);
     }
@@ -92,9 +95,7 @@ public class Matrix {
         final int aN = a.dimension.getN();
         final int aM = a.dimension.getM();
         int[][] b = new int[aN][aM];
-        for (int i = 0; i < aN; i++)
-            for (int j = 0; j < aM; j++)
-                b[i][j] = a.matrix[i][j] * n;
+        I.zeroLoop.exec(aN, aM, (i, j) -> b[i][j] = a.matrix[i][j] * n);
         return new Matrix(b);
     }
 
@@ -107,9 +108,7 @@ public class Matrix {
         final int aM = a.dimension.getM();
 
         int[][] b = new int[aM][aN];
-        for (int i = 0; i < aN; i++)
-            for (int j = 0; j < aM; j++)
-                b[j][i] = a.matrix[i][j];
+        I.zeroLoop.exec(aN, aM, (i, j) -> b[j][i] = a.matrix[i][j]);
         return new Matrix(b);
     }
 
@@ -127,11 +126,10 @@ public class Matrix {
 
         int[][] c = new int[aN][bM];
 
-        for (int i = 0; i < aN; i++)
-            for (int j = 0; j < bM; j++)
-                for (int m = 0; m < M; m++)
-                    c[i][j] += a.matrix[i][m] * b.matrix[m][j];
-
+        I.zeroLoop.exec(aN, bM, (i, j) -> {
+            for (int m = 0; m < M; m++)
+                c[i][j] += a.matrix[i][m] * b.matrix[m][j];
+        });
         return new Matrix(c);
     }
 
@@ -151,7 +149,6 @@ public class Matrix {
             for (int j = 0; j < aM; j++)
                 if (matrix[i][j] != a.matrix[i][j])
                     return false;
-
         return true;
     }
 
@@ -161,6 +158,14 @@ public class Matrix {
 
     public int[][] getMatrix() {
         return matrix;
+    }
+
+    void setMatrix(int[][] matrix) {
+        this.matrix = matrix;
+    }
+
+    void setDimension(Dimension dimension) {
+        this.dimension = dimension;
     }
 
     public static void defMatrice() {

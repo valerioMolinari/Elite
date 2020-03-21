@@ -5,17 +5,20 @@ public class SquareMatrix extends Matrix {
 
     SquareMatrix(int[][] matrix) {
         super(matrix);
-
-//        if (matrix.length != matrix[0].length)
-//            throw new SquareMatrixDimensionsException("Cannot create SquareMatrix from a "+matrix.length +"x"+ matrix[0].length + "dimension Matrix");
+        try {
+            boolean b = matrix.length != matrix[0].length;
+            if (b)
+                throw new SquareMatrixDimensionsException("Cannot create SquareMatrix from a "+matrix.length +"x"+ matrix[0].length + " dimension Matrix\n\t"+this+" was initialized as a null Matrix");
+        } catch (SquareMatrixDimensionsException e) {
+            setMatrix(new int[][]{{}});
+            setDimension(new Dimension(1,0));
+            System.out.println("\033[91m"+e+"\033[0m");
+        }
     }
 
     public static SquareMatrix identity(int n) {
         int[][] a = new int[n][n];
-
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < n; j++)
-                a[i][j] = i == j ? 1 : 0;
+        I.zeroLoop.exec(n, n, (i, j) -> a[i][j] = i == j ? 1 : 0);
 
         return new SquareMatrix(a);
     }
@@ -67,13 +70,12 @@ public class SquareMatrix extends Matrix {
     private static SquareMatrix setTriangle(SquareMatrix a, boolean isSup) {
         final int N = a.getDimension().getN();
         int[][] array = new int[N][N];
-        for (int i = 0; i < N; i++)
-            for (int j = 0; j < N; j++) {
-                if (isSup)
-                    array[i][j] = i <= j ? a.getMatrix()[i][j] : 0;
-                else
-                    array[i][j] = i >= j ? a.getMatrix()[i][j] : 0;
-            }
+        I.zeroLoop.exec(N, N, (i, j) -> {
+            if (isSup)
+                array[i][j] = i <= j ? a.getMatrix()[i][j] : 0;
+            else
+                array[i][j] = i >= j ? a.getMatrix()[i][j] : 0;
+        });
         return new SquareMatrix(array);
     }
 
