@@ -16,6 +16,7 @@ const usage = `Utilizzo: classes [fileNames[,.ieap]]\n
   classes name.e: crea enum Name;
   classes name.i: crea interface Name;
   classes name.a: crea abstract class
+  classes name.g: crea genericClass<T>
 
   il nome di un file può contenere più flags come name.pa o name.ap crea
   un file Name con dentro "public abstract class Name {}"
@@ -41,6 +42,7 @@ function body(name) {
 
   let type = 'class'
   let more = ''
+  let generic = ''
   if (/\..*i/.test(name))
     type = 'interface'
   if (/\..*e/.test(name))
@@ -49,12 +51,14 @@ function body(name) {
     type = 'abstract class'
   if (/\..*p/.test(name))
     type = `public ${type}`
+  if (/\..*g/.test(name))
+    generic = '<T>'
   // if (/.*->.*/.test(name))
   //   more += `extends ${name.split('->')[1].split('.')[0]}`
   // if (/.*=>.*/.test(name))
   //   more += `implements ${name.split('=>')[1].split('.')[0]}`
   name = slice(name)
-  return `${type} ${name} ${more} {\n${main}${body}\n}`;
+  return `${type} ${name}${generic} ${more} {\n${main}${body}\n}`;
 }
 
 if (!classes.length)
