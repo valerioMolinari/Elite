@@ -2,19 +2,26 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Matrix {
-    private int[][] matrix;
+    private Fraction[][] matrix;
     private Dimension dimension;
     private static String text;
     static Interfaces I = new Interfaces();
 
-    public Matrix(int[][] matrix) {
+    public Matrix(String[][] matrix) {
+        Fraction[][] c = new Fraction[matrix.length][matrix[0].length];
+        I.zeroLoop.exec(matrix.length, matrix[0].length, (i, j) -> c[i][j] = new Fraction(matrix[i][j]));
+        this.matrix = c;
+        dimension = new Dimension(matrix.length, matrix[0].length);
+    }
+
+    public Matrix(Fraction[][] matrix) {
         this.matrix = matrix;
         dimension = new Dimension(matrix.length, matrix[0].length);
     }
 
     public Matrix(int n, int m, Bound bound) {
         dimension = new Dimension(n, m);
-        matrix = new int[n][m];
+        matrix = new Fraction[n][m];
         boolean bool = bound.isPositive();
         int b = bound.getBound();
         Random r = new Random();
@@ -22,7 +29,22 @@ public class Matrix {
         // significa fai un ciclo dentro a un ciclo che va da 0 ad a per la i
         // e da 0 a b per la j, quindi utilizza i e j nel tuo blocco di codice
         // solo a patto che tale blocco non contenga dei return
-        I.zeroLoop.exec(n, m, (i, j) -> matrix[i][j] = bool ? r.nextInt(b) : r.nextInt(b * 2) - b);
+
+        switch (bound.getType()) {
+            case "Integer":
+                I.zeroLoop.exec(n, m, (i, j) -> {
+                    matrix[i][j] = bool ? new Fraction(r.nextInt(b)) : new Fraction(r.nextInt(b * 2) - b);
+                });
+                break;
+            case "Double":
+                I.zeroLoop.exec(n, m, (i, j) -> {
+                    matrix[i][j] = bool ? new Fraction(r.nextInt(b), r.nextInt(b - 1) + 1) : new Fraction(r.nextInt(b * 2) - b, r.nextInt(b - 1) + 1);
+                });
+                break;
+            default:
+                System.out.println("Unknown bound type: " + this + " is a Null Matrix");
+                matrix = new Fraction[][] {{}};
+        }
     }
 
 
@@ -39,17 +61,17 @@ public class Matrix {
 
         int max = 0;
 
-        for (int[] i : matrix)
-            for (int j : i)
-                if (Integer.toString(j).length() > max)
-                    max = Integer.toString(j).length();
+        for (Fraction[] i : matrix)
+            for (Fraction j : i)
+                if (j.toString().length() > max)
+                    max = j.toString().length() + 1;
 
-        String s = "%"+max+"d ";
+        String s = "%"+max+"s ";
 
-        for (int[] i : matrix) {
+        for (Fraction[] i : matrix) {
             System.out.print(" ".repeat(startSpaces));
-            for (int j : i)
-                System.out.printf(s, j);
+            for (Fraction j : i)
+                System.out.printf(s, j.toString());
             System.out.println();
         }
         System.out.println();
@@ -71,12 +93,12 @@ public class Matrix {
 
     public static Matrix sum(Matrix a, Matrix b) {
         if(!a.dimension.equals(b.dimension))
-            return new Matrix(new int[][] {{}});
+            return new Matrix(new Fraction[][] {{}});
         final int aN = a.dimension.getN();
         final int aM = a.dimension.getM();
-        int[][] c = new int[aN][aM];
+        Fraction[][] c = new Fraction[aN][aM];
 
-        I.zeroLoop.exec(aN, aM, (i, j) -> c[i][j] = a.matrix[i][j] + b.matrix[i][j]);
+        I.zeroLoop.exec(aN, aM, (i, j) -> c[i][j] = a.matrix[i][j].add(b.matrix[i][j]));
 
         return new Matrix(c);
     }
@@ -87,15 +109,24 @@ public class Matrix {
         return sum(args[0], sum(Arrays.copyOfRange(args, 1, args.length)));
     }
 
-    public Matrix scalarProduct(int n) {
+    public Matrix subtract(Matrix a) {
+        return Matrix.sum(this, a.scalarProduct("-1"));
+    }
+
+    public static Matrix subtract(Matrix a, Matrix b) {
+        return sum(a, b.scalarProduct("-1"));
+    }
+
+    public Matrix scalarProduct(String n) {
         return scalarProduct(this, n);
     }
 
-    public static Matrix scalarProduct(Matrix a, int n) {
+    public static Matrix scalarProduct(Matrix a, String n) {
         final int aN = a.dimension.getN();
         final int aM = a.dimension.getM();
-        int[][] b = new int[aN][aM];
-        I.zeroLoop.exec(aN, aM, (i, j) -> b[i][j] = a.matrix[i][j] * n);
+        Fraction[][] b = new Fraction[aN][aM];
+        Fraction f = new Fraction(n);
+        I.zeroLoop.exec(aN, aM, (i, j) -> b[i][j] = a.matrix[i][j].multiply(f));
         return new Matrix(b);
     }
 
@@ -107,7 +138,7 @@ public class Matrix {
         final int aN = a.dimension.getN();
         final int aM = a.dimension.getM();
 
-        int[][] b = new int[aM][aN];
+        Fraction[][] b = new Fraction[aM][aN];
         I.zeroLoop.exec(aN, aM, (i, j) -> b[j][i] = a.matrix[i][j]);
         return new Matrix(b);
     }
@@ -122,13 +153,15 @@ public class Matrix {
         final int bM = b.dimension.getM();
 
         if (a.dimension.getM() != b.dimension.getN())
-            return new Matrix(new int[][] {{}});
+            return new Matrix(new Fraction[][] {{}});
 
-        int[][] c = new int[aN][bM];
+        Fraction[][] c = new Fraction[aN][bM];
 
         I.zeroLoop.exec(aN, bM, (i, j) -> {
+            c[i][j] = new Fraction(0);
+
             for (int m = 0; m < M; m++)
-                c[i][j] += a.matrix[i][m] * b.matrix[m][j];
+                c[i][j] = c[i][j].add(a.matrix[i][m].multiply(b.matrix[m][j]));
         });
         return new Matrix(c);
     }
@@ -147,7 +180,7 @@ public class Matrix {
 
         for (int i = 0; i < aN; i++)
             for (int j = 0; j < aM; j++)
-                if (matrix[i][j] != a.matrix[i][j])
+                if (!matrix[i][j].equals(a.matrix[i][j]))
                     return false;
         return true;
     }
@@ -156,11 +189,11 @@ public class Matrix {
         return dimension;
     }
 
-    public int[][] getMatrix() {
+    public Fraction[][] getMatrix() {
         return matrix;
     }
 
-    void setMatrix(int[][] matrix) {
+    void setMatrix(Fraction[][] matrix) {
         this.matrix = matrix;
     }
 
@@ -176,21 +209,21 @@ public class Matrix {
                 + "dove aᵢ,ⱼ indica l'elemento posto alla riga i e colonna j e si chiama campo di componente (i,j).\n"
                 + "Una matrice si dice quadrata se n == m.\n\nes.\n";
         System.out.println(text);
-        new SquareMatrix(4, new Bound(10, false)).visualizza(15);
+        new SquareMatrix(4, new Bound(10, false, "Integer")).visualizza(15);
         text = "Una matrice quadrata M ∈ M𝗇ₓ𝗇(ℛ) si dice triangolare superiore se aᵢ,ⱼ = 0 ∀i > j:\n\nes.\n";
         System.out.println(text);
-        new SquareMatrix(4, new Bound(10, false)).setSupTriangle().visualizza(15);
+        new SquareMatrix(4, new Bound(10, false, "Integer")).setSupTriangle().visualizza(15);
         text = "Si dice triangolare inferiore se aᵢ,ⱼ = 0 ∀i < j:\n\nes.\n";
         System.out.println(text);
-        new SquareMatrix(4, new Bound(10, false)).setInfTriangle().visualizza(15);
+        new SquareMatrix(4, new Bound(10, false, "Integer")).setInfTriangle().visualizza(15);
         text = "";
     }
 
     public static void defSomma() {
         text = "\nSiano A, B ∈ M𝗇ₓ𝗆(ℛ) due matrici. La somma A + B è definita da "
                 + "C = A + B ∈ M𝗇ₓ𝗆(ℛ), Cᵢ,ⱼ = aᵢ,ⱼ + bᵢ,ⱼ\n\nes.";
-        Matrix a = new Matrix(3, 4, new Bound(15, false));
-        Matrix b = new Matrix(3, 4, new Bound(15, false));
+        Matrix a = new Matrix(3, 4, new Bound(15, false, "Integer"));
+        Matrix b = new Matrix(3, 4, new Bound(15, false, "Integer"));
         Matrix c = a.sum(b);
         System.out.println(text);
         a.visualizza(15);
@@ -217,8 +250,8 @@ public class Matrix {
         text = "\nSia A ∈ M𝗇ₓ𝗆(ℛ) una matrice e sia 𝛌 ∈ ℛ uno scalare. "
                 + "Il prodotto per uno scalare 𝛌A di 𝛌 e A è definito da\n"
                 + "C = 𝛌A ∈ M𝗇ₓ𝗆(ℛ), Cᵢ,ⱼ = 𝛌aᵢ,ⱼ\n\nes.";
-        Matrix a = new Matrix(3, 4, new Bound(15, false));
-        Matrix lA = a.scalarProduct(3);
+        Matrix a = new Matrix(3, 4, new Bound(15, false, "Integer"));
+        Matrix lA = a.scalarProduct("3");
         System.out.println(text);
         a.visualizza(15);
         System.out.println(" ".repeat(23) + "*\n");
@@ -243,7 +276,7 @@ public class Matrix {
     public static void defTrasposizione() {
         text = "\nSia A ∈ M𝗇ₓ𝗆(ℛ) una matrice. La matrice trasposta di A è definita da\n"
                 + "Aᵀ ∈ M𝗇ₓ𝗆(ℛ), aᵀᵢ,ⱼ = aⱼ,ᵢ\n\nes.";
-        Matrix a = new Matrix(3, 4, new Bound(9, true));
+        Matrix a = new Matrix(3, 4, new Bound(9, true, "Integer"));
         Matrix aT = a.transpose();
         System.out.println(text);
         a.visualizza(15);

@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class Fraction {
@@ -17,9 +18,15 @@ public class Fraction {
         reduce();
     }
 
+    public Fraction(int numr) {
+        numerator = numr;
+        denominator = 1;
+        reduce();
+    }
+
     public Fraction(String fraction) {
         Pattern pattern = Pattern.compile("/");
-        if (Pattern.matches("\\d+/\\d+", fraction)) {
+        if (Pattern.matches("-?\\d+/\\d+", fraction)) {
             String[] numDen = pattern.split(fraction);
             this.numerator = Integer.parseInt(numDen[0]);
             this.denominator = Integer.parseInt((numDen[1]));
@@ -66,6 +73,11 @@ public class Fraction {
         int gcd = calculateGCD(numerator, denominator);
         numerator /= gcd;
         denominator /= gcd;
+
+        if (denominator < 0) {
+            numerator = -numerator;
+            denominator = -denominator;
+        }
     }
 
     /**
@@ -124,6 +136,18 @@ public class Fraction {
     @Override
     public String toString() {
         return denominator == 1 ? String.valueOf(numerator) : numerator + "/" + denominator;
+    }
+
+    public boolean equals(Fraction fractionTwo) {
+        if (this == fractionTwo)
+            return true;
+        return numerator == fractionTwo.numerator &&
+                denominator == fractionTwo.denominator;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numerator, denominator);
     }
 
     public void visualizza() {

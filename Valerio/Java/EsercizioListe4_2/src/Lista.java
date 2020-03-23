@@ -231,6 +231,16 @@ public class Lista  {
         return e.getValore() + sommaRick(e.getNext());
     }
 
+//    public int sommaRicorsiva() {
+//        return sommaRicorsiva(testa);
+//    }
+//
+//    private int sommaRicorsiva(Elemento e) {
+//        if (e == null)
+//            return 0;
+//        return e.n + sommaRicorsiva(e.next);
+//    }
+
     public double mediaRick() {
         return mediaRick(testa, length());
     }
@@ -284,6 +294,20 @@ public class Lista  {
             return -1;
     }
 
+//    public int pariRicorsiva() {
+//        if (lunghezza > 0)
+//            return lunghezza - paritaRicorsiva(testa);
+//        else
+//            return 0;
+//    }
+//
+//    private int pariRicorsiva(Elemento e) {
+//        if (e.next == null)
+//            return e.n % 2;
+//        return e.n % 2 + paritaRicorsiva(e.next);
+//    }
+
+
     private int parityRick(Elemento e) {
         if (e.getNext() == null)
             return e.getValore() % 2;
@@ -303,5 +327,67 @@ public class Lista  {
         if (e.getNext() == null)
             return result;
         return result + checkRick(e.getNext(), value, type);
+    }
+
+//    public int maggiori(int n) {
+//        return maggiori(testa, n);
+//    }
+//
+//    private int maggiori(Elemento e, int n) {
+//        if (e == null)
+//            return 0;
+//        return e.n > n ? 1 + maggiori(e.next, n) : maggiori(e.next, n);
+//    }
+//
+//    public boolean decrescente() {
+//        if (testa == null)
+//            return true;
+//        return decrescente(testa);
+//    }
+//
+//    private boolean decrescente(Elemento e) {
+//        if (e.next == null)
+//            return e.n < e.next.n;
+//        return e.n < e.next.n && decrescente(e.next);
+//    }
+
+//    public Lista(Elemento testa) {
+//        this.testa = testa;
+//    }
+
+//    public Lista copiaMaggiore(int n) {
+//        Elemento lista = null;
+//        for (Elemento e = testa; e != null; e = e.next)
+//            if (e.n > n)
+//                lista = new Elemento(e.n, lista);
+//        return new Lista(lista);
+//    }
+
+    public Lista copiaMaggiore(int n) {
+        Elemento copia = null;
+        for (Elemento e = testa; e != null; e = e.getNext()) {
+            if (e.getValore() > n && copia == null)
+                copia = e;
+            else if (e.getValore() > n)
+                for (Elemento f = copia; f != null; f = f.getNext())
+                    if (f.getNext() == null)
+                        f.setNext(e);
+        }
+        return new Lista(copia);
+    }
+
+    public Lista copiaMaggioreRicorsiva(int n) {
+        Elemento lista = null;
+        return new Lista(copiaMaggioreRicorsiva(testa, lista, n));
+    }
+
+    private Elemento copiaMaggioreRicorsiva(Elemento e, Elemento lista, int n) {
+        if (e == null)
+            return null;
+        if (e.getValore() > n) {
+            lista = new Elemento(e.getValore(), copiaMaggioreRicorsiva(e.getNext(), lista, n));
+            return lista;
+        }
+        return lista;
     }
 }

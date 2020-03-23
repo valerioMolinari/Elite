@@ -15,20 +15,23 @@ class Tester  {
 //		Matrix b = new Matrix(nm, n2, new Bound(b2, bool2));
 //		a.visualizza();
 //		b.visualizza();
-		Matrix c = new Matrix(new int[][] {{1,2,3},{-2,0,1},{3,2,1}});
-		Matrix d = new Matrix(new int[][] {{4,1},{-1,-8},{-2,5},{-5,1}});
-//		c.visualizza();
-//		d.visualizza();
-//		c.matrixProduct(d).visualizza();
-//		c.matrixProduct(d).transpose();
-		Matrix f = new Matrix(2,2,new Bound(5,true));
-		Matrix g = new Matrix(2,2,new Bound(5,true));
-//		f.visualizza();
-//		g.visualizza();
-//		f.matrixProduct(g).visualizza();
+//		Matrix c = new Matrix(new String[][] {{"1","2","3/4"},{"2","1/2","1"},{"3","2","1"}});
+//		Matrix d = new Matrix(new String[][] {{"1","-2","3/4"},{"-2","1/2","2"},{"3/4","2","1"}});
 
-		Fraction fraction = new Fraction("5/3");
-		Fraction fraction1 = new Fraction("2/3");
-		fraction.add(fraction1).visualizza();
+		Matrix e = new Matrix(new String[][] {
+				{"2", "-3/4"},
+				{"0", "1/2"},
+				{"3", "0"}
+		});
+
+		Matrix f = new Matrix(new String[][] {
+				{"4", "-1", "0"},
+				{"2", "1/2", "1"}
+		});
+
+		e.visualizza();
+		f.visualizza();
+
+		e.matrixProduct(f).visualizza();
 	}
 }

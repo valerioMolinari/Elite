@@ -42,5 +42,8 @@ public class Tester  {
 //		l.cross(a,b, "full").visualizza();
 		System.out.println("Elementi non comuni");
 		l.notCommon(a,b).visualizza();
+		System.out.println();
+		l.visualizza();
+		l.copiaMaggioreRicorsiva(12).visualizza();
 	}
 }
