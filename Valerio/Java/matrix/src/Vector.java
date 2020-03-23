@@ -7,7 +7,7 @@ public class Vector  {
             this.vector = matrix[index];
         else {
             vector = new Fraction[matrix.length];
-            for (int i = 0; i < matrix.length; i++)
+            for (int i = 0; i < vector.length; i++)
                 vector[i] = matrix[i][index];
         }
     }
@@ -22,6 +22,13 @@ public class Vector  {
             if (!V[i].equals(0))
                 return false;
         return true;
+    }
+
+    public void visualizza() {
+        System.out.print("{ ");
+        for (int i = 0; i < vector.length; i++)
+            System.out.print(i == vector.length - 1 ? vector[i] + " " : vector[i] + ", ");
+        System.out.println("}");
     }
 
     public Fraction[] getVector() {

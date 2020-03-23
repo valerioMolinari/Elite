@@ -16,9 +16,10 @@ class Tester  {
 //		a.visualizza();
 //		b.visualizza();
 //		Matrix c = new Matrix(new String[][] {{"1","2","3/4"},{"2","1/2","1"},{"3","2","1"}});
-//		Matrix d = new Matrix(new String[][] {{"1","-2","3/4"},{"-2","1/2","2"},{"3/4","2","1"}});
+		Matrix d = new Matrix(new String[][] {{"0","-2","3/4"},{"2","1/2","2"},{"3/4","2","1"}});
 
-		SquareMatrix e = new SquareMatrix(4,new Bound(10, false, "Double"));
-		e.visualizza();
+		//SquareMatrix e = new SquareMatrix(4,new Bound(10, false, "Double"));
+		d.visualizza();
+		d.setRef().visualizza();
 	}
 }

@@ -190,6 +190,8 @@ public class Matrix {
     }
 
     public static Matrix swap(Matrix a, int row1, int row2) {
+        if (row1 == row2)
+            return a;
         Fraction[][] matrix = a.getMatrix();
         Fraction[] temp = matrix[row1];
         matrix[row1] = matrix[row2];
@@ -202,15 +204,48 @@ public class Matrix {
     }
 
     public static Matrix setREF(Matrix a) {
-        Fraction[][] A = a.getMatrix()
+        Fraction[][] A = a.getMatrix();
+        Vector v;
+        // Se la matrice è nulla o è la matrice identità ho finito
         if (SquareMatrix.identity(A.length).equals(a) || a.isZeroNull())
             return a;
-        for (int i = 0; i < A.length; i++)
-            if (!new Vector(a, i, EnumVector.COLUMN).isZeroNull()) {
 
-
-                break;
+        // Analizzando colonna per colonna porto la prima riga il cui primo elemento è non nullo in cima
+        boolean breakFlag = false;
+        for (int i = 0; i < A.length; i++) {
+            v = new Vector(a, i, EnumVector.COLUMN);
+            if (!v.isZeroNull()) {
+                Fraction[] V = v.getVector();
+                for (int j = 0; j < V.length; j++)
+                    if (!V[j].equals(0)) {
+                        A = swap(a, 0, j).getMatrix();
+                        breakFlag = true;
+                        break;
+                    }
             }
+            if (breakFlag)
+                break;
+        }
+        // divido la prima riga per il suo primo elemento in modo tale da ottenere un 1-dominante
+        if (!A[0][0].equals(1)) {
+            Fraction first = A[0][0];
+            for (int i = 0; i < A[0].length; i++)
+                A[0][i] = A[0][i].divide(first);
+        }
+
+        // trasformo tutti gli elementi sottostanti all'1-dominante in zeri, sottraendo ad
+        // ogni riga multipli opportuni alla prima riga
+
+        for (int i = 1; i < A.length; i++) {
+            if (!A[i][0].equals(0)) {
+                Fraction first = A[i][0];
+                for (int j = 0; j < A[0].length; j++)
+                    A[i][j] = A[i][j].subtract(first);
+            }
+        }
+
+
+        return new Matrix(A);
     }
 
     public boolean equals(Matrix a) {
