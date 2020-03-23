@@ -23,8 +23,12 @@ class Tester  {
 //		c.matrixProduct(d).transpose();
 		Matrix f = new Matrix(2,2,new Bound(5,true));
 		Matrix g = new Matrix(2,2,new Bound(5,true));
-		f.visualizza();
-		g.visualizza();
-		f.matrixProduct(g).visualizza();
+//		f.visualizza();
+//		g.visualizza();
+//		f.matrixProduct(g).visualizza();
+
+		Fraction fraction = new Fraction("5/3");
+		Fraction fraction1 = new Fraction("2/3");
+		fraction.add(fraction1).visualizza();
 	}
 }

@@ -1,7 +1,9 @@
+import java.util.regex.Pattern;
+
 public class Fraction {
 
-    int numerator;
-    int denominator;
+    private int numerator;
+    private int denominator;
 
     /**
      * Constructor
@@ -13,6 +15,18 @@ public class Fraction {
         numerator = numr;
         denominator = denr;
         reduce();
+    }
+
+    public Fraction(String fraction) {
+        Pattern pattern = Pattern.compile("/");
+        if (Pattern.matches("\\d+/\\d+", fraction)) {
+            String[] numDen = pattern.split(fraction);
+            this.numerator = Integer.parseInt(numDen[0]);
+            this.denominator = Integer.parseInt((numDen[1]));
+        } else {
+            this.numerator = Integer.parseInt(fraction);
+            this.denominator = 1;
+        }
     }
 
     public int getNumerator() {
