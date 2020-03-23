@@ -138,6 +138,11 @@ public class Fraction {
         return denominator == 1 ? String.valueOf(numerator) : numerator + "/" + denominator;
     }
 
+    public boolean equals(int n) {
+        Fraction f = new Fraction(n);
+        return this.equals(f);
+    }
+
     public boolean equals(Fraction fractionTwo) {
         if (this == fractionTwo)
             return true;

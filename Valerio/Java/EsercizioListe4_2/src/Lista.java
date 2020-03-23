@@ -355,23 +355,36 @@ public class Lista  {
 //        this.testa = testa;
 //    }
 
-//    public Lista copiaMaggiore(int n) {
-//        Elemento lista = null;
-//        for (Elemento e = testa; e != null; e = e.next)
-//            if (e.n > n)
-//                lista = new Elemento(e.n, lista);
-//        return new Lista(lista);
-//    }
+    public Lista inverti() {
+        Elemento lista = null;
+        for (Elemento e = testa; e != null; e = e.next)
+            lista = new Elemento(e.n, lista);
+        return new Lista(lista);
+    }
 
-    public Lista copiaMaggiore(int n) {
+    public Lista copiaMaggiore1(int n) {
+        Elemento lista = null;
+        for (Elemento e = testa; e != null; e = e.next)
+            if (e.n > n)
+                lista = new Elemento(e.n, lista);
+        return new Lista(lista).inverti();
+    }
+
+    public Lista copiaMaggiore2(int n) {
         Elemento copia = null;
-        for (Elemento e = testa; e != null; e = e.getNext()) {
-            if (e.getValore() > n && copia == null)
-                copia = e;
-            else if (e.getValore() > n)
-                for (Elemento f = copia; f != null; f = f.getNext())
-                    if (f.getNext() == null)
-                        f.setNext(e);
+        Elemento temp = null;
+        for (Elemento e = testa; e != null; e = e.next) {
+            if (e.n > n && copia == null) {
+                copia = new Elemento(e.n, null);
+                temp = copia;
+            }
+            else if (e.n > n) {
+                for (; temp != null; temp = temp.next)
+                    if (temp.next == null) {
+                        temp.next = new Elemento(e.n, null);
+                        break;
+                    }
+            }
         }
         return new Lista(copia);
     }

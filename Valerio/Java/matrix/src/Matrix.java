@@ -172,6 +172,47 @@ public class Matrix {
             return matrixProduct(args[0], matrixProduct(Arrays.copyOfRange(args, 1, args.length)));
     }
 
+    public boolean isZeroNull() {
+        return isZeroNull(this);
+    }
+
+    public static boolean isZeroNull(Matrix a) {
+        Fraction[][] x = a.getMatrix();
+        for (int i = 0; i < x.length; i++)
+            for (int j = 0; j < x[0].length; j++)
+                if (!x[i][j].equals(0))
+                    return false;
+        return true;
+    }
+
+    public Matrix swap(int row1, int row2) {
+        return swap(this, row1, row2);
+    }
+
+    public static Matrix swap(Matrix a, int row1, int row2) {
+        Fraction[][] matrix = a.getMatrix();
+        Fraction[] temp = matrix[row1];
+        matrix[row1] = matrix[row2];
+        matrix[row2] = temp;
+        return new Matrix(matrix);
+    }
+
+    public Matrix setRef() {
+        return setREF(this);
+    }
+
+    public static Matrix setREF(Matrix a) {
+        Fraction[][] A = a.getMatrix()
+        if (SquareMatrix.identity(A.length).equals(a) || a.isZeroNull())
+            return a;
+        for (int i = 0; i < A.length; i++)
+            if (!new Vector(a, i, EnumVector.COLUMN).isZeroNull()) {
+
+
+                break;
+            }
+    }
+
     public boolean equals(Matrix a) {
         final int aN = a.dimension.getN();
         final int aM = a.dimension.getM();

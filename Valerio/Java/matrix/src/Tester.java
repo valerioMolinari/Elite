@@ -18,20 +18,7 @@ class Tester  {
 //		Matrix c = new Matrix(new String[][] {{"1","2","3/4"},{"2","1/2","1"},{"3","2","1"}});
 //		Matrix d = new Matrix(new String[][] {{"1","-2","3/4"},{"-2","1/2","2"},{"3/4","2","1"}});
 
-		Matrix e = new Matrix(new String[][] {
-				{"2", "-3/4"},
-				{"0", "1/2"},
-				{"3", "0"}
-		});
-
-		Matrix f = new Matrix(new String[][] {
-				{"4", "-1", "0"},
-				{"2", "1/2", "1"}
-		});
-
+		SquareMatrix e = new SquareMatrix(4,new Bound(10, false, "Double"));
 		e.visualizza();
-		f.visualizza();
-
-		e.matrixProduct(f).visualizza();
 	}
 }

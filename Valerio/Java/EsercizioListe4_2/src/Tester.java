@@ -44,6 +44,7 @@ public class Tester  {
 		l.notCommon(a,b).visualizza();
 		System.out.println();
 		l.visualizza();
-		l.copiaMaggioreRicorsiva(12).visualizza();
+		l.reverse().visualizza();
+		//l.copiaMaggiore(12).visualizza();
 	}
 }
