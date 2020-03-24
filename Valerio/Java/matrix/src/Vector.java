@@ -1,15 +1,29 @@
 public class Vector  {
     private Fraction[] vector;
+    private Dimension dimension;
+    public final EnumVector type;
+    public final int index;
 
     public Vector(Matrix a, int index, EnumVector type) {
+        this.type = type;
+        this.index = index;
         Fraction[][] matrix = a.getMatrix();
-        if (type == EnumVector.ROW)
+        if (type == EnumVector.ROW) {
             this.vector = matrix[index];
-        else {
+            dimension = new Dimension(1, a.getDimension().m);
+        } else {
             vector = new Fraction[matrix.length];
             for (int i = 0; i < vector.length; i++)
                 vector[i] = matrix[i][index];
+            dimension = new Dimension(a.getDimension().n, 1);
         }
+    }
+
+    public Vector(Vector v) {
+        this.vector = v.vector;
+        this.dimension = v.dimension;
+        this.type = v.type;
+        this.index = v.index;
     }
 
     public boolean isZeroNull() {
@@ -33,5 +47,9 @@ public class Vector  {
 
     public Fraction[] getVector() {
         return vector;
+    }
+
+    public Dimension getDimension() {
+        return dimension;
     }
 }

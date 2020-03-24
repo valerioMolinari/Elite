@@ -20,6 +20,12 @@ class Tester  {
 
 		//SquareMatrix e = new SquareMatrix(4,new Bound(10, false, "Double"));
 		d.visualizza();
-		d.setRef().visualizza();
+		//d.setRef().visualizza();
+		Matrix e = Matrix.reduce(d, new int[] {3}, new int[] {3});
+		e.visualizza();
+		e.compose(
+				new Vector(d, 2, EnumVector.ROW),
+				new Vector(d, 2, EnumVector.COLUMN)
+		).visualizza();
 	}
 }

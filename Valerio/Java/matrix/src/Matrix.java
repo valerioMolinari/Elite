@@ -54,7 +54,7 @@ public class Matrix {
     }
 
     public void visualizza(int startSpaces) {
-        if (dimension.getM() == 0) {
+        if (dimension.m == 0) {
             System.out.println("Null matrix\n");
             return;
         }
@@ -63,7 +63,7 @@ public class Matrix {
 
         for (Fraction[] i : matrix)
             for (Fraction j : i)
-                if (j.toString().length() > max)
+                if (j != null && j.toString().length() > max)
                     max = j.toString().length() + 1;
 
         String s = "%"+max+"s ";
@@ -71,7 +71,7 @@ public class Matrix {
         for (Fraction[] i : matrix) {
             System.out.print(" ".repeat(startSpaces));
             for (Fraction j : i)
-                System.out.printf(s, j.toString());
+                System.out.printf(s, j == null ? "nul" : j.toString());
             System.out.println();
         }
         System.out.println();
@@ -82,7 +82,7 @@ public class Matrix {
     }
 
     public static boolean isSymmetrical(Matrix a) {
-        if (a.dimension.getN() != a.dimension.getM())
+        if (a.dimension.n != a.dimension.m)
             return false;
         return a.equals(a.transpose());
     }
@@ -94,8 +94,8 @@ public class Matrix {
     public static Matrix sum(Matrix a, Matrix b) {
         if(!a.dimension.equals(b.dimension))
             return new Matrix(new Fraction[][] {{}});
-        final int aN = a.dimension.getN();
-        final int aM = a.dimension.getM();
+        final int aN = a.dimension.n;
+        final int aM = a.dimension.m;
         Fraction[][] c = new Fraction[aN][aM];
 
         I.zeroLoop.exec(aN, aM, (i, j) -> c[i][j] = a.matrix[i][j].add(b.matrix[i][j]));
@@ -122,8 +122,8 @@ public class Matrix {
     }
 
     public static Matrix scalarProduct(Matrix a, String n) {
-        final int aN = a.dimension.getN();
-        final int aM = a.dimension.getM();
+        final int aN = a.dimension.n;
+        final int aM = a.dimension.m;
         Fraction[][] b = new Fraction[aN][aM];
         Fraction f = new Fraction(n);
         I.zeroLoop.exec(aN, aM, (i, j) -> b[i][j] = a.matrix[i][j].multiply(f));
@@ -135,8 +135,8 @@ public class Matrix {
     }
 
     public static Matrix transpose(Matrix a) {
-        final int aN = a.dimension.getN();
-        final int aM = a.dimension.getM();
+        final int aN = a.dimension.n;
+        final int aM = a.dimension.m;
 
         Fraction[][] b = new Fraction[aM][aN];
         I.zeroLoop.exec(aN, aM, (i, j) -> b[j][i] = a.matrix[i][j]);
@@ -148,11 +148,11 @@ public class Matrix {
     }
 
     public static Matrix matrixProduct(Matrix a, Matrix b) {
-        final int aN = a.dimension.getN();
-        final int M = a.dimension.getM();
-        final int bM = b.dimension.getM();
+        final int aN = a.dimension.n;
+        final int M = a.dimension.m;
+        final int bM = b.dimension.m;
 
-        if (a.dimension.getM() != b.dimension.getN())
+        if (a.dimension.m != b.dimension.n)
             return new Matrix(new Fraction[][] {{}});
 
         Fraction[][] c = new Fraction[aN][bM];
@@ -178,9 +178,9 @@ public class Matrix {
 
     public static boolean isZeroNull(Matrix a) {
         Fraction[][] x = a.getMatrix();
-        for (int i = 0; i < x.length; i++)
+        for (Fraction[] fractions : x)
             for (int j = 0; j < x[0].length; j++)
-                if (!x[i][j].equals(0))
+                if (!fractions[j].equals(0))
                     return false;
         return true;
     }
@@ -199,7 +199,104 @@ public class Matrix {
         return new Matrix(matrix);
     }
 
-    public Matrix setRef() {
+    public Matrix compose(Vector ...argVectors) {
+        return compose(this, argVectors);
+    }
+
+    public static Matrix compose(Matrix a, Vector ...argVectors) {
+        int countROWS = 0, countCOLUMS = 0;
+        Vector[] pvROWS, pvCOLUMNS;
+        for (Vector v : argVectors)
+            if (v.type == EnumVector.ROW)
+                countROWS++;
+            else
+                countCOLUMS++;
+        pvROWS = new Vector[countROWS];
+        pvCOLUMNS = new Vector[countCOLUMS];
+        countROWS = countCOLUMS = 0;
+        for (Vector v : argVectors)
+            if (v.type == EnumVector.ROW)
+                pvROWS[countROWS++] = v;
+            else
+                pvCOLUMNS[countCOLUMS++] = v;
+        for (int i = 0; i < countROWS - 1; i++)
+            if (pvROWS[i].getDimension().m != pvROWS[i + 1].getDimension().m) {
+                System.out.println("\033[93mWarning in thread \"Matrix.compose\": due to unmatching Vector parameters, " + a +" results untouched");
+                return a;
+            }
+        for (int i = 0; i < countCOLUMS - 1; i++)
+            if (pvCOLUMNS[i].getDimension().n != pvCOLUMNS[i + 1].getDimension().n) {
+                System.out.println("\033[93mWarning in thread \"Matrix.compose\": due to unmatching Vector parameters, " + a +" results untouched");
+                return a;
+            }
+
+        Dimension newDimension = new Dimension(pvCOLUMNS[0].getDimension().n, pvROWS[0].getDimension().m);
+        Fraction[][] newFraction = new Fraction[newDimension.n][newDimension.m];
+
+        int submatrixRow = 0, submatrixColumn = 0;
+        for (int i = 0; i < newDimension.n; i++)
+            for (int j = 0; j < newDimension.m; j++) {
+                for (Vector pvROW : pvROWS)
+                    if (pvROW.index == i)
+                        newFraction[i][j] = pvROW.getVector()[j];
+                for (Vector pvCOLUMN : pvCOLUMNS)
+                    if (pvCOLUMN.index == j)
+                        newFraction[i][j] = pvCOLUMN.getVector()[i];
+                if (newFraction[i][j] == null) {
+                    newFraction[i][j] = a.matrix[submatrixRow][submatrixColumn];
+                    if (submatrixColumn == a.dimension.m - 1) {
+                        submatrixColumn = 0;
+                        submatrixRow++;
+                    } else
+                        submatrixColumn++;
+                }
+            }
+        return new Matrix(newFraction);
+    }
+
+    public Matrix reduce(int[] rows, int[] columns) {
+        return reduce(this, rows, columns);
+    }
+
+    public static Matrix reduce(final Matrix a, final int[] rows, final int[] columns) {
+        int aN = a.dimension.n;
+        int aM = a.dimension.m;
+        // Mi assicuro che all'inizio esistano sia le righe sia le colonne da eliminare
+        for (int row : rows)
+            if (row > aN)
+                return new Matrix(new Fraction[][]{{}});
+        for (int column : columns)
+            if (column > aM)
+                return new Matrix(new Fraction[][]{{}});
+
+        int newRows = aN - rows.length;
+        int newColumns = aM - columns.length;
+        Fraction[][] temp = new Fraction[aN][aM];
+        I.zeroLoop.exec(aN, aM, (i,j) -> temp[i][j] = a.getMatrix()[i][j]);
+        Fraction[][] newFractionMatrix = new Fraction[newRows][newColumns];
+
+        // Annullo tutti i termini da scartare in una matrice temporanea
+        I.zeroLoop.exec(aN, aM, (i,j) -> {
+            if (contains(rows, i + 1) || contains(columns, j + 1))
+                temp[i][j] = null;
+        });
+
+        int countRow = 0, countColumn = 0;
+        for (int i = 0; i < aN; i++)
+            for (int j = 0; j < aM; j++) {
+                if (temp[i][j] != null) {
+                    newFractionMatrix[countRow][countColumn] = temp[i][j];
+                    if (countColumn == newColumns - 1) {
+                        countColumn = 0;
+                        countRow++;
+                    } else
+                        countColumn++;
+                }
+        }
+        return new Matrix(newFractionMatrix);
+    }
+
+    public Matrix setREF() {
         return setREF(this);
     }
 
@@ -207,8 +304,11 @@ public class Matrix {
         Fraction[][] A = a.getMatrix();
         Vector v;
         // Se la matrice è nulla o è la matrice identità ho finito
-        if (SquareMatrix.identity(A.length).equals(a) || a.isZeroNull())
+        if (SquareMatrix.identity(A.length).equals(a) || a.isZeroNull()) {
+            System.out.println("\033[93mWarning");
             return a;
+        }
+
 
         // Analizzando colonna per colonna porto la prima riga il cui primo elemento è non nullo in cima
         boolean breakFlag = false;
@@ -248,10 +348,17 @@ public class Matrix {
         return new Matrix(A);
     }
 
+    public static boolean contains(final int[] array, final int v) {
+        for(int i : array)
+            if(i == v)
+                return true;
+        return false;
+    }
+
     public boolean equals(Matrix a) {
-        final int aN = a.dimension.getN();
-        final int aM = a.dimension.getM();
-        if (dimension.getN() != aN || dimension.getM() != aM)
+        final int aN = a.dimension.n;
+        final int aM = a.dimension.m;
+        if (dimension.n != aN || dimension.m != aM)
             return false;
 
         for (int i = 0; i < aN; i++)

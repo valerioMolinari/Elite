@@ -44,7 +44,7 @@ public class SquareMatrix extends Matrix {
     }
 
     public static boolean isTriangle(SquareMatrix a, boolean isSup) {
-        final int N = a.getDimension().getN();
+        final int N = a.getDimension().n;
         for (int i = 0; i < N; i++)
             for (int j = 0; j < N; j++) {
                 if (isSup && i > j && !a.getMatrix()[i][j].equals(new Fraction(0)))
@@ -72,7 +72,7 @@ public class SquareMatrix extends Matrix {
     }
 
     private static SquareMatrix setTriangle(SquareMatrix a, boolean isSup) {
-        final int N = a.getDimension().getN();
+        final int N = a.getDimension().n;
         Fraction[][] array = new Fraction[N][N];
         I.zeroLoop.exec(N, N, (i, j) -> {
             if (isSup)
