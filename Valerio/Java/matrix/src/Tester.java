@@ -33,7 +33,8 @@ class Tester  {
 				{"0", "1", "4", "0"},
 				{"0", "0", "0", "1"}
 		});
-		f.visualizza();
-		f.setRREF().visualizza();
+		SquareMatrix g = new SquareMatrix(new String[][] {
+				
+		});
 	}
 }

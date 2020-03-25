@@ -90,4 +90,41 @@ public class SquareMatrix extends Matrix {
     public static boolean isSymmetrical(SquareMatrix a) {
         return a.equals(a.transpose());
     }
+
+    public Fraction det() {
+        return det(this);
+    }
+
+    public static Fraction det(SquareMatrix s) {
+        Fraction[][] matrix = s.clone().getMatrix();
+        Fraction a, b, c, d;
+        switch (s.getDimension().n) {
+            case 1:
+                return matrix[0][0];
+            case 2:
+                a = matrix[0][0];
+                b = matrix[0][1];
+                c = matrix[1][0];
+                d = matrix[1][1];
+                return a.multiply(d).subtract(b.multiply(c));
+            case 3:
+                a = matrix[0][0];
+                b = matrix[0][1];
+                c = matrix[0][2];
+                d = matrix[1][0];
+                Fraction e = matrix[1][1];
+                Fraction f = matrix[1][2];
+                Fraction g = matrix[2][0];
+                Fraction h = matrix[2][1];
+                Fraction i = matrix[2][2];
+                return a.multiply(e).multiply(i)
+                        .add(b.multiply(f).multiply(g))
+                        .add(c.multiply(h).multiply(d))
+                        .subtract(c.multiply(e).multiply(g))
+                        .subtract(h.multiply(f).multiply(a))
+                        .subtract(b.multiply(d).multiply(i));
+            default:
+                return new Fraction(0);
+        }
+    }
 }
