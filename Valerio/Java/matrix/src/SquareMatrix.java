@@ -124,6 +124,7 @@ public class SquareMatrix extends Matrix {
                         .subtract(h.multiply(f).multiply(a))
                         .subtract(b.multiply(d).multiply(i));
             default:
+                
                 return new Fraction(0);
         }
     }
