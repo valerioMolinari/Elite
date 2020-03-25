@@ -26,6 +26,13 @@ public class Vector  {
         this.index = v.index;
     }
 
+    public Vector(Fraction[] vector, Vector v) {
+        this.vector = vector;
+        this.dimension = v.dimension;
+        this.type = v.type;
+        this.index = v.index;
+    }
+
     public boolean isZeroNull() {
         return isZeroNull(this);
     }
@@ -36,6 +43,28 @@ public class Vector  {
             if (!V[i].equals(0))
                 return false;
         return true;
+    }
+
+    public Vector slice(int start) {
+        return slice(this, start);
+    }
+
+    public Vector slice(int start, int end) {
+        return slice(this, start, end);
+    }
+
+    public static Vector slice(Vector v, int start) {
+        int length = v.vector.length - start;
+        Fraction[] newVector = new Fraction[length];
+        System.arraycopy(v.vector, start, newVector, 0, length);
+        return new Vector(newVector, v);
+    }
+
+    public static Vector slice(Vector v, int start, int end) {
+        int length = v.vector.length - (start + end);
+        Fraction[] newVector = new Fraction[length];
+        System.arraycopy(v.vector, start, newVector, 0, length);
+        return new Vector(newVector, v);
     }
 
     public void visualizza() {

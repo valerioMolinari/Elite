@@ -16,16 +16,24 @@ class Tester  {
 //		a.visualizza();
 //		b.visualizza();
 //		Matrix c = new Matrix(new String[][] {{"1","2","3/4"},{"2","1/2","1"},{"3","2","1"}});
-		Matrix d = new Matrix(new String[][] {{"0","-2","3/4"},{"2","1/2","2"},{"3/4","2","1"}});
-
-		//SquareMatrix e = new SquareMatrix(4,new Bound(10, false, "Double"));
-		d.visualizza();
-		//d.setRef().visualizza();
-		Matrix e = Matrix.reduce(d, new int[] {3}, new int[] {3});
-		e.visualizza();
-		e.compose(
-				new Vector(d, 2, EnumVector.ROW),
-				new Vector(d, 2, EnumVector.COLUMN)
-		).visualizza();
+		Matrix d = new Matrix(new String[][] {
+				{"5", "15", "97", "1", "0"},
+				{"66", "0", "1", "-2", "7"},
+				{"83", "100", "9", "0", "88"},
+				{"1/2", "1/4", "1/9", "0", "1"}
+				//{"107", "35", "29", "0", "1"}
+		});
+		Matrix e = new Matrix(new String[][] {
+				{"3", "5", "1", "1"},
+				{"2", "0", "3", "0"},
+				{"0", "1", "5", "8"}
+		});
+		Matrix f = new Matrix(new String[][] {
+				{"1", "-1", "1", "3"},
+				{"0", "1", "4", "0"},
+				{"0", "0", "0", "1"}
+		});
+		f.visualizza();
+		f.setRREF().visualizza();
 	}
 }

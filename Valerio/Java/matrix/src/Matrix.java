@@ -301,24 +301,23 @@ public class Matrix {
     }
 
     public static Matrix setREF(Matrix a) {
-        Fraction[][] A = a.getMatrix();
+        Matrix aMatrix = a.clone();
+        Fraction[][] A = aMatrix.getMatrix();
+
         Vector v;
         // Se la matrice è nulla o è la matrice identità ho finito
-        if (SquareMatrix.identity(A.length).equals(a) || a.isZeroNull()) {
-            System.out.println("\033[93mWarning");
-            return a;
-        }
-
+        if (SquareMatrix.identity(A.length).equals(aMatrix) || aMatrix.isZeroNull() || aMatrix.isREF())
+            return aMatrix;
 
         // Analizzando colonna per colonna porto la prima riga il cui primo elemento è non nullo in cima
         boolean breakFlag = false;
         for (int i = 0; i < A.length; i++) {
-            v = new Vector(a, i, EnumVector.COLUMN);
+            v = new Vector(aMatrix, i, EnumVector.COLUMN);
             if (!v.isZeroNull()) {
                 Fraction[] V = v.getVector();
                 for (int j = 0; j < V.length; j++)
                     if (!V[j].equals(0)) {
-                        A = swap(a, 0, j).getMatrix();
+                        A = swap(aMatrix, 0, j).getMatrix();
                         breakFlag = true;
                         break;
                     }
@@ -326,6 +325,7 @@ public class Matrix {
             if (breakFlag)
                 break;
         }
+
         // divido la prima riga per il suo primo elemento in modo tale da ottenere un 1-dominante
         if (!A[0][0].equals(1)) {
             Fraction first = A[0][0];
@@ -333,19 +333,65 @@ public class Matrix {
                 A[0][i] = A[0][i].divide(first);
         }
 
+        // Condizione di uscita dalla ricorsione
+        if (aMatrix.dimension.n == 1)
+            return new Matrix(A);
+
         // trasformo tutti gli elementi sottostanti all'1-dominante in zeri, sottraendo ad
         // ogni riga multipli opportuni alla prima riga
-
-        for (int i = 1; i < A.length; i++) {
+        for (int i = 1; i < A.length; i++)
             if (!A[i][0].equals(0)) {
                 Fraction first = A[i][0];
                 for (int j = 0; j < A[0].length; j++)
-                    A[i][j] = A[i][j].subtract(first);
+                    A[i][j] = A[i][j].subtract(first.multiply(A[0][j]));
             }
-        }
 
+        Matrix b = new Matrix(A);
+        return Matrix.compose(
+                Matrix.setREF(Matrix.reduce(b, new int[] {1}, new int[] {1})),
+                new Vector(b, 0, EnumVector.ROW),
+                new Vector(b, 0, EnumVector.COLUMN)
+        );
+    }
 
-        return new Matrix(A);
+    public boolean isREF() {
+        return isREF(this);
+    }
+
+    public static boolean isREF(Matrix a) {
+        a = a.clone();
+        if (a.dimension.n == 1)
+            for (Fraction[] fa : a.getMatrix())
+                for (Fraction f : fa) {
+                    if (!f.equals(0))
+                        return f.equals(1);
+                }
+
+            for (int j = 0; j < a.matrix[0].length; j++)
+                if (!a.matrix[0][j].equals(0))
+                    if (a.matrix[0][j].equals(1))
+                        return new Vector(a, j, EnumVector.COLUMN).slice(1).isZeroNull() && isREF(reduce(a, new int[] {1}, new int[] {1}));
+        return false;
+    }
+
+    public Matrix setRREF() {
+        return setRREF(this);
+    }
+
+    public static Matrix setRREF(Matrix a) {
+        a = a.clone();
+        if (!a.isREF())
+            a = a.setREF();
+        Fraction[][] matrix = a.getMatrix();
+        for (int i = 1; i < a.dimension.n; i++)
+            for (int j = 0; j < a.dimension.m; j++)
+                if (matrix[i][j].equals(1))
+                    for (int iK = 0; iK < i; iK++) {
+                        Fraction multiplier = matrix[iK][j];
+                        for (int jM = j; jM < a.dimension.m; jM++)
+                            matrix[iK][jM] = matrix[iK][jM].subtract(matrix[i][jM].multiply(multiplier));
+                    }
+        return a;
     }
 
     public static boolean contains(final int[] array, final int v) {
@@ -366,6 +412,16 @@ public class Matrix {
                 if (!matrix[i][j].equals(a.matrix[i][j]))
                     return false;
         return true;
+    }
+
+    public Matrix clone() {
+        return Matrix.clone(this);
+    }
+
+    public static Matrix clone(Matrix a) {
+        Fraction[][] newFraction = new Fraction[a.dimension.n][a.dimension.m];
+        I.zeroLoop.exec(a.dimension.n, a.dimension.m, (i,j) -> newFraction[i][j] = a.matrix[i][j]);
+        return new Matrix(newFraction);
     }
 
     public Dimension getDimension() {
