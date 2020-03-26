@@ -91,6 +91,81 @@ public class SquareMatrix extends Matrix {
         return a.equals(a.transpose());
     }
 
+    public SquareMatrix reduce(int[] rows, int[] columns) {
+        return reduce(this, rows, columns);
+    }
+
+    public static SquareMatrix reduce(final SquareMatrix a, final int[] rows, final int[] columns) {
+        if (rows.length != columns.length)
+            return a;
+        int N = a.getDimension().n;
+        // Mi assicuro che all'inizio esistano sia le righe sia le colonne da eliminare
+        for (int row : rows)
+            if (row > N)
+                return a;
+        for (int column : columns)
+            if (column > N)
+                return a;
+
+        int newDimension = N - rows.length;
+        Fraction[][] temp = new Fraction[N][N];
+        I.zeroLoop.exec(N, N, (i,j) -> temp[i][j] = a.getMatrix()[i][j]);
+        Fraction[][] newFractionMatrix = new Fraction[newDimension][newDimension];
+
+        // Annullo tutti i termini da scartare in una matrice temporanea
+        I.zeroLoop.exec(N, N, (i,j) -> {
+            if (contains(rows, i + 1) || contains(columns, j + 1))
+                temp[i][j] = null;
+        });
+
+        int countRow = 0, countColumn = 0;
+        for (int i = 0; i < N; i++)
+            for (int j = 0; j < N; j++) {
+                if (temp[i][j] != null) {
+                    newFractionMatrix[countRow][countColumn] = temp[i][j];
+                    if (countColumn == newDimension - 1) {
+                        countColumn = 0;
+                        countRow++;
+                    } else
+                        countColumn++;
+                }
+            }
+        return new SquareMatrix(newFractionMatrix);
+    }
+
+    public SquareMatrix reverse() {
+        return reverse(this);
+    }
+
+    public static SquareMatrix reverse(SquareMatrix a) {
+        a = a.clone();
+        if (a.rank() != a.getDimension().n)
+            return new SquareMatrix(new Fraction[][] {{}});
+        SquareMatrix identity = SquareMatrix.identity(a.rank());
+        SquareMatrix[] results = reverse(new SquareMatrix[] {a, identity.clone()});
+        a = results[0];
+        SquareMatrix b = results[1];
+        if (a.matrixProduct(b).equals(b.matrixProduct(a)) && a.matrixProduct(b).equals(identity))
+            return results[1];
+        else
+            return new SquareMatrix(new Fraction[][] {{}});
+    }
+
+    private static SquareMatrix[] reverse(SquareMatrix[] matrices) {
+        SquareMatrix a = matrices[0];
+        SquareMatrix b = matrices[1];
+        Fraction[][] A = a.getMatrix();
+        Fraction[][] B = b.getMatrix();
+
+        Vector v;
+        // Se la matrice è nulla o è la matrice identità ho finito
+//        if (SquareMatrix.identity(A.length).equals(a) || a.isZeroNull() || a.isREF())
+//            return new SquareMatrix[] {a, new SquareMatrix(new Fraction[][] {{}})};
+
+
+        return new SquareMatrix[] {a, new SquareMatrix(new Fraction[][] {{}})};
+    }
+
     public Fraction det() {
         return det(this);
     }
@@ -116,16 +191,61 @@ public class SquareMatrix extends Matrix {
                 Fraction f = matrix[1][2];
                 Fraction g = matrix[2][0];
                 Fraction h = matrix[2][1];
-                Fraction i = matrix[2][2];
-                return a.multiply(e).multiply(i)
+                Fraction iFraction = matrix[2][2];
+                return a.multiply(e).multiply(iFraction)
                         .add(b.multiply(f).multiply(g))
                         .add(c.multiply(h).multiply(d))
                         .subtract(c.multiply(e).multiply(g))
                         .subtract(h.multiply(f).multiply(a))
-                        .subtract(b.multiply(d).multiply(i));
+                        .subtract(b.multiply(d).multiply(iFraction));
             default:
-                
-                return new Fraction(0);
+                int zeroROW = 0;
+                int countZeroRow = 0;
+                int zeroCOLUMN = 0;
+                int countZeroColumn = 0;
+                for (int i = 1; i < matrix.length; i++)
+                    if(new Vector(s, i, EnumVector.ROW).zeroCount() > new Vector(s, i - 1, EnumVector.ROW).zeroCount()) {
+                        zeroROW = i;
+                        countZeroRow = new Vector(s, i, EnumVector.ROW).zeroCount();
+                    }
+
+                for (int i = 1; i < matrix.length; i++)
+                    if(new Vector(s, i, EnumVector.COLUMN).zeroCount() > new Vector(s, i - 1, EnumVector.COLUMN).zeroCount()) {
+                        zeroCOLUMN = i;
+                        countZeroColumn = new Vector(s, i, EnumVector.COLUMN).zeroCount();
+                    }
+                Vector startVector = new Vector(
+                        s,
+                        countZeroRow > countZeroColumn ? zeroROW : zeroCOLUMN,
+                        countZeroRow > countZeroColumn ? EnumVector.ROW : EnumVector.COLUMN
+                        );
+                Fraction[] startMatrix = startVector.getVector();
+
+                Fraction det = new Fraction(0);
+                Fraction partialDet;
+                for (int i = 0; i < startMatrix.length; i++) {
+                    if (!startMatrix[i].equals(0)) {
+                        String doubleSign = String.valueOf(Math.pow(-1, i + startVector.index + 2));
+                        partialDet = new Fraction(doubleSign.substring(0, doubleSign.indexOf('.')))
+                                        .multiply(startMatrix[i].multiply(det(s.clone().reduce(
+                                                new int[] {1 + (startVector.type == EnumVector.ROW ? startVector.index : i)},
+                                                new int[] {1 + (startVector.type == EnumVector.COLUMN ? startVector.index : i)}
+                                        ))));
+                        det = det.add(partialDet);
+                    }
+                }
+                return det;
         }
+    }
+
+    public SquareMatrix clone() {
+        return SquareMatrix.clone(this);
+    }
+
+    public static SquareMatrix clone(SquareMatrix a) {
+        int N = a.getDimension().n;
+        Fraction[][] newFraction = new Fraction[N][N];
+        I.zeroLoop.exec(N, N, (i,j) -> newFraction[i][j] = a.getMatrix()[i][j]);
+        return new SquareMatrix(newFraction);
     }
 }

@@ -234,6 +234,9 @@ public class Matrix {
         Fraction[][] newFraction = new Fraction[newDimension.n][newDimension.m];
 
         int submatrixRow = 0, submatrixColumn = 0;
+//        for (Fraction[] fa : newFraction)
+//            for (Fraction f : fa)
+//                System.out.println(f);
         for (int i = 0; i < newDimension.n; i++)
             for (int j = 0; j < newDimension.m; j++) {
                 for (Vector pvROW : pvROWS)
@@ -311,6 +314,7 @@ public class Matrix {
 
         // Analizzando colonna per colonna porto la prima riga il cui primo elemento è non nullo in cima
         boolean breakFlag = false;
+        int goodColumn = 0;
         for (int i = 0; i < A.length; i++) {
             v = new Vector(aMatrix, i, EnumVector.COLUMN);
             if (!v.isZeroNull()) {
@@ -319,17 +323,17 @@ public class Matrix {
                     if (!V[j].equals(0)) {
                         A = swap(aMatrix, 0, j).getMatrix();
                         breakFlag = true;
+                        goodColumn = i;
                         break;
                     }
             }
             if (breakFlag)
                 break;
         }
-
         // divido la prima riga per il suo primo elemento in modo tale da ottenere un 1-dominante
-        if (!A[0][0].equals(1)) {
-            Fraction first = A[0][0];
-            for (int i = 0; i < A[0].length; i++)
+        if (!A[0][goodColumn].equals(1)) {
+            Fraction first = A[0][goodColumn];
+            for (int i = goodColumn; i < A[0].length; i++)
                 A[0][i] = A[0][i].divide(first);
         }
 
@@ -340,12 +344,11 @@ public class Matrix {
         // trasformo tutti gli elementi sottostanti all'1-dominante in zeri, sottraendo ad
         // ogni riga multipli opportuni alla prima riga
         for (int i = 1; i < A.length; i++)
-            if (!A[i][0].equals(0)) {
-                Fraction first = A[i][0];
-                for (int j = 0; j < A[0].length; j++)
+            if (!A[i][goodColumn].equals(0)) {
+                Fraction first = A[i][goodColumn];
+                for (int j = goodColumn; j < A[0].length; j++)
                     A[i][j] = A[i][j].subtract(first.multiply(A[0][j]));
             }
-
         Matrix b = new Matrix(A);
         return Matrix.compose(
                 Matrix.setREF(Matrix.reduce(b, new int[] {1}, new int[] {1})),
@@ -392,6 +395,22 @@ public class Matrix {
                             matrix[iK][jM] = matrix[iK][jM].subtract(matrix[i][jM].multiply(multiplier));
                     }
         return a;
+    }
+
+    public int rank() {
+        return rank(this);
+    }
+
+    public static int rank(Matrix a) {
+        Fraction[][] matrix = a.setREF().getMatrix();
+        int count = 0;
+        for (Fraction[] fa: matrix)
+            for (Fraction f : fa)
+                if (f.equals(1)) {
+                    count++;
+                    break;
+                }
+        return count;
     }
 
     public static boolean contains(final int[] array, final int v) {

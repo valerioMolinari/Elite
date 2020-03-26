@@ -16,7 +16,7 @@ class Tester  {
 //		a.visualizza();
 //		b.visualizza();
 //		Matrix c = new Matrix(new String[][] {{"1","2","3/4"},{"2","1/2","1"},{"3","2","1"}});
-		Matrix d = new Matrix(new String[][] {
+		SquareMatrix d = new SquareMatrix(new String[][] {
 				{"5", "15", "97", "1", "0"},
 				{"66", "0", "1", "-2", "7"},
 				{"83", "100", "9", "0", "88"},
@@ -28,16 +28,17 @@ class Tester  {
 				{"2", "0", "3", "0"},
 				{"0", "1", "5", "8"}
 		});
-		Matrix f = new Matrix(new String[][] {
-				{"1", "-1", "1", "3"},
-				{"0", "1", "4", "0"},
-				{"0", "0", "0", "1"}
-		});
-		SquareMatrix g = new SquareMatrix(new String[][] {
+		SquareMatrix f = new SquareMatrix(new String[][] {
 				{"1", "2", "2"},
 				{"2", "1", "-2"},
 				{"2", "-2", "1"}
 		});
-		g.det().visualizza();
+		SquareMatrix g = new SquareMatrix(new String[][] {
+				{"1", "0", "-1", "4"},
+				{"-1", "0", "6", "2"},
+				{"3", "0", "8", "-12"},
+				{"6", "0", "-1", "3"}
+		});
+		SquareMatrix.identity(5).det().visualizza();
 	}
 }

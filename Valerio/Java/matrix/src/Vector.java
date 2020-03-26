@@ -45,6 +45,19 @@ public class Vector  {
         return true;
     }
 
+    public int zeroCount() {
+        return zeroCount(this);
+    }
+
+    public static int zeroCount(Vector v) {
+        int count = 0;
+        Fraction[] vector = v.vector;
+        for (Fraction f : vector)
+            if (f.equals(0))
+                count++;
+        return count;
+    }
+
     public Vector slice(int start) {
         return slice(this, start);
     }
