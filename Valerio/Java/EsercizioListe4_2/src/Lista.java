@@ -12,41 +12,41 @@ public class Lista  {
 
     public int length() {
         int i = 0;
-        for(Elemento e = testa; e != null; e = e.getNext(), i++);
+        for(Elemento e = testa; e != null; e = e.next, i++);
         return i;
     }
 
     public void visualizza() {
-        for(Elemento e = testa; e != null; e = e.getNext())
-            System.out.printf("%2d -> ", e.getValore());
+        for(Elemento e = testa; e != null; e = e.next)
+            System.out.printf("%2d -> ", e.n);
         System.out.println("null");
     }
 
     public int somma() {
         int count = 0;
-        for (Elemento e = testa; e != null; e = e.getNext())
-            count += e.getValore();
+        for (Elemento e = testa; e != null; e = e.next)
+            count += e.n;
         return count;
     }
 
     public double media() {
         double count = 0;
-        for (Elemento e = testa; e != null; e = e.getNext())
-            count += e.getValore();
+        for (Elemento e = testa; e != null; e = e.next)
+            count += e.n;
         return count / length();
     }
 
     public int max() {
         int thisMax = 0;
-        for (Elemento e = testa; e != null; e = e.getNext())
-            thisMax = Math.max(thisMax, e.getValore());
+        for (Elemento e = testa; e != null; e = e.next)
+            thisMax = Math.max(thisMax, e.n);
         return thisMax;
     }
 
     public int min() {
-        int thisMin = testa.getValore();
-        for (Elemento e = testa; e != null; e = e.getNext())
-            thisMin = Math.min(thisMin, e.getValore());
+        int thisMin = testa.n;
+        for (Elemento e = testa; e != null; e = e.next)
+            thisMin = Math.min(thisMin, e.n);
         return thisMin;
     }
 
@@ -54,8 +54,8 @@ public class Lista  {
         int max = max();
         int[] array = new int[max + 1];
 
-        for (Elemento e = testa; e != null; e = e.getNext())
-            array[e.getValore()]++;
+        for (Elemento e = testa; e != null; e = e.next)
+            array[e.n]++;
 
         int index = 0;
         for (int j = 0; j < max; j++)
@@ -66,24 +66,24 @@ public class Lista  {
 
     public int find(int value) {
         int i = 0;
-        for (Elemento e = testa; e != null; e = e.getNext(), i++)
-            if (e.getValore() == value)
+        for (Elemento e = testa; e != null; e = e.next, i++)
+            if (e.n == value)
                 return i;
         return -1;
     }
 
     public int check(int value, String type) {
         int count = 0;
-        for (Elemento e = testa; e != null; e = e.getNext())
-            if ((type.equals("sup") && e.getValore() > value) || (type.equals("inf") && e.getValore() < value))
+        for (Elemento e = testa; e != null; e = e.next)
+            if ((type.equals("sup") && e.n > value) || (type.equals("inf") && e.n < value))
                 count++;
         return count;
     }
 
     public int parity(String type) {
         int count = 0;
-        for (Elemento e = testa; e != null; e = e.getNext())
-            if ((type.equals("pari") && e.getValore() % 2 == 0) || (type.equals("dispari") && e.getValore() % 2 == 1))
+        for (Elemento e = testa; e != null; e = e.next)
+            if ((type.equals("pari") && e.n % 2 == 0) || (type.equals("dispari") && e.n % 2 == 1))
                 count++;
         return count;
     }
@@ -99,12 +99,12 @@ public class Lista  {
         Elemento[] array = new Elemento[length];
 
         int i = 0;
-        for (Elemento e = testa; e != null; e = e.getNext(), i++)
-            array[i] = new Elemento(e.getValore(), e.getNext());
+        for (Elemento e = testa; e != null; e = e.next, i++)
+            array[i] = new Elemento(e.n, e.next);
 
         for (int j = 0; j < length; j++) {
             for (int k = 0; k < length - j - 1; k++)
-                if ((senso.equals("crescente") && array[k].getValore() > array[k + 1].getValore()) || (senso.equals("decrescente") && array[k].getValore() < array[k+1].getValore())) {
+                if ((senso.equals("crescente") && array[k].n > array[k + 1].n) || (senso.equals("decrescente") && array[k].n < array[k+1].n)) {
                     Elemento temp = array[k];
                     array[k] = array[k+1];
                     array[k+1] = temp;
@@ -122,24 +122,24 @@ public class Lista  {
     }
 
     private Elemento build(Elemento head, Elemento listToBuild) {
-        for(Elemento e = head; e != null; e = e.getNext())
-            listToBuild = new Elemento(e.getValore(), listToBuild);
+        for(Elemento e = head; e != null; e = e.next)
+            listToBuild = new Elemento(e.n, listToBuild);
         return listToBuild;
     }
 
     private Lista toSet(Lista list) {
         if (list.testa == null)
             return list;
-        for (Elemento e = list.testa; e.getNext() != null; e = e.getNext()) {
-            while (e.getNext().getValore() == e.getValore()) {
-                if (e.getNext().getNext() != null)
-                    e.setNext(e.getNext().getNext());
+        for (Elemento e = list.testa; e.next != null; e = e.next) {
+            while (e.next.n == e.n) {
+                if (e.next.next != null)
+                    e.setNext(e.next.next);
                 else {
                     e.setNext(null);
                     break;
                 }
             }
-            if (e.getNext() == null)
+            if (e.next == null)
                 break;
         }
         return list;
@@ -169,12 +169,12 @@ public class Lista  {
 
     public Lista cross(Lista a, Lista b, String returnType) {
         Elemento cross = null;
-        for (Elemento e = a.sort().testa; e != null; e = e.getNext())
-            for (Elemento f = b.sort().testa; f != null; f = f.getNext())
-                if (e.getValore() == f.getValore()) {
-                    while (f != null && e.getValore() == f.getValore()) {
-                        cross = new Elemento(e.getValore(), cross);
-                        f = f.getNext();
+        for (Elemento e = a.sort().testa; e != null; e = e.next)
+            for (Elemento f = b.sort().testa; f != null; f = f.next)
+                if (e.n == f.n) {
+                    while (f != null && e.n == f.n) {
+                        cross = new Elemento(e.n, cross);
+                        f = f.next;
                     }
                     break;
                 }
@@ -191,11 +191,11 @@ public class Lista  {
         Elemento cross = cross(a, b).testa;
         if (cross != null) {
             boolean flag = false;
-            for (Elemento e = notCommon; e.getNext() != null; e = e.getNext()) {
-                for (Elemento c = cross; c != null; c = c.getNext())
-                    if (e.getNext().getValore() == c.getValore()) {
-                        if (e.getNext().getNext() != null)
-                            e.setNext(e.getNext().getNext());
+            for (Elemento e = notCommon; e.next != null; e = e.next) {
+                for (Elemento c = cross; c != null; c = c.next)
+                    if (e.next.n == c.n) {
+                        if (e.next.next != null)
+                            e.setNext(e.next.next);
                         else {
                             e.setNext(null);
                             flag = true;
@@ -216,8 +216,8 @@ public class Lista  {
         if (e == null)
             System.out.println("null");
         else {
-            System.out.printf("%2d -> ", e.getValore());
-            visualizzaRick(e.getNext());
+            System.out.printf("%2d -> ", e.n);
+            visualizzaRick(e.next);
         }
     }
 
@@ -228,7 +228,7 @@ public class Lista  {
     private int sommaRick(Elemento e) {
         if (e == null)
             return 0;
-        return e.getValore() + sommaRick(e.getNext());
+        return e.n + sommaRick(e.next);
     }
 
 //    public int sommaRicorsiva() {
@@ -248,7 +248,7 @@ public class Lista  {
     private double mediaRick(Elemento e, int length) {
         if (e == null)
             return 0;
-        return (double) e.getValore() / length + mediaRick(e.getNext(), length);
+        return (double) e.n / length + mediaRick(e.next, length);
     }
 
     public int maxRick() {
@@ -256,9 +256,9 @@ public class Lista  {
     }
 
     private int maxRick(Elemento e) {
-        if (e.getNext() == null)
-            return e.getValore();
-        return Math.max(e.getValore(), maxRick(e.getNext()));
+        if (e.next == null)
+            return e.n;
+        return Math.max(e.n, maxRick(e.next));
     }
 
     public int minRick() {
@@ -266,9 +266,9 @@ public class Lista  {
     }
 
     private int minRick(Elemento e) {
-        if (e.getNext() == null)
-            return e.getValore();
-        return Math.min(e.getValore(), minRick(e.getNext()));
+        if (e.next == null)
+            return e.n;
+        return Math.min(e.n, minRick(e.next));
     }
 
     public int findRick(int value) {
@@ -276,11 +276,11 @@ public class Lista  {
     }
 
     private int findRick(Elemento e, int value, int index) {
-        if (e.getValore() == value)
+        if (e.n == value)
             return index;
-        if (e.getNext() == null)
+        if (e.next == null)
             return -1;
-        return findRick(e.getNext(), value, index + 1);
+        return findRick(e.next, value, index + 1);
     }
 
 
@@ -309,9 +309,9 @@ public class Lista  {
 
 
     private int parityRick(Elemento e) {
-        if (e.getNext() == null)
-            return e.getValore() % 2;
-        return e.getValore() % 2 + parityRick(e.getNext());
+        if (e.next == null)
+            return e.n % 2;
+        return e.n % 2 + parityRick(e.next);
     }
 
     public int checkRick(int value, String type) {
@@ -321,12 +321,12 @@ public class Lista  {
     }
 
     private int checkRick(Elemento e, int value, String type) {
-        int sup = e.getValore() > value ? 1 : 0;
-        int inf = e.getValore() < value ? 1 : 0;
+        int sup = e.n > value ? 1 : 0;
+        int inf = e.n < value ? 1 : 0;
         int result = type.equals("inf") ? inf : sup;
-        if (e.getNext() == null)
+        if (e.next == null)
             return result;
-        return result + checkRick(e.getNext(), value, type);
+        return result + checkRick(e.next, value, type);
     }
 
 //    public int maggiori(int n) {
@@ -379,11 +379,8 @@ public class Lista  {
                 temp = copia;
             }
             else if (e.n > n) {
-                for (; temp != null; temp = temp.next)
-                    if (temp.next == null) {
-                        temp.next = new Elemento(e.n, null);
-                        break;
-                    }
+                temp.next = new Elemento(e.n, null);
+                temp = temp.next;
             }
         }
         return new Lista(copia);
@@ -397,8 +394,8 @@ public class Lista  {
     private Elemento copiaMaggioreRicorsiva(Elemento e, Elemento lista, int n) {
         if (e == null)
             return null;
-        if (e.getValore() > n) {
-            lista = new Elemento(e.getValore(), copiaMaggioreRicorsiva(e.getNext(), lista, n));
+        if (e.n > n) {
+            lista = new Elemento(e.n, copiaMaggioreRicorsiva(e.next, lista, n));
             return lista;
         }
         return lista;

@@ -1,15 +1,11 @@
 public class Elemento  {
-    private int valore;
-    private Elemento next;
+    public int n;
+    public Elemento next;
 
-    public Elemento(int valore, Elemento next) {
-        this.valore = valore;
+    public Elemento(int n, Elemento next) {
+        this.n = n;
         this.next = next;
     }
-
-    public int getValore() { return valore; }
-
-    public Elemento getNext() { return next; }
 
     public void setNext(Elemento next) { this.next = next; }
 }
