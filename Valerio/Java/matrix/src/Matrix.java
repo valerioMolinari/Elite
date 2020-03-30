@@ -397,11 +397,11 @@ public class Matrix {
         return a;
     }
 
-    public int rank() {
+    public Fraction rank() {
         return rank(this);
     }
 
-    public static int rank(Matrix a) {
+    public static Fraction rank(Matrix a) {
         Fraction[][] matrix = a.setREF().getMatrix();
         int count = 0;
         for (Fraction[] fa: matrix)
@@ -410,7 +410,7 @@ public class Matrix {
                     count++;
                     break;
                 }
-        return count;
+        return new Fraction(count);
     }
 
     public static boolean contains(final int[] array, final int v) {

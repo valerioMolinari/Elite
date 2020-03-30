@@ -26,7 +26,7 @@ public class Fraction {
 
     public Fraction(String fraction) {
         Pattern pattern = Pattern.compile("/");
-        if (Pattern.matches("-?\\d+/\\d+", fraction)) {
+        if (Pattern.matches("-?\\d+/-? \\d+", fraction)) {
             String[] numDen = pattern.split(fraction);
             this.numerator = Integer.parseInt(numDen[0]);
             this.denominator = Integer.parseInt((numDen[1]));
@@ -34,6 +34,7 @@ public class Fraction {
             this.numerator = Integer.parseInt(fraction);
             this.denominator = 1;
         }
+        reduce();
     }
 
     public int getNumerator() {

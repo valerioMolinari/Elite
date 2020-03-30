@@ -27,6 +27,18 @@ public class SquareMatrix extends Matrix {
         return new SquareMatrix(a);
     }
 
+    public SquareMatrix scalarProduct(String n) {
+        return scalarProduct(this, n);
+    }
+
+    public static SquareMatrix scalarProduct(SquareMatrix a, String n) {
+        final int N = a.getDimension().n;
+        Fraction[][] b = new Fraction[N][N];
+        Fraction f = new Fraction(n);
+        I.zeroLoop.exec(N, N, (i, j) -> b[i][j] = a.getMatrix()[i][j].multiply(f));
+        return new SquareMatrix(b);
+    }
+
     public boolean isSupTriangle() {
         return isSupTriangle(this);
     }
@@ -139,9 +151,9 @@ public class SquareMatrix extends Matrix {
 
     public static SquareMatrix reverse(SquareMatrix a) {
         a = a.clone();
-        if (a.rank() != a.getDimension().n)
+        if (!a.rank().equals(new Fraction(a.getDimension().n)))
             return new SquareMatrix(new Fraction[][] {{}});
-        SquareMatrix identity = SquareMatrix.identity(a.rank());
+        SquareMatrix identity = SquareMatrix.identity(a.rank().getDenominator());
         SquareMatrix[] results = reverse(new SquareMatrix[] {a, identity.clone()});
         a = results[0];
         SquareMatrix b = results[1];

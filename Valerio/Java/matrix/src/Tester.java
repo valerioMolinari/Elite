@@ -29,16 +29,33 @@ class Tester  {
 				{"0", "1", "5", "8"}
 		});
 		SquareMatrix f = new SquareMatrix(new String[][] {
-				{"1", "2", "2"},
-				{"2", "1", "-2"},
-				{"2", "-2", "1"}
+				{"2", "1", "-1"},
+				{"0", "3", "4"},
+				{"-1", "2", "1"}
 		});
+		SquareMatrix f1 = new SquareMatrix(new String[][] {
+				{"-5", "-3", "7"},
+				{"-4", "1", "-8"},
+				{"3", "-5", "6"}
+		}).scalarProduct("1/" + f.det());
+		f1.matrixProduct(f).visualizza();
+
 		SquareMatrix g = new SquareMatrix(new String[][] {
+				{"3", "1", "8", "-12"},
 				{"1", "0", "-1", "4"},
 				{"-1", "0", "6", "2"},
-				{"3", "0", "8", "-12"},
 				{"6", "0", "-1", "3"}
 		});
-		SquareMatrix.identity(5).det().visualizza();
+
+		g.det().visualizza();
+		SquareMatrix.identity(g.getDimension().n).det().visualizza();
+
+		Matrix x = new Matrix(new String[][] {
+				{"3", "4", "-2", "6"},
+				{"1", "3", "4", "-2"},
+				{"-1", "2", "-1", "1"}
+		});
+
+
 	}
 }
