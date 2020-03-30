@@ -2,11 +2,55 @@ Java è un linguaggio orientato a oggetti sviluppato da Sun Microsystem
 
 Java consente di realizzare applicazioni e applet
 
-
 Un applet è un programma scaricabile della rete ed eseguibile
-
-
 
 Il sorgente Java viene compilato creando un file scritto in Bytecode Java, quindi
 l'interprete java del sistema operativo che stiamo utilizzando trasforma
 il Bytecode in linguaggio macchina che quindi viene eseguito
+
+
+
+11/03/20
+
+stack:
+  ci vengono messi i metodi in esecuzione
+heap:
+  contiene gli oggetti istanziati dai costruttori
+area static:
+  contiene le proprietà statiche delle classi,
+  accessibili durante tutta l'esecuzione
+
+Convenzioni:
+  metodi con la minuscola
+  classi con la maiuscola
+  costanti (final) tutto maiuscolo
+
+
+12/03/20
+
+Per creare un'applicazione grafica estendo la classe javax.swing.JFrame.
+Questo tipo di approccio si chiama bottom-up, ovvero usare classi più
+semplici e costruirle insieme creandone di più complicate.
+Un altro approccio è il top-down, ovvero dal generico allo specifico.
+Questo viene utilizzato per costruire una gerarchia di classi.
+
+Un package è una collezione di classi ed interfacce (ed eventuali sottoclassi).
+
+Se voglio utilizzare il nome di una classe contenuta in un package devo
+prima importare nel codice la classe con nome e cognome (es javax.swing.JPanel)
+e poi posso usarla direttamente (JPanel).
+Se non mi va di importare ogni classe di uno stesso package posso importare
+direttamente l'intero package (java.util.*), che, al livello di prestazione,
+non cambia nulla
+
+18/03/20
+
+Quando lavoriamo con la ricorsione dobbiamo:
+  Riconoscere la dimensione del problema:
+    Per problemi sugli interi è la dimensione dell'intero;
+    Per problemi sugli interi è il numero di cifre dell'intero;
+    Per un problema sugli array la lunghezza dell’array;
+    Per un problema sulle liste la lunghezza della lista;
+    Per un problema sugli alberi il numero di elementi dell’albero;
+
+  

@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="02512160-8402-430a-b553-412d5019e0a7" name="Default Changelist" comment="" />
+    <list default="true" id="02512160-8402-430a-b553-412d5019e0a7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../EsercizioListe4_2/out/production/EsercizioListe4_2/Lista.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../EsercizioListe4_2/out/production/EsercizioListe4_2/Lista.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../EsercizioListe4_2/out/production/EsercizioListe4_2/Tester.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../EsercizioListe4_2/out/production/EsercizioListe4_2/Tester.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../EsercizioListe4_2/src/Lista.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../EsercizioListe4_2/src/Lista.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../EsercizioListe4_2/src/Tester.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../EsercizioListe4_2/src/Tester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../matrix/out/production/matrix/Matrix.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../matrix/out/production/matrix/Matrix.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../matrix/out/production/matrix/Tester.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../matrix/out/production/matrix/Tester.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../matrix/src/Fraction.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../matrix/src/Fraction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../matrix/src/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../matrix/src/Matrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../matrix/src/Tester.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../matrix/src/Tester.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
   <component name="ProjectId" id="1YOnAT8cS3W5kPEZr4kwPcwrzjG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -15,6 +29,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">

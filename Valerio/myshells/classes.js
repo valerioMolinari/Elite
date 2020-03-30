@@ -16,6 +16,7 @@ const usage = `Utilizzo: classes [fileNames[,.ieap]]\n
   classes name.e: crea enum Name;
   classes name.i: crea interface Name;
   classes name.a: crea abstract class
+  classes name.g: crea genericClass<T>
 
   il nome di un file può contenere più flags come name.pa o name.ap crea
   un file Name con dentro "public abstract class Name {}"
@@ -23,8 +24,25 @@ const usage = `Utilizzo: classes [fileNames[,.ieap]]\n
 
 function body(name) {
   const main = name === 'Main' || /\..*m/.test(name) ? "\tpublic static void main(String[] args) {\n\n\t}" : ''
+  const body = /\..*f/.test(name) ? `\
+  // Attributi
+
+  // Metodi privati
+
+  // Costruttore
+
+  // Metodi pubblici
+
+  // Getters
+
+  // Setters
+
+  // Metodi astratti
+  ` : ''
+
   let type = 'class'
   let more = ''
+  let generic = ''
   if (/\..*i/.test(name))
     type = 'interface'
   if (/\..*e/.test(name))
@@ -33,16 +51,18 @@ function body(name) {
     type = 'abstract class'
   if (/\..*p/.test(name))
     type = `public ${type}`
+  if (/\..*g/.test(name))
+    generic = '<T>'
   // if (/.*->.*/.test(name))
   //   more += `extends ${name.split('->')[1].split('.')[0]}`
   // if (/.*=>.*/.test(name))
   //   more += `implements ${name.split('=>')[1].split('.')[0]}`
   name = slice(name)
-  return `${type} ${name} ${more} {\n${main}\n}`;
+  return `${type} ${name}${generic} ${more} {\n${main}${body}\n}`;
 }
 
 if (!classes.length)
-  console.error(`\n${__filename}:40\n  Errore: è richiesto almeno un argomento\n\n${usage}`)
+  console.error(`\n${__filename}:60\n  Errore: è richiesto almeno un argomento\n\n${usage}`)
 
 if (classes[0] === '--edit')
   return execSync(`atom ${__filename}`);
