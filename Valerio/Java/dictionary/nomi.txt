@@ -1,0 +1,39 @@
+Agostino, Alberto, Alessandro, Alessio, Alfio, Alfonso, Amedeo, Angelo, Antonio, Aurelio.
+Baldassarre, Baldo, Bastiano, Bartolo, Bartolomeo, Benito,  Bernardo, Biagio, Boris, Bruno.
+Calogero, Carlo, Carmelo,  Casimiro, Cesare, Cirillo, Ciro,  Claudio, Corrado, Cosimo.
+Daniele, Danilo, Dante, Dario, Davide, Diego, Dino, Dionisio, Domenico, Duccio.
+Egidio, Elio, Eliseo, Emanuele, Emiliano, Emilio, Ennio,  Enrico, Enzo, Ezio.
+Fabiano, Fabio, Fabrizio, Fausto, Fedele, Felice, Filippo, Flavio, Fortunato, Francesco.
+Gabriele, Gaetano, Gaspare, Gennaro, Gerlando, Giacomo, Giancarlo, Giovanni, Giulio, Giuseppe.
+Iacopo, Ignazio, Igor, Isacco, Isaia, Iside, Isidoro, Italo, Ivano, Ivo.
+Leandro, Leo, Lino, Livio, Lorenzo, Loris, Luca, Luciano, Lucio, Luigi.
+Manuele, Marcello, Marco, Mario, Martino, Massimo, Matteo, Mattia, Michele, Mirco.
+Narciso, Natale, Nazario, Nazzareno, Nestore, Nico, Nicola, Nino, Noè, Nunzio.
+Oliviero, Omar , Omero, Onofrio, Orazio, Orlando, Oscar,  Osvaldo, Otello, Ottavio.
+Paolo, Pasquale, Patrizio, Paride, Pierluigi, Piero, Pietro, Pio, Pippo, Prisco.
+Raffaele, Raimondo, Renato, Renzo, Riccardo, Rino, Roberto, Rocco, Romolo, Ruggero.
+Salvatore, Salvo, Samuele, Sandro, Saverio, Savino, Sebastiano, Sergio, Silvio, Stefano.
+Taddeo, Tancredi, Tarso, Teodoro, Teogene, Tiberio, Tito, Tiziano, Tobia, Tullio,
+Ubaldo, Uberto, Ugo, Ulisse, Ulrico, Ultimo, Umberto, Uranio, Urbano, Ursino.
+Valter , Vasco, Valentino, Valerio, Velio, Viliberto, Vincenzo, Virgilio, Virone, Vittorio,
+Zabedeo, Zaccaria, Zaccheo, Zanobi, Zefiro, Zeno, Zenobio, Zenone, Zetico, Zoilo,
+Angela, Ada, Adelaide, Anna, Antonella, Anita, Alice, Amelia, Anna, Agnese, Alessandra, Alessia,
+Aurora, Angelica,
+Barbara, Betty, Beatrice,
+Calogera, Claudia, Carlotta, Carmen, Carola, Caterina, Cinzia, Clara, Clarissa, Clelia, Concetta,
+Corinna, Cristina,
+Daniela, Dina, Domenica, Debora, Denise, Danila, Dorotea,
+Emanuela, Emilia, Evelyn, Erica, Elena, Elisa, Eva,
+Fiorella, Francesca, Federica, Fabiola, Flavia, Floriana,
+Giovannna, Gabriella, Gerlanda, Giulia, Giuseppina, Giorgia, Gaia, Gemma, Greta,
+Ida, Iole, Iolanda, Irene, Isabella, Iside,
+katia, Ketty,
+Luciana, Laura, Lorena, Loredana, Lucia, Lea, Letizia, Lia, Linda, Luisa,
+Maria, Marcella, Martina, Marzia, Mara, Marisa, Marta, Mirella, Miriam,
+Noemi, Nada,
+Ornella,
+Patrizia, Paola, Piera, Pamela, Piera,
+Roberta, Regina, Raffaella, Rosella,
+Salvatrice, Silvia, Sofia, Sabrina, Sara, Serena, Silvana, Simona, Stefania, Susanna,
+Tiziana, Tea, Teresa,
+Valentina, Valeria
