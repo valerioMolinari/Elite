@@ -44,7 +44,13 @@ public class Tester  {
 		l.notCommon(a,b).visualizza();
 		System.out.println();
 		l.visualizza();
-		l.reverse().visualizza();
+		ListaOrdinata nl = new ListaOrdinata(10, 10);
+		nl.visualizza();
+		nl.insert(205);
+		nl.visualizza();
+		System.out.println(nl.delete(30).n);
+		nl.visualizza();
 		//l.copiaMaggiore(12).visualizza();
+
 	}
 }

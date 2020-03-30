@@ -1,5 +1,5 @@
 public class Lista  {
-    private Elemento testa = null;
+    protected Elemento testa = null;
 
     public Lista(int n, int limite) {
         for (int i = 0; i < n; i++)
@@ -329,31 +329,27 @@ public class Lista  {
         return result + checkRick(e.next, value, type);
     }
 
-//    public int maggiori(int n) {
-//        return maggiori(testa, n);
-//    }
-//
-//    private int maggiori(Elemento e, int n) {
-//        if (e == null)
-//            return 0;
-//        return e.n > n ? 1 + maggiori(e.next, n) : maggiori(e.next, n);
-//    }
-//
-//    public boolean decrescente() {
-//        if (testa == null)
-//            return true;
-//        return decrescente(testa);
-//    }
-//
-//    private boolean decrescente(Elemento e) {
-//        if (e.next == null)
-//            return e.n < e.next.n;
-//        return e.n < e.next.n && decrescente(e.next);
-//    }
+    public int maggiori(int n) {
+        return maggiori(testa, n);
+    }
 
-//    public Lista(Elemento testa) {
-//        this.testa = testa;
-//    }
+    private int maggiori(Elemento e, int n) {
+        if (e == null)
+            return 0;
+        return e.n > n ? 1 + maggiori(e.next, n) : maggiori(e.next, n);
+    }
+
+    public boolean decrescente() {
+        if (testa == null)
+            return true;
+        return decrescente(testa);
+    }
+
+    private boolean decrescente(Elemento e) {
+        if (e.next == null)
+            return e.n < e.next.n;
+        return e.n < e.next.n && decrescente(e.next);
+    }
 
     public Lista inverti() {
         Elemento lista = null;
