@@ -3,7 +3,6 @@ public class Book  {
     private int istantLoan;
     public boolean isLoaned;
 
-
     public Book(String title) {
         this.title = title;
         this.isLoaned = false;
@@ -21,6 +20,4 @@ public class Book  {
     public void setIstantLoan(int istantLoan) {
         this.istantLoan = istantLoan;
     }
-
-
 }
