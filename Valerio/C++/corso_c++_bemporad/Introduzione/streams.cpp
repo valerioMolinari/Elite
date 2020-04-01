@@ -20,7 +20,7 @@ int main(void) {
 	cout << "0x" << hex << 1420 << "\n\n";
 
 	// NOTE: visto che hex è rimasto in cout per annullarne l'effetto
-	// dobbiamo usarlo anche in cin
+	// 		 dobbiamo usarlo anche in cin
 
 	int numero;
 	cout << "Inserisci un numero : ";
