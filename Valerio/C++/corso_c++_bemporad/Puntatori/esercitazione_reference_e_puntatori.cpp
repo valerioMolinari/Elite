@@ -11,7 +11,9 @@ int main(void) {
 	int b = 20;
 	swap(a, b);
 	cout << *a << endl << b << endl;
-	delete a;
+	delete a; // Cazzo l'avevo dimenticato! 
+
+	return 0;
 }
 
 void swap(int *x, int& y) {
