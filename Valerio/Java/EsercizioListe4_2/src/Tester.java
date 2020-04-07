@@ -40,17 +40,30 @@ public class Tester  {
 		l.cross(a,b).visualizza();
 //		System.out.println("Intersezione in full");
 //		l.cross(a,b, "full").visualizza();
-		System.out.println("Elementi non comuni");
-		l.notCommon(a,b).visualizza();
-		System.out.println();
-		l.visualizza();
-		ListaOrdinata nl = new ListaOrdinata(10, 10);
-		nl.visualizza();
-		nl.insert(205);
-		nl.visualizza();
-		System.out.println(nl.delete(30).n);
-		nl.visualizza();
+//		System.out.println("Elementi non comuni");
+//		l.notCommon(a,b).visualizza();
+//		System.out.println();
+//		l.visualizza();
+//		ListaOrdinata nl = new ListaOrdinata(10, 10);
+//		nl.visualizza();
+//		nl.insert(205);
+//		nl.visualizza();
+//		System.out.println(nl.delete(30).n);
+//		nl.visualizza();
 		//l.copiaMaggiore(12).visualizza();
+		System.out.println("here");
+		int[] v = {1,2,3,4};
+		Lista lw = new Lista(5, 2);
+		for (int x : v)
+			System.out.println(x);
+		lw.incrementaVettoreRic(v);
+
+		for (int x : v)
+			System.out.println(x);
+
+		lw.visualizza();
+		lw.eliminaSeDivisibilePer(2);
+		lw.visualizza();
 
 	}
 }

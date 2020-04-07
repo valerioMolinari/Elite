@@ -27,8 +27,8 @@ for key, value in environ.items():
 #             equivale a environ['PWD']
 
 green("\nos.getcwd()")
-currentFolder = getcwd()
-print(f"Percorso corrente: {currentFolder}")
+current_folder = getcwd()
+print(f"Percorso corrente: {current_folder}")
 
 #   chdir(path): cambia il percorso della cartella operativa della shell del programma
 
@@ -36,16 +36,23 @@ green("\nos.chdir(path)")
 chdir(environ['HOME'])
 print("Cambio il percorso della cartella sfruttando environ['HOME'] per andare nella cartella di avvio:")
 yellow(f"\tPercorso corrente: {getcwd()}")
-chdir(currentFolder)
+chdir(current_folder)
 print("Ritorno nella cartella da cui è partito il progetto:")
 yellow(f"\tPercorso corrente: {getcwd()}")
 
 #   geteuid(): solo su Unix, restituisce l'id del processo attuale
 
 green("\nos.geteuid()")
-currentProcess = geteuid()
+current_process_id = geteuid()
 print("ID del processo attuale: ", end='')
-yellow(currentProcess)
+yellow(current_process_id)
+
+#   getpid(): restituisce il pid del processo attuale
+
+green("\nos.getpid()")
+current_process_pid = getpid()
+print("PID del processo attuale: ", end='')
+yellow(current_process_pid)
 
 #   getlogin(): restituisce il nome dell'user che sta eseguendo il programma
 

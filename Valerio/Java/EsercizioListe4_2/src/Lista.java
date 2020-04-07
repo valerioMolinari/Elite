@@ -396,4 +396,55 @@ public class Lista  {
         }
         return lista;
     }
+
+    public void incrementaVettore(int[] vettore) {
+        int count = 0;
+        for (Elemento e = testa; e != null; e = e.next)
+            vettore[count++ % vettore.length] += e.n;
+    }
+
+    public void incrementaVettoreRic(int[] vettore) {
+        incrementaVettoreRic(testa, vettore, 0);
+    }
+
+    private void incrementaVettoreRic(Elemento lista, int[] vettore, int index) {
+        if (lista == null)
+            return;
+        vettore[index % vettore.length] += lista.n;
+        incrementaVettoreRic(lista.next, vettore, index + 1);
+    }
+
+    public void incrementaSeDivisibilePer(int n) {
+        for (Elemento e = testa; e != null; e = e.next)
+            if (e.n % n == 0)
+                e.n += n;
+    }
+
+    public void ric_incrementaSeDivisibilePer(int n) {
+        ric_incrementaSeDivisibilePer(testa, n);
+    }
+
+    private void ric_incrementaSeDivisibilePer(Elemento lista, int n) {
+        if (lista != null) {
+            if (lista.n % n == 0)
+                lista.n += n;
+            ric_incrementaSeDivisibilePer(lista.next, n);
+        }
+    }
+
+    public void eliminaSeDivisibilePer(int n) {
+        while (testa != null && testa.n % n == 0 )
+            testa = testa.next;
+
+        for (Elemento e = testa; e != null && e.next != null; e = e.next)
+            while (e.next != null && e.next.n % n == 0)
+                e.next = e.next.next;
+    }
+
+    /*
+    *
+    *
+    *
+    *
+    */
 }
