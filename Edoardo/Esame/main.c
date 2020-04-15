@@ -1,6 +1,7 @@
 //
 #include "gamelib.h"
 void menu();
+void game_over();
 
 int main(void)
 {
@@ -14,5 +15,6 @@ int main(void)
   {
     menu(&play);
   } while (play);
-  printf("Grazie per aver giocato\n");
+  game_over();
+  endwin();
 }

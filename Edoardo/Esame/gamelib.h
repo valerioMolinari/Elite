@@ -6,6 +6,14 @@
 #include <unistd.h>
 #include <string.h>
 
+typedef enum Tipo_Vittoria
+{
+  punteggio,
+  scontro,
+  distruzione,
+  pareggio
+} enumVittoria;
+
 typedef enum Tipo_imprevisto
 {
   nessun_imprevisto,
@@ -34,29 +42,25 @@ typedef enum Tipo_famiglia
   fHartornen
 } enumFamiglia;
 
-typedef enum Mossa
+typedef enum Serbatoio
 {
-  nessuna_mossa,
-  avanza,
-  abbatti,
-  aggira,
-  esci
-} enumMossa;
+  raccolta,
+  energia
+} enumSerbatoio;
 
 typedef enum Tipo_probabilita
 {
   melassa,
-  imprevisto
+  imprevisto,
+  pStato
 } enumProbabilita;
-///////////////////////////////////////////////////
-//CAVERNE
-//////////////////////////////////////////////////
 
 typedef struct Caverna
 {
   struct Caverna *avanti;
   struct Caverna *sinistra;
   struct Caverna *destra;
+  struct Caverna *indietro;
   char nextDirection;
   enumMelassa melassa;
   enumImprevisto imprevisto;
@@ -71,11 +75,20 @@ typedef struct Scavatrcie
   short salute;
   unsigned short probabilitaScontro;
   unsigned short probabilitaUscita;
+  char ultimaMossaScontro;
+  bool abbatti;
+  bool aggira;
+  bool AI;
+  bool uscito;
+  bool win;
+  bool attaccoBuff;
+  bool difesaBuff;
   enumFamiglia eFamiglia;
-  enumMossa mossa;
+
 } Scavatrice;
 
 typedef Caverna *CavernaPtr;
 typedef Scavatrice *ScavatricePtr;
 
 void menu(bool *play);
+void game_over();

@@ -1,0 +1,72 @@
+_________ _______ _________ _______           _______ _________ _______  _       _________
+\__   __/(  ____ \\__   __/(  ____ )|\     /|/ ___   )\__   __/(  ___  )( (    /|\__   __/
+   ) (   | (    \/   ) (   | (    )|| )   ( |\/   )  |   ) (   | (   ) ||  \  ( |   ) (   
+   | |   | (_____    | |   | (____)|| |   | |    /   )   | |   | |   | ||   \ | |   | |   
+   | |   (_____  )   | |   |     __)| |   | |   /   /    | |   | |   | || (\ \) |   | |   
+   | |         ) |   | |   | (\ (   | |   | |  /   /     | |   | |   | || | \   |   | |   
+___) (___/\____) |   | |   | ) \ \__| (___) | /   (_/\___) (___| (___) || )  \  |___) (___
+\_______/\_______)   )_(   |/   \__/(_______)(_______/\_______/(_______)|/    )_)\_______/
+                                                                                          
+
+Benvenuto in Dune,
+Un gioco di scavatrici, melassa e confusione causata dal linguaggio C!!!
+
+MAIN GAME: 
+Costruisci il tuo campo di gioco e sconfiggi i tuoi amici (o la complessissima AI!!!*sarcasmo*),
+a colpi di scavatrice. Ci sono molti modi per vincere:
+
+1) Vittoria nello scontro finale, Che vinca il più forte...ma attenti al mercante quello è un tipo losco.
+2) La distruzione della scavatrice avversaria...attenzione quella cosa che si muove sotto terra non è un animaletto da compagnia!!!
+3) Se la fortuna vi assiste potrete sempre fuggire dai cunicoli...Vediamo chi ha raccolto più melassa per il Conglomerato!!!
+
+CREAZIONE CUNICOLI:
+Date spazio alla vostra fantasia...potrete costruire le più folli mappe della galassia.
+(Benvenuti a Dune2.0...salvataggio delle proprie mappe non garantito...provateci a fare causa!!!)
+Per i più svogliati la nostra magnifica AI vi assisterà.
+
+MINIGAMES:
+Chi non ha voglia di giocare sul nostro nuovo terminale?
+...h4ck_g4m3 è ora online in una nuovissima sfida di password hacking:
+
+1) Trova la password per bloccare l'attacco alla nostra madre patria!!!
+NB: il terminale ti indicherà quante lettere hai azzeccato della password....
+Ah gia quasi dimenticavo...hai solo 5 possibilità prima che tutto faccia BOOM
+
+E per i più competitivi...allenatevi pure nel nostro scontro finale.
+
+BUON VIAGGIO PILOTI!!!!
+
+Premi[ENTER] per proseguire al menu principale 
+
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+                                                                                                                                                           
+
