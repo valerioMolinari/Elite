@@ -4,7 +4,7 @@
 //Funziona solo sui sistemi POSIX
 
 if (process.platform === 'win32')
-  return console.log('Unfortunately this program doesn\'t work on window, change OS ;)');
+    return console.log('Unfortunately this program doesn\'t work on window, change OS ;)');
 
 const fs = require('fs')
 const path = require('path')
@@ -14,7 +14,7 @@ const fileName = path.basename(`${__dirname.split('/').slice(0,3).join('/')}/git
 const dirsplit = __dirname.split('/')
 const mainFolder = dirsplit.slice(0, 3).join('/')
 if (dirsplit[dirsplit.length - 1] !== 'myshells')
-  return console.log(`\nError: newalias.js must be located in ${mainFolder}/myshells to work, now it is in ${__dirname}\n`);
+    return console.log(`\nError: newalias.js must be located in ${mainFolder}/myshells to work, now it is in ${__dirname}\n`);
 const bash_profile = process.platform === 'darwin' ? `${mainFolder}/.zshenv` : `${mainFolder}/.bash_aliases`
 
 let message = 'usage: [-i, -n, --edit]'
@@ -23,26 +23,40 @@ message += '\n\t-n: add Valerio\'s program to myshells folder and makes an alias
 message += '\n\t--edit: edit this program in atom'
 
 switch (flag) {
-  case '--edit':
-    exec(`atom ${__filename}`)
-    break;
-  case '-i':
-    console.log(message);
-    break;
-  case '-n':
-    exec(`rm ~/myshells/${file}; cp ~/git/Elite/Valerio/myshells/${file} ~/myshells`, (err) => {
-      if (err) throw err;
-      console.log(`${file} added to ${mainFolder}/myshells\n`)
-      fs.readFile(bash_profile, 'utf8', (err, data) => {
-        if (err) throw err;
-        if (!(new RegExp(`alias ${fileName}`).test(data)))
-          exec(`echo "alias ${fileName}='node ~/myshells/${file}'" >> ${bash_profile}`, (err) => {
+    case '--edit':
+        exec(`atom ${__filename}`)
+        break;
+    case '-i':
+        console.log(message);
+        break;
+    case '-n':
+        exec(`rm ~/myshells/${file}; cp ~/git/Elite/Valerio/myshells/${file} ~/myshells`, (err) => {
             if (err) throw err;
-            console.log(`alias ${fileName} added to ${bash_profile}`);
-          })
-      })
-    })
-    break;
-  default:
-    throw `Error: ${flag} is an unknown flag\n\n${message}`
+            console.log(`${file} added to ${mainFolder}/myshells\n`)
+            fs.readFile(bash_profile, 'utf8', (err, data) => {
+                if (err) throw err;
+
+                if (!(new RegExp(`alias ${fileName}`).test(data))) {
+                    let envoirment;
+                    switch (path.extname(fileName)) {
+                        case '.js':
+                            envoirment = 'node'
+                            break;
+                        case '.py':
+                            envoirment = 'python3'
+                            break;
+                        default:
+                            throw `Error: unknown or unimplemented ${path.extname(fileName)} extention yet`
+                    }
+                    exec(`echo "alias ${fileName}='${envoirment} ~/myshells/${file}'" >> ${bash_profile}`, (err) => {
+                        if (err) throw err;
+                        console.log(`alias ${fileName} added to ${bash_profile}`);
+                    })
+                }
+
+            })
+        })
+        break;
+    default:
+        throw `Error: ${flag} is an unknown flag\n\n${message}`
 }
