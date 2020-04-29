@@ -1,7 +1,7 @@
-class Professionista extends Musicista {
+public class Professionista extends Musicista {
     private int anniConservatorio;
 
-    Professionista(String nome, int eta, int anniConservatorio) {
+    public Professionista(String nome, int eta, int anniConservatorio) {
         super(nome, eta);
         this.anniConservatorio = anniConservatorio;
     }

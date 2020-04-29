@@ -1,7 +1,7 @@
-class Dilettante extends Musicista {
+public class Dilettante extends Musicista {
     private boolean saLeggere;
 
-    Dilettante(String nome, int eta, boolean saLeggere) {
+    public Dilettante(String nome, int eta, boolean saLeggere) {
         super(nome, eta);
         this.saLeggere = saLeggere;
     }

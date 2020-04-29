@@ -3,28 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fagioligrafici2020;
-
-import java.util.Random;
 
 /**
  *
  * @author mr.anderson2159
  */
-public class FinestraPrincipaleGiocoFagioli extends javax.swing.JFrame {
-    private int n;
-    private int tentativi;
+public class FinestraApplicazione extends javax.swing.JFrame {
 
     /**
-     * Creates new form NewJFrame
+     * Creates new form FinestraApplicazione
      */
-    public FinestraPrincipaleGiocoFagioli() {
+    public FinestraApplicazione() {
         initComponents();
-        Random r = new Random();
-        this.n = r.nextInt(1_000_000);
-        this.tentativi = 0;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,59 +26,69 @@ public class FinestraPrincipaleGiocoFagioli extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        etichetta = new javax.swing.JLabel();
-        testo = new javax.swing.JTextField();
+        pannello = new javax.swing.JPanel();
+        primoNumero = new javax.swing.JTextField();
+        secondoNumero = new javax.swing.JTextField();
         bottone = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setLayout(new java.awt.GridLayout(3, 1, 100, 20));
+        pannello.setLayout(new java.awt.GridLayout(3, 1));
 
-        etichetta.setText("jLabel1");
-        jPanel1.add(etichetta);
+        primoNumero.setText("0");
+        primoNumero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                primoNumeroActionPerformed(evt);
+            }
+        });
+        pannello.add(primoNumero);
 
-        testo.setText("jTextField1");
-        jPanel1.add(testo);
+        secondoNumero.setText("0");
+        pannello.add(secondoNumero);
 
-        bottone.setText("jButton1");
+        bottone.setText("Premi il pulsante");
         bottone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bottoneActionPerformed(evt);
             }
         });
-        jPanel1.add(bottone);
+        pannello.add(bottone);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+            .addComponent(pannello, javax.swing.GroupLayout.DEFAULT_SIZE, 722, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+            .addComponent(pannello, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void primoNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_primoNumeroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_primoNumeroActionPerformed
+
     private void bottoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bottoneActionPerformed
-         System.out.println("ho premuto");
-        String s = testo.getText();
-        int valoreLetto = Integer.parseInt(s);
-        tentativi++;
-        if (n == valoreLetto) {
-            etichetta.setText("Bravo! Hai vinto in " + tentativi + "tentativi");
-            bottone.setEnabled(false);
-        } else if (n > valoreLetto){
-            etichetta.setText("Tentativo: " + tentativi + "; il valore da indovinare è più grande");
-        } else {
-            etichetta.setText("Tentativo: " + tentativi + "; il valore da indovinare è più piccolo");
-        }
+         String testo1 = primoNumero.getText();
+         String testo2 = secondoNumero.getText();
+         int n1, n2;
+      
+             n1 = Integer.parseInt(testo1);
+             n2 = Integer.parseInt(testo2);
+             if (n1 == n2) {
+                 // Colora la finestra di verde
+                 System.out.println("Verde");
+             } else {
+                 // Colora la finestra di rosso
+                 System.out.println("Rosso");
+             }
+         
     }//GEN-LAST:event_bottoneActionPerformed
-    
-    
+
     /**
      * @param args the command line arguments
      */
@@ -104,29 +106,28 @@ public class FinestraPrincipaleGiocoFagioli extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FinestraPrincipaleGiocoFagioli.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FinestraApplicazione.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FinestraPrincipaleGiocoFagioli.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FinestraApplicazione.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FinestraPrincipaleGiocoFagioli.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FinestraApplicazione.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FinestraPrincipaleGiocoFagioli.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FinestraApplicazione.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FinestraPrincipaleGiocoFagioli().setVisible(true);
+                new FinestraApplicazione().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bottone;
-    private javax.swing.JLabel etichetta;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField testo;
+    private javax.swing.JPanel pannello;
+    private javax.swing.JTextField primoNumero;
+    private javax.swing.JTextField secondoNumero;
     // End of variables declaration//GEN-END:variables
 }

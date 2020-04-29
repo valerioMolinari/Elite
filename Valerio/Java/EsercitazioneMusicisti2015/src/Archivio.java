@@ -1,9 +1,9 @@
 import java.util.Random;
 
-class Archivio  {
+public class Archivio  {
     private Musicista[] V;
 
-    Archivio(int n, int m) {
+    public Archivio(int n, int m) {
         V = new Musicista[n + m];
         Random r = new Random();
 
@@ -20,11 +20,13 @@ class Archivio  {
         System.out.println();
     }
 
-    public void irraggiungibili(int n) {
-        System.out.println("I seguenti musicisti hanno uno stipendio superiore a "+ n +"€\n");
-        System.out.println("\t\tclasse\t\t\tNome\t\tEtà\t\tStipendio\n");
+    public int conta(int n) throws ArrayVuoto {
+        if (V == null)
+            throw new ArrayVuoto("Errore: L'array è vuoto");
+        int count = 0;
         for (Musicista m : V)
             if (m.rimborsoSpese() > n)
-                System.out.printf("%14s\t\t%8s\t\t%3d\t\t%7d €\n",m.professione(), m.getNome(), m.getEta(), m.rimborsoSpese());
+                count++;
+        return count;
     }
 }
