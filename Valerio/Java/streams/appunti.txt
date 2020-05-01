@@ -1,0 +1,319 @@
+Flussi:
+    Un flusso è una sequenza di dati che nasce in una sorgente e può arrivare ad
+    un'altra sorgente.
+    La sorgente può essere:
+        file
+        comunicazioni di rete
+        array
+        ...
+    I flussi possono essere di due tipi:
+        caratteri
+        byte
+
+
+Input:
+    Nel package java.io troviamo le due classi astratte che permettono di leggere flussi:
+        InputStream:
+            legge flussi di byte
+        Reader:
+            legge flussi di caratteri
+    Entrambe posseggono dei metodi di base (tutti potenzialmente sollevanti IOException)
+    che le sottoclassi ereditano:
+        InputStream:
+            .read()
+            .read(byteBuffer)
+            .read(byteBuffer, start, stop)
+
+            .available():
+                restituisce, se possibile, il numero di byte rimasti da leggere
+        Reader:
+            .read()
+            .read(charBuffer)
+            .read(charBuffer, start, stop)
+
+            .ready():
+                restituisce, se possibile, se ci sono altri caratteri da leggere
+        entrambe:
+            .skip(n):
+                salta n elementi del flusso e restituisce il numero di elementi saltati
+            .mark():
+                fissa una posizione sul flusso
+            .reset():
+                fissata una posizione riporta a quella posizione
+            .close():
+                una volta che i flussi vengono aperti e buona norma chiuderli, rendendoli
+                così disponibili per riaperture future, questo si fa tramite la funzione
+
+    .read():
+        legge un semplice dato elementare, quindi un byte o un carattere
+    .read(array):
+        legge ogni elemento dell'array
+    .read(array, start, stop):
+        legge ogni elemento dell'array dall'indice di start fino a quello di stop
+    in ogni caso restituisce -1 quando finisce di leggere (o quando non c'è altro
+    da leggere)
+
+    I dati vengono letti in maniera sequenziale, ovvero se vogliamo leggere il centesimo
+    dato dobbiamo prima leggere i precedenti 99
+
+    chiusura flussi e nuova sintassi:
+        un esempio di come aprire un flusso e leggerlo è dato da:
+            <<<>>>
+            Reader r = null;
+            try {
+                // apertura flusso
+
+                r = ...;
+
+                //lettura flusso
+                tipo dato;
+
+                while ((dato = r.read()) != fineFile) {
+                    ...
+                }
+            } catch (IOException e) {
+                ...
+            } finally {
+                if (r != null)
+                    try {
+                        r.close();
+                    } catch (IOException e) {
+                        System.out.println("Errore chiusura flusso r");
+                    }
+            }
+            <<<>>>
+
+        tuttavia da Java 7 in poi esiste una nuova sintassi del try-catch che
+        permette di evitare la parte di chiusura nel finally (Try With Resources):
+            <<<>>>
+            Reader r = null;
+            try (
+                // apertura flusso
+                r = ...;
+            ) {
+                //lettura flusso
+                tipo dato;
+
+                while ((dato = r.read()) != fineFile) {
+                    ...
+                }
+            } catch (IOException e) {
+                ...
+            }
+            // chiusura del flusso automatica
+            <<<>>>
+
+    Flussi legati ai file:
+        Innanzitutto bisogna aprire il file quindi istanziare un oggetto di una classe.
+        Per aprire file binari:
+            FileInputStream s = new FileInputStream(String nomeFile);
+        Per aprire file di caratteri:
+            FileReader r = new FileReader(new File(String nomeFile));
+
+        Ricordiamoci che questa cosa può essere fatta nei parametri del try with resources.
+        Entrambi i metodi hanno un costruttore per stringhe rappresentanti il nome
+        del file e uno per oggetti di tipo File.
+
+        InputStreamReader:
+            se voglio leggere un flusso di dati in entrata che so rappresentare dei caratteri,
+            posso istanziare un oggetto di lettura per tale tipo di flussi:
+                InputStreamReader filecaratteri = new InputStreamReader(FileInputStream s);
+            oppure:
+                InputStreamReader tasteria = new InputStreamReader(System.in);
+
+            In altre parole permette di costruire un flusso di caratteri
+            a partire da un flusso di byte
+
+            È naturle che questa operazione ha senso solo se so che un flusso
+            di byte contiene dei caratteri
+
+    Flussi legati a connessioni di rete:
+        InputStreamReader:
+            Mettiamo che ho stabilito una connessione con un'altra applicazione (socket),
+            ho acceduto al flusso di dati tramite tale connessione (socket.getInputStream()),
+            poiché questo flusso di dati è di tipo binario, posso creare, a partire da esso,
+            un flusso di caratteri:
+                InputStreamReader in = new InputStreamReader(socket.getInputStream());
+
+    Ricordiamo che ogni cosa che riguarda flussi di byte finisce con la parola Stream
+    mentre ogni cosa che riguarda flussi di caratteri finisce con la parola Reader.
+    Ricordiamo inoltre che ciascuno dei metodi sopra elencati permettono di leggere
+    un singolo elemento alla volta; poiché tutto ciò è scomodo ora vedremo metodi
+    che permettono di leggere, nel caso di caratteri, una stringa alla volta mentre,
+    nel caso di byte, un dato alla volta (un int, un double, un oggetto ecc).
+
+    Filtri:
+        I filtri sono classi di servizio che contengono definizioni di metodi e servizi.
+        I filtri possono esssere annidati, ovvero ognuno può prenderne un altro
+        come parametro di costruttore.
+        Le classi astratte di filtri sono:
+            FilterReader:
+                per flussi di caratteri
+            FilterInputStream:
+                per flussi di byte
+
+        Filtri di bufferizzazione:
+            Pongono un'area di bufferizzazione fra il flusso e l'applicazione, ovvero
+            l'ambiente di runtime, sfruttando i tempi morti, riempie, se possibile,
+            quest'area di bufferizzazione con i dati del flusso, permettendo
+            all'applicazione di accedere più velocemente ai dati in memoria
+            senza dover attingere continuamente al flusso. Così l'esecuzione
+            dell'applicazione risulta più veloce, infatti attingere a un flusso
+            è più lento rispetto ad accedere alla ram; i filtri sfruttando i tempi
+            morti copiano i dati nella ram. Quindi l'applicazione prima prova
+            ad accedere alla memoria, se trova dei dati prende quelli, altrimenti
+            se quest'area è vuota allora accede al file.
+            Esistono due classi di bufferizzazione:
+                BufferedInputStream:
+                    BufferedInputStream s = new BufferedInputStream(new FileInputStream(fileName));
+                BufferedReader:
+                    BufferedReader r = new BufferedReader(new FileReader(fileName));
+                    Questo oggetto ha anche un metodo .readLine():
+                        legge in una volta una stringa di caratteri fino al carattere
+                        di fine linea.
+                        Quando .readLine() è arrivato alla fine del flusso
+                        restituisce null.
+
+        A questo punto in src il file ReadFileChar.java costituisce un esempio di quanto
+        detto fino ad ora.
+
+        DataInputStream (implements DataInput):
+            Questa classe offre i seguenti metodi che permettono di leggere
+            da un flusso di byte (tutti sollevano IOException):
+                boolean readBoolean()
+                byte readByte()
+                int readUnsignedByte()
+                short readShort()
+                int readUnsignedShort()
+                char readChar()
+                int readInt()
+                long readLong()
+                float readFloat()
+                double readDouble()
+                String readLine() // caratteri ascii
+                String readUFT() // caratteri Unicode UFT-8
+
+            readLine() restituisce null alla fine del file
+            readUFT() solleva UFTDataFormatException
+            gli altri metodi sollevano EOFException
+
+            in src il file ReadFileBinario.java da un esempio di un reader di file
+            binari
+
+        ObjectInputStream (implements ObjectInput):
+            Permette di leggere oggetti interi da un flusso.
+            Offre tutti i metodi di DataInputStream più readObject() che solleva
+            ClassNotFoundException più naturalmente IOException.
+            Prende come parametro un flusso di byte.
+            Gli oggetti che è in grado di leggere devono essere oggetti che
+            implementano l'interfaccia Serializable che serve a trasformare la
+            rappresentazione in memoria di un oggetto in una rappresentazione
+            leggibile o scrivivile da un flusso.
+            Esempio di un frammento di codice:
+                <<<>>>
+                FileInputStream stream = new FileInputStream(fileName);
+                ObjectInputStream ois = new ObjectInputStream(stream);
+
+                int i = ois.readInt();
+                String line = (String) ois.readObject();
+                Date data = (Date) ois.readObject();
+                stream.close();
+                <<<>>>
+
+        java.util.Scanner:
+            Prende come parametri un flusso o un file, ha metodi per leggere
+            dati e metodi per sapere se il flusso contiene dati:
+                Lettura:
+                    boolean nextBoolean()
+                    int nextInt()
+                    long nextLong()
+                    float nextFloat()
+                    double nextDouble()
+                    String nextLine()
+                verifica:
+                    boolean hasNextBoolean()
+                    boolean hasNextInt()
+                    boolean hasNextLong()
+                    boolean hasNextFloat()
+                    boolean hasNextDouble()
+                    boolean hasNextLine()
+
+            Un esempio di questa classe lo vediamo in ReadFileScanner.java
+
+Output:
+    Le classi astratte in java.io sono:
+        OutputStream:
+            scrive flussi di byte
+        Writer:
+            scrive flussi di caratteri
+
+    I metodi delle classi sono:
+        OutputStream:
+            write(byte)
+            write(byteBuffer)
+            write(byteBuffer, start, stop)
+        Writer:
+            write(char)
+            write(charBuffer)
+            write(charBuffer, start, stop)
+        Entrambe:
+            flush():
+                si assicura che il dato che vogliamo scrivere sia immediatamente
+                scritto nel flusso e non che si aspetti che i dati vengano
+                accumulati perché vengano effettivamente scritti.
+                Supponiamo un'app client-server di comunicazione, a volte
+                che vari messaggi partano uno alla volta invece di riceverli
+                tutti insieme
+            close():
+                molto importante chiudere i flussi per assicurarci che i dati
+                vengano effettivamente scritti sul file e che il file possa
+                essere reso disponibile per nuove aperture.
+                Lo faremo comunque col try with resources
+
+    Flussi legati ai file:
+        I flussi per scrivere su un file sono:
+            FileOutputStream
+            FileWriter
+        che prendono come parametro il nome di un file o un oggetto File
+
+
+
+
+    Flussi legati alle connessioni di rete:
+        Per scrivere da una connessione di rete a partire da un socket o da
+        una URLConnection utiliziamo:
+            OutputStreamWriter:
+                OutputStreamWriter o = new OutputStreamWriter(socket.getOutputStream());
+                OutputStreamWriter o = new OutputStreamWriter(connessioneURL.getOutputStream());
+
+                .getOutputStream() restituisce un flusso di dati binari che con
+                OutputStreamWriter trasformiamo in un flusso di caratteri
+
+    Filtri:
+        Filtri di bufferizzazione:
+            Tali filtri iterpongono un'area di bufferizzazione tra l'applicazione e
+            il flusso, permettendo di accumulare dati nella ram e utilizzare i tempi
+            morti per trasferire i dati dalla memoria al file / connessione, questo
+            sempre che non si voglia utilizzare flush per incanalare i dati prima.
+            Sono:
+                BufferedOutputStream
+                BufferedWriter
+                DataOutputStream (implements DataOutput):
+                    Restituisce un output formattato.
+                    I metodi sono:
+                        void writeBoolean(boolean b)
+                        void writeByte(int i)
+                        void writeShort(int i)
+                        void writeChar(int i)
+                        void writeInt(int i)
+                        void writeLong(long l)
+                        void writeFloat(float f)
+                        void writeDouble(double d)
+
+                        void writeBytes(String s) // caratteri 8-bit
+                        void writeChars(String s) // caratteri 16-bit
+                        void writeUFT() // caratteri Unicode UFT-8
+
+                        Naturalmente lanciano tutti IOException
+
+    Un esempio di quanto detto fin qui si trova in CopiaFile.java
