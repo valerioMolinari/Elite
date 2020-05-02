@@ -316,4 +316,40 @@ Output:
 
                         Naturalmente lanciano tutti IOException
 
-    Un esempio di quanto detto fin qui si trova in CopiaFile.java
+                Un esempio di quanto detto fin qui si trova in CopiaFile.java
+
+                ObjectOutputStream (implements ObjectOutput):
+                    Permette di scrivere oggetti nel flusso di output.
+                    Metodi:
+                        quelli di DataOutput+
+                        writeObject
+
+                    Esempio:
+                        <<<>>>
+                        FileOutputStream fos = FileOutputStream(fileName);
+                        ObjectOutputStream oos = ObjectOutputStream(fos);
+
+                        oos.writeInt(10);
+                        oos.writeObject("Oggi");
+                        oos.flush();
+                        oos.writeObject(new Date());
+                        oos.close();
+                        <<<>>>
+
+Flussi piped:
+    Perrmettono di creare flussi dal nulla.
+    Servono a far comunicare fra loro elementi indipendenti all'interno della
+    mia applicazione, ovvero i Thread.
+    Le classi di comunicazione sono:
+        PipedOutputStream
+        PipedInputStream
+
+    Un esempio di 4 Thread che comunicano in un'applicazione dove 2 Thread
+    (pout1, pout2) e altri due ascoltano (pin1, pin2) è dato da:
+        <<<>>>
+        PipedOutputStream pout1 = PipedOutputStream();
+        PipedInputStream pin1 = PipedInputStream(pout1);
+
+        PipedOutputStream pout2 = PipedOutputStream();
+        PipedInputStream pin2 = PipedInputStream(pout2);
+        <<<>>>
