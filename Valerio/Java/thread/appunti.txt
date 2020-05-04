@@ -1,0 +1,53 @@
+Thread:
+    sono lo strumento per realizzare applicazioni che svolgono più operazioni
+    in contemporanea e applicazioni client-server.
+    Un thread è un singolo flusso di esecuzione all'interno di un processo.
+    Un processo è l'esecuzione di un programma all'interno del suo proprio
+    spazio di indirizzi.
+    I thread vengono creati in un metodo speciale non bloccante, il metodo run().
+    Run() può essere o ereditato da Thread o implementato da Runnable.
+    Esempio:
+        <<<>>>
+        public class UnThread extends Thread {
+            public void run() {...}
+        }
+
+        public static void main(String[] args) {
+            UnThread t1 = new UnThread();
+            Ogetto o = new Oggetto();
+
+            o.metodo();
+            istruzione1();
+            t1.start();
+            istruzione2();
+            istruzione3();
+            ...
+        }
+        <<<>>>
+
+        Le istruzioni vengono eseguite mentre t1 è in esecuzione
+
+    Esempio2:
+        <<<>>>
+        public class UnAltroThread extends UnaClasse implements Runnable {
+            public void run() {...}
+        }
+
+        public static void main(String[] args) {
+            UnAltroThread aut = new UnAltroThread();
+            Thread t1 = new Thread(aut);
+
+            t1.start();
+            ...
+        }
+        <<<>>>
+
+        Implementando Runnable, che contiene solo il metodo run, non implementiamo
+        il metodo start, per cui per creare un thread da una classe del genere
+        dobbiamo costruire un thread con la classe Thread passando il nostro
+        oggetto al costruttore della classe. Il thread istanziato andrà a cercare
+        il metodo run() nel metodo run() della classe che ha implementato
+        Runnable()
+
+    Un esempio della contemporaneità dei thread si trova nel file ComplexThread1.java
+        

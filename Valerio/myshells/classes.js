@@ -23,8 +23,8 @@ const usage = `Utilizzo: classes [fileNames[,.ieap]]\n
 `
 
 function body(name) {
-  const main = name === 'Main' || /\..*m/.test(name) ? "\tpublic static void main(String[] args) {\n\n\t}" : ''
-  const body = /\..*f/.test(name) ? `\
+    const main = name === 'Main' || /\..*m/.test(name) ? "\tpublic static void main(String[] args) {\n\n\t}" : ''
+    const body = /\..*f/.test(name) ? `\
   // Attributi
 
   // Metodi privati
@@ -40,37 +40,37 @@ function body(name) {
   // Metodi astratti
   ` : ''
 
-  let type = 'class'
-  let more = ''
-  let generic = ''
-  if (/\..*i/.test(name))
-    type = 'interface'
-  if (/\..*e/.test(name))
-    type = 'enum'
-  if (/\..*a/.test(name))
-    type = 'abstract class'
-  if (/\..*p/.test(name))
-    type = `public ${type}`
-  if (/\..*g/.test(name))
-    generic = '<T>'
-  // if (/.*->.*/.test(name))
-  //   more += `extends ${name.split('->')[1].split('.')[0]}`
-  // if (/.*=>.*/.test(name))
-  //   more += `implements ${name.split('=>')[1].split('.')[0]}`
-  name = slice(name)
-  return `${type} ${name}${generic} ${more} {\n${main}${body}\n}`;
+    let type = 'class'
+    let more = ''
+    let generic = ''
+    if (/\..*i/.test(name))
+        type = 'interface'
+    if (/\..*e/.test(name))
+        type = 'enum'
+    if (/\..*a/.test(name))
+        type = 'abstract class'
+    if (/\..*p/.test(name))
+        type = `public ${type}`
+    if (/\..*g/.test(name))
+        generic = '<T>'
+    // if (/.*->.*/.test(name))
+    //   more += `extends ${name.split('->')[1].split('.')[0]}`
+    // if (/.*=>.*/.test(name))
+    //   more += `implements ${name.split('=>')[1].split('.')[0]}`
+    name = slice(name)
+    return `${type} ${name}${generic} ${more} {\n${main}${body}\n}`;
 }
 
 if (!classes.length)
-  console.error(`\n${__filename}:60\n  Errore: è richiesto almeno un argomento\n\n${usage}`)
+    console.error(`\n${__filename}:60\n  Errore: è richiesto almeno un argomento\n\n${usage}`)
 
 if (classes[0] === '--edit')
-  return execSync(`atom ${__filename}`);
+    return execSync(`atom ${__filename}`);
 
 for (c of classes) {
-  const h = slice(c);
-  appendFile(`${h}.java`, body(c), (err) => {
-    if (err) throw err
-    console.log(`Created ${process.cwd()}/${h}.java`);
-  });
+    const h = slice(c);
+    appendFile(`${h}.java`, body(c), (err) => {
+        if (err) throw err
+        console.log(`Created ${process.cwd()}/${h}.java`);
+    });
 }

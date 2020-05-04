@@ -1,5 +1,5 @@
 # Lancia hydrogen in Atom altrimenti questo file non serve a un cazzo :)
-# per lanciare hydrogen su una riga, su mac, cmd-option-enter
+# per lanciare hydrogen su una riga, su mac, cmd-enter
 
 import pandas as pd
 iris = pd.read_csv("data/iris.csv")
@@ -142,6 +142,32 @@ iris.apply(np.count_nonzero, axis=0)
 
 iris.drop("species", axis=1).applymap(lambda x : int(round(x)))
 
+# A volte, in un'osservazione statistica, può succedere di avere dei valori nulli
+# Non avendo noi dei valori nulli all'interno di iris li inseriamo
+# creando un array di 10 elementi casuali compresi tra 0 e 150 che rappresentano
+# indici di iris, quindi con loc andiamo a selezionare ciascuno di questi
+# 10 elementi trasformando la loro proprietà petal_length in None
+
 iris_nan = iris.copy()
-samples = np.random.randint(iris.shape[0], size=10)
+samples = np.random.randint(iris.shape[0], size=(10))
+samples
 iris_nan.loc[samples, "petal_length"] = None
+
+# Possiamo contare il numero di elementi nulli usando la funzione isnull(),
+# che crea una siries che contiene false per tutti valori non nulli e true per i valori nulli,
+# quindi con la funzione sum possiamo sommare gli elementi true ovvero contarli
+iris_nan["petal_length"].isnull().sum()
+
+# Possiamo sostituire i valori nulli con il valor medio.
+# Con inplace ci assicuriamo che iris_nan venga modificato come se
+# fosse stato un riferimento
+mean_petal_length = iris_nan["petal_length"].mean()
+iris_nan["petal_length"].fillna(mean_petal_length, inplace=True)
+
+# Infine Panda s'Center faccio molto bene anche con la libreria matplotlib,
+# che serve a costruire grafici.
+# In questo caso creeremo un grafico a dispersione
+
+import matplotlib.pyplot as plt
+
+iris.plot(x='sepal_length', y='sepal_width', kind='scatter')
