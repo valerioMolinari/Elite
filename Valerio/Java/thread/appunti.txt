@@ -50,4 +50,48 @@ Thread:
         Runnable()
 
     Un esempio della contemporaneità dei thread si trova nel file ComplexThread1.java
-        
+    mentre un esempio più strutturato è composto dal gruppo Producer.java, Filter.java,
+    Consumer.java, PipeTest.java
+
+    L'esecuzione dei thread non è lineare, quindi non è garantito il momento in
+    cui un thread verrà eseguito, un esempio di questo è dato da ThreadTester1.java
+
+    Gestione dell'asincronicità:
+        .join()
+            Richiamare .join() su un thread in esecuzione all'interno di un metodo chiamante,
+            ad esempio il main, dice al chiamante di mettere in pausa la sua esecuzione
+            fino a che il thread che ha richiesto l'interruzione non ha completato
+            l'esecuzione del suo metodo run. Questo procedimento però richiede la gestione
+            di un'eccezione, ovvero InterruptedExecution, pertanto il join su un thread va
+            tentato all'interno di un blocco try.
+            È esempio di questo il file ThreadTester2.java
+
+        yield()
+            Permette, una volta che un thread ha eseguito un compito, di cedere il
+            controllo del processore ad un altro thread. Può essere richiamata semplicemente
+            per nome all'interno del run di un thread, mentre deve essere richiamata per
+            nome e cognome (Thread.currentThread().yield()) se viene richiamata altrove,
+            tipo nel main. Questa cessione funziona in maniera parziale, poiché esiste,
+            e capita, la possibilità che un thread, ceduto il controllo, lo riacquisica
+            immediatamente dopo.
+            Un esempio è rappresentato da ThreadTesterYield.java.
+
+        .setPriority(int priority)
+            Possiamo utilizzare delle enumerazioni per facilitare il compito:
+            Thread.MIN_PRIORITY
+            Thread.NORM_PRIORITY
+            Thread.MAX_PRIORITY
+
+    Gruppi di thread:
+        Vengono istanziati dalla classe ThreadGroup come segue:
+            <<<>>>
+            String nomegruppo = ...;
+            ThreadGroup g = new ThreadGroup(nomegruppo);
+            ThreadGroup g1 = new ThreadGroup(g, "sottogruppoDiG");
+
+            Thread t_extendsThread = new Thread(g, nomeThread); // ora questo thread fa parete di g
+            Thread t_implementsRunnable = new Thread(g, oggettoRunnable, nomeThread); // idem
+            <<<>>>
+
+            Quindi il gruppo a cui un thread o un sottogruppo appartiene va
+            specificato come primo parametro

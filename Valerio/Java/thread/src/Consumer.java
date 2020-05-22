@@ -9,14 +9,14 @@ public class Consumer implements Runnable {
 
     @Override
     public void run() {
-        double mean = 0;
+        double avg = 0;
 
         for(;;)
             try {
-                double newMean = in.readDouble();
-                if (Math.abs(newMean - mean) > .01) {
-                    System.out.println(newMean);
-                    mean = newMean;
+                double newAvg = in.readDouble();
+                if (Math.abs(newAvg - avg) > .01) {
+                    System.out.println(newAvg);
+                    avg = newAvg;
                 }
             } catch (Exception e) {
                 System.out.println("Errore in Consumer: "+e);

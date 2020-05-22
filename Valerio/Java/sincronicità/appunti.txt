@@ -1,0 +1,125 @@
+Sincronicità:
+    Problema:
+        Un importante problema dell'operatività simultanea dei thread è dato dal fatto
+        che oltre ai singoli thread, anche le micro-operazioni interne ai loro metodi
+        run vengono eseguite simultaneamente dal processore e, nel caso in cui due
+        o più thread si stiano riferendo ad uno stesso oggetto, tale simultaneità
+        produrrebbe un risultato imprevidibilmente caotico.+
+        Prendiamo ad esempio il file ContoCorrente_sincronicitaNonGestita.java,
+        quello che vorremmo accadesse è che questi due gruppi di operazioni
+        venissero eseguite in sequenza:
+            paperino legge il saldo c       ( 0)
+            paperino calcola c - 1          (-1)
+            paperino scrive -1 sul saldo
+
+            paperone legge il saldo c       (-1)
+            paperone calcola c + 1          ( 0)
+            paperone scrive 0 sul saldo
+            risultato -> 0
+        In modo tale che alla fine dell'esecuzione il saldo è rimasto a 0 perché
+        entrambi i thread hanno aggiunto e rimosso 1€.
+        Tuttavia ciò che accade realmente è che tali operazioni si intersecano in
+        maniera casuale, producendo qualcosa di più simile a questo:
+            paperino legge il saldo c       ( 0)
+            paperone legge il saldo c       ( 0)
+            paperone calcola c + 1          ( 1)
+            paperino calcola c - 1          (-1)
+            paperone scrive 1 sul saldo
+            paperino scrive -1 sul saldo
+            risultato -> -1
+        Come possiamo vedere l'operazione svolta da paperone è andata perduta perché
+        entrambi hanno letto lo stesso saldo ma il valore del saldo è stato aggiornato
+        da chi ha finito per ultimo, paperino in questo caso.
+
+    Soluzione:
+        Lo scopo sarebbe quello di riuscire a far accedere ad uno stesso dato
+        un solo thread alla volta. A questo scopo è sufficiente aggiungere nell'intestazione
+        di un metodo che vorremmo fosse utilizzato sincrono la parola chiave synchronized,
+        come possiamo vedere nel file ContoCorrente_sincronicitaGestita.java.
+        L'effetto che produce questa parola è che quando un qualsiasi thread
+        prova ad eseguire un metodo synchronized su un oggetto, prima controlla se quel oggetto
+        sta già venendo utilizzato da qualche altro thread, e in tal caso aspetta,
+        altrimenti lo esegue bloccando l'accesso agli altri thread finché non ha finito.
+
+        Monitor:
+            È un oggetto (es. ContoCorrenteS c) su cui viene fatto il lock e l'unlock
+            e che fa da guardiano ai metodi sincronizzati
+
+        Un altro esempio di metodo sincronizzato si trova in ContaIPaperini.java
+        in cui vengono istanziati 20 paperini e poi si guardano gli effetti che
+        la loro istanziazione ed esecuzione hanno prodotto su un conto corrente
+        e su un contatore.
+
+        È possibile anche sincronizzare solo un blocco di codice all'interno di
+        un metodo anteponendo a tale blocco la parola synchronized seguita da
+        un parametro:
+            <<<>>>
+            public void metodo() {
+                // istruzioni1
+
+                synchronized(this) {
+                    // istruzioni2
+                }
+
+                // istruzioni3
+            }
+            <<<>>>
+
+            un thread inizia l'esecuzione di questo metodo di un qualche monitor,
+            esegue le istruzioni1, arriva al blocco sincronizzato controlla se il monitor è
+            bloccato o no, quindi esegue le istruzioni2 oppure aspetta, infine non curante dello
+            stato di lock o unlock del monitor esegue le istruzioni3.
+
+            Quel this viene messo perché si suppone che i thread si stiano sincronizzando
+            su uno stesso monitor.
+
+            Un'alternativa consiste infatti nel non sincronizzare i metodi di un oggetto
+            (che quindi smette di essere un monitor), ma sincronizzare le chiamate
+            all'oggetto all'interno dei run del thread:
+                <<<>>>
+                public class Oggetto {
+                    public void metodo() { // istruzioni non sincronizzate }
+                }
+
+                Oggetto og = new Oggetto();
+
+                public class MyThread extends Thread {
+                    public void run() {
+                        // istruzioni
+                        synchronized(og) { // istruzioni sincronizzate }
+                    }
+                }
+                <<<>>>
+
+                questa cosa va necessariamente fatta anche dagli altri thread
+                che vogliono accedere ad og altrimenti si produce il caos.
+
+            Dal punto di vista dell'incapsulazione utilizzare un monitor è
+            preferibile
+
+    Rischi:
+        Colli di bottiglia:
+
+        Deadlock:
+            Supponi che in casa siano rimasti solo un coltello e una forchetta e
+            te e Giulia volete cenare. Tu prendi il coltello, lei prende la forchetta,
+            tu aspetti la forchetta per poter continuare e finire, lei aspetta
+            il coltello e niente, attesa circolare = deadlock.
+            Questo avviene quindi quando più oggetti cercano di accedere ad
+            altri oggetti regolati da metodi sincroni e la sincronicità non è
+            stata gestita adeguatamente.
+
+        I rischi verranno approfonditi al corso di sistemi operativi
+
+    .wait() e .notifyAll():
+        quando più thread accedono ad uno stesso monitor, per quanto questo accesso
+        possa essere sincronizzato, lo fanno in maniera del tutto casuale. Quando invece
+        vogliamo imporre un ordine di accesso, possiamo applicare al monitor i
+        metodi notifyAll e wait che, rispettivamente, permettono di risvegliare tutti
+        gli altri thread e mettere in attesa quello corrente. È molto importante
+        ricordare che tali metodi vanno usati esattamente in quest'ordine poiché
+        se fossero invertiti potrebbero produrre un deadlock o altri poblemi del genere.
+        Va infine ricordato che .wait() può sollevare una InterruptedException, pertanto
+        occorre racchiuderlo in un blocco try.
+        Gli esempi inerenti tali metodi si trovano nei files SincroSenzaWaitNotify.java
+        e SincroConWaitNotify.java
