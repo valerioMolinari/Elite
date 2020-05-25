@@ -123,3 +123,22 @@ Sincronicità:
         occorre racchiuderlo in un blocco try.
         Gli esempi inerenti tali metodi si trovano nei files SincroSenzaWaitNotify.java
         e SincroConWaitNotify.java
+    volatile:
+        Si applica a campi di oggetti della classe thread. Quando un thread viene
+        lanciato, per quanto l'oggetto si trovi nell'heap, il thread fa una copia
+        dei propri campi nello stack in modo tale che se vi deve accedere può
+        farlo più velocemente tramite le copie. Poiché tuttavia a volte può
+        capitare che questi campi vengano modificati, il thread non se ne
+        accorgerebbe perché continuerebbe a guardare le copie. Per assicurarsi
+        invece che un thread vada a cercare un campo nel suo oggetto nell'heap in
+        tempo reale, il campo in questione va dichiarato "volatile".
+        Es.:
+            <<<>>>
+            public class Stoppable extends Thread {
+                public volatile boolean pleaseStopMe = false;
+
+                public void run() {
+                    // codici
+                }
+            }
+            <<<>>>

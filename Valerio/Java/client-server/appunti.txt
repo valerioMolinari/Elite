@@ -1,0 +1,32 @@
+Server:
+    È un'applicazione di rete che sta in attesa di una richiesta di connessione
+    e che risponde a connessione stabilita. La connessione è sempre prodotta
+    da un oggetto di classe socket.
+    Socket:
+        stabilisce un canale di connessione e richiede un host e un numero di
+        porta.
+    Un server apre la sua porta e aspetta che arrivi un client, quando il client
+    arriva viene generato il socket che permette la connessione di rete e qui
+    il server produce i flussi di ingresso e di uscita che permettono la
+    comunicazione.
+
+    Nel file EchoServer.java creiamo un server che accetta connessioni in ingresso
+    sulla porta 8189 e ripete ciascun messaggio ricevuto dal client fino a che
+    il messaggio non è bye, quindi accetta richieste dal client successivo
+
+    Consideriamo ora la possibiltà di poter realizzare un server in grado di
+    concedere il servizio a vari client contemporaneamente. Va da se che lo
+    strumento necessario al raggiungimento di questo scopo è il Thread.
+    In questo caso quello che vogliamo fare, come mostrato in ThreadedEchoServer.java,
+    è produrre un ServerSocket in ascolto sulla porta 8189, in un blocco try
+    accettare le connessioni in entrata dalla porta creando un nuovo Socket,
+    contare tutti i client che si sono connessi quindi cedere il servizio a
+    ciascun client.
+    Il servizio è reso dalla classe ThreadedEchoHandler, la quale viene istanziata
+    tramite un Socket, quello richiesto dal client, e il contatore di clients.
+    Nel metodo run del thread viene aperto il flusso in entrata e in uscita del
+    socket, ricordando di impedire l'accumulo di flusso in output forzando
+    quindi il PrintWriter all'autoflush. A questo punto occorre semplicemente
+    implementare il servizio, quindi ripetere i messaggi del client fino a quando
+    esso non inserisce il comando di arresto interrompendo la connessione
+    con il server; naturalmente a questo punto chiudiamo il socket.

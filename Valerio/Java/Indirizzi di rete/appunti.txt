@@ -1,0 +1,11 @@
+Indirizzi di rete:
+    Supponiamo che andiamo ad una festa e qualcuna ci invita a cena. Ci dice
+    che abita a New York sulla 5ª strada al numero 10. Noi tutti contenti ci
+    andiamo per poi scoprire che al numero 10 c'è un grattacielo enorme e,
+    non sapendo a che porta bussare, non possiamo fare niente.
+    Nel file InetAddressTest.java abbiamo l'esempio di un programma che
+    traduce un indirizzo logico in un indirizzo fisico.
+    Nel file SocketTest.java invece vediamo come creare un socket che stabilisce
+    una connessione con un l'indirizzo logico di un sito statunitense che
+    alla porta 13 restituisce l'ora esatta.ù
+    

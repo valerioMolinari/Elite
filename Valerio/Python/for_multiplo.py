@@ -7,6 +7,7 @@ for i, j, k in zip(a, b, c):
 print()
 
 a = [[j for j in range(i * 10, i * 10 + 10)] for i in range(10)]
+a
 
 for q in a:
     print(q)
