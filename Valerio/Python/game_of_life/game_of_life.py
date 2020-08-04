@@ -16,4 +16,3 @@ HEIGHT = int(NSScreen.mainScreen().frame().size.height)
 SQUARES_SIZE = 10
 
 matrix = np.zeros((WIDTH // SQUARES_SIZE, HEIGHT // SQUARES_SIZE), dtype=np.uint8)
-mario
