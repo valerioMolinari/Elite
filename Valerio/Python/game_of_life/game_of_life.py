@@ -49,6 +49,7 @@ def populate():
         for col in range(shape[1]):
             r = randint(0,1)
             give_birth(row, col) if r else kill(row, col)
+            
 
 
 #dimensioni dello schermo e dei quadratini per pyglet
@@ -60,6 +61,12 @@ matrix = np.zeros((WIDTH // SQUARES_SIZE, HEIGHT // SQUARES_SIZE), dtype=np.uint
 shape = matrix.shape
 #matrix[y][x]
 #matrix[len(Y) - y][x]
+
+class MyWindow(pyglet.window.Window):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
 
 def main():
     populate()
