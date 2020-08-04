@@ -56,8 +56,6 @@ WIDTH = int(NSScreen.mainScreen().frame().size.width)
 HEIGHT = int(NSScreen.mainScreen().frame().size.height)
 SQUARES_SIZE = 10
 
-WIDTH, HEIGHT
-
 matrix = np.zeros((WIDTH // SQUARES_SIZE, HEIGHT // SQUARES_SIZE), dtype=np.uint8)
 shape = matrix.shape
 #matrix[y][x]
