@@ -1,0 +1,57 @@
+Installing build dependencies ... error
+  ERROR: Command errored out with exit status 1:
+   command: /usr/local/opt/python@3.8/bin/python3.8 /usr/local/lib/python3.8/site-packages/pip install --ignore-installed --no-user --prefix /private/var/folders/zf/gdlmt0zj79q8jr7ktn0gx_t80000gn/T/pip-build-env-9n1wx1eo/overlay --no-warn-script-location --no-binary :none: --only-binary :none: -i https://pypi.org/simple -- setuptools wheel pycairo
+       cwd: None
+  Complete output (50 lines):
+  Collecting setuptools
+    Using cached setuptools-49.2.1-py3-none-any.whl (789 kB)
+  Collecting wheel
+    Using cached wheel-0.34.2-py2.py3-none-any.whl (26 kB)
+  Collecting pycairo
+    Using cached pycairo-1.19.1.tar.gz (205 kB)
+  Building wheels for collected packages: pycairo
+    Building wheel for pycairo (setup.py): started
+    Building wheel for pycairo (setup.py): finished with status 'error'
+    ERROR: Command errored out with exit status 1:
+     command: /usr/local/opt/python@3.8/bin/python3.8 -u -c 'import sys, setuptools, tokenize; sys.argv[0] = '"'"'/private/var/folders/zf/gdlmt0zj79q8jr7ktn0gx_t80000gn/T/pip-install-oasqz3om/pycairo/setup.py'"'"'; __file__='"'"'/private/var/folders/zf/gdlmt0zj79q8jr7ktn0gx_t80000gn/T/pip-install-oasqz3om/pycairo/setup.py'"'"';f=getattr(tokenize, '"'"'open'"'"', open)(__file__);code=f.read().replace('"'"'\r\n'"'"', '"'"'\n'"'"');f.close();exec(compile(code, __file__, '"'"'exec'"'"'))' bdist_wheel -d /private/var/folders/zf/gdlmt0zj79q8jr7ktn0gx_t80000gn/T/pip-wheel-yq361dnx
+         cwd: /private/var/folders/zf/gdlmt0zj79q8jr7ktn0gx_t80000gn/T/pip-install-oasqz3om/pycairo/
+    Complete output (12 lines):
+    running bdist_wheel
+    running build
+    running build_py
+    creating build
+    creating build/lib.macosx-10.15-x86_64-3.8
+    creating build/lib.macosx-10.15-x86_64-3.8/cairo
+    copying cairo/__init__.py -> build/lib.macosx-10.15-x86_64-3.8/cairo
+    copying cairo/__init__.pyi -> build/lib.macosx-10.15-x86_64-3.8/cairo
+    copying cairo/py.typed -> build/lib.macosx-10.15-x86_64-3.8/cairo
+    running build_ext
+    'pkg-config' not found.
+    Command ['pkg-config', '--print-errors', '--exists', 'cairo >= 1.13.1']
+    ----------------------------------------
+    ERROR: Failed building wheel for pycairo
+    Running setup.py clean for pycairo
+  Failed to build pycairo
+  Installing collected packages: setuptools, wheel, pycairo
+      Running setup.py install for pycairo: started
+      Running setup.py install for pycairo: finished with status 'error'
+      ERROR: Command errored out with exit status 1:
+       command: /usr/local/opt/python@3.8/bin/python3.8 -u -c 'import sys, setuptools, tokenize; sys.argv[0] = '"'"'/private/var/folders/zf/gdlmt0zj79q8jr7ktn0gx_t80000gn/T/pip-install-oasqz3om/pycairo/setup.py'"'"'; __file__='"'"'/private/var/folders/zf/gdlmt0zj79q8jr7ktn0gx_t80000gn/T/pip-install-oasqz3om/pycairo/setup.py'"'"';f=getattr(tokenize, '"'"'open'"'"', open)(__file__);code=f.read().replace('"'"'\r\n'"'"', '"'"'\n'"'"');f.close();exec(compile(code, __file__, '"'"'exec'"'"'))' install --record /private/var/folders/zf/gdlmt0zj79q8jr7ktn0gx_t80000gn/T/pip-record-tdz0as_0/install-record.txt --single-version-externally-managed --prefix /private/var/folders/zf/gdlmt0zj79q8jr7ktn0gx_t80000gn/T/pip-build-env-9n1wx1eo/overlay --compile --install-headers /private/var/folders/zf/gdlmt0zj79q8jr7ktn0gx_t80000gn/T/pip-build-env-9n1wx1eo/overlay/include/python3.8/pycairo
+           cwd: /private/var/folders/zf/gdlmt0zj79q8jr7ktn0gx_t80000gn/T/pip-install-oasqz3om/pycairo/
+      Complete output (12 lines):
+      running install
+      running build
+      running build_py
+      creating build
+      creating build/lib.macosx-10.15-x86_64-3.8
+      creating build/lib.macosx-10.15-x86_64-3.8/cairo
+      copying cairo/__init__.py -> build/lib.macosx-10.15-x86_64-3.8/cairo
+      copying cairo/__init__.pyi -> build/lib.macosx-10.15-x86_64-3.8/cairo
+      copying cairo/py.typed -> build/lib.macosx-10.15-x86_64-3.8/cairo
+      running build_ext
+      'pkg-config' not found.
+      Command ['pkg-config', '--print-errors', '--exists', 'cairo >= 1.13.1']
+      ----------------------------------------
+  ERROR: Command errored out with exit status 1: /usr/local/opt/python@3.8/bin/python3.8 -u -c 'import sys, setuptools, tokenize; sys.argv[0] = '"'"'/private/var/folders/zf/gdlmt0zj79q8jr7ktn0gx_t80000gn/T/pip-install-oasqz3om/pycairo/setup.py'"'"'; __file__='"'"'/private/var/folders/zf/gdlmt0zj79q8jr7ktn0gx_t80000gn/T/pip-install-oasqz3om/pycairo/setup.py'"'"';f=getattr(tokenize, '"'"'open'"'"', open)(__file__);code=f.read().replace('"'"'\r\n'"'"', '"'"'\n'"'"');f.close();exec(compile(code, __file__, '"'"'exec'"'"'))' install --record /private/var/folders/zf/gdlmt0zj79q8jr7ktn0gx_t80000gn/T/pip-record-tdz0as_0/install-record.txt --single-version-externally-managed --prefix /private/var/folders/zf/gdlmt0zj79q8jr7ktn0gx_t80000gn/T/pip-build-env-9n1wx1eo/overlay --compile --install-headers /private/var/folders/zf/gdlmt0zj79q8jr7ktn0gx_t80000gn/T/pip-build-env-9n1wx1eo/overlay/include/python3.8/pycairo Check the logs for full command output.
+  ----------------------------------------
+ERROR: Command errored out with exit status 1: /usr/local/opt/python@3.8/bin/python3.8 /usr/local/lib/python3.8/site-packages/pip install --ignore-installed --no-user --prefix /private/var/folders/zf/gdlmt0zj79q8jr7ktn0gx_t80000gn/T/pip-build-env-9n1wx1eo/overlay --no-warn-script-location --no-binary :none: --only-binary :none: -i https://pypi.org/simple -- setuptools wheel pycairo Check the logs for full command output.
