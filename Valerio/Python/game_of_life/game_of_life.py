@@ -49,7 +49,7 @@ def populate():
         for col in range(shape[1]):
             r = randint(0,1)
             give_birth(row, col) if r else kill(row, col)
-            
+
 
 
 #dimensioni dello schermo e dei quadratini per pyglet
