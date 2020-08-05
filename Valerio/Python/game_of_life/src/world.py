@@ -89,42 +89,61 @@ class World:
 
     def draw(self, callback=lambda:None) -> None:
         callback()
-        count = 0
-        l = len(self.population)
+        # count = 0
+        # l = len(self.population)
+        # batch = pyglet.graphics.Batch()
+        # cent = l // 100
+        # cells = []
+        # for row, col in self.population:
+        #     if not cent:
+        #         system("clear")
+        #         print("populating: 100.0%")
+        #         print("drawing   : 100.0%")
+        #     elif not count % cent:
+        #         system("clear")
+        #         print("populating: 100.0%")
+        #         print(f"drawing   : {round(count * 100 / l, 2)}%")
+        #     count += 1
+        #     cells.append(Cell(self.squares_size, row, col, batch=batch).sprite)
+        # batch.draw()
         batch = pyglet.graphics.Batch()
-        cent = l // 100
         cells = []
-        for row, col in self.population:
-            if not cent:
-                system("clear")
-                print("populating: 100.0%")
-                print("drawing   : 100.0%")
-            elif not count % cent:
-                system("clear")
-                print("populating: 100.0%")
-                print(f"drawing   : {round(count * 100 / l, 2)}%")
-            count += 1
-            cells.append(Cell(self.squares_size, row, col, batch=batch).sprite)
+        threads = []
+        threads_needed = Drawer.needed(self.population)
+        start = 0
+        end = jump = len(self.population) // threads_needed
+        print(len(self.population), threads_needed)
+        for i in range(threads_needed):
+            thread = Drawer(self.population[start:end], self.squares_size, batch, cells)
+            threads.append(thread)
+            start += jump
+            end += jump
+            print(start, end, len(self.population))
+
+        for i in range(len(threads)):
+            threads[i].start()
+            if i and not i % 20:
+                for j in range(i - 20, i):
+                    threads[j].join()
+
         batch.draw()
 
+
+
 class Drawer(Thread):
-    def __init__(self, start, end, squares_size, batch, batch_list):
+    def __init__(self, population, squares_size, batch, batch_list):
         Thread.__init__(self)
-        self.start = start
-        self.end = end
+        self.population = population
         self.squares_size = squares_size
         self.batch = batch
         self.batch_list = batch_list
 
     @staticmethod
-    def needed(x, y):
-        def is_int(n):
-            #print(n - int(n))
-            return not (n - int(n))
-        def nearest(x, y, z):
-            return y if x - z > z - y else x
-        size = x * y
-        z = math.sqrt(size)
+    def needed(population):
+        is_int = lambda n : not (n - int(n))
+        nearest = lambda x, y, z: y if x - z > z - y else x
+        size = len(population)
+        z = math.sqrt(len(population))
         if is_int(z):
             return z
         else:
@@ -134,3 +153,8 @@ class Drawer(Thread):
                 up   += 1
                 down -= 1
             return nearest(up, down, z)
+
+    def run(self):
+        for row, col in self.population:
+            #print(f"working {self}")
+            self.batch_list.append(Cell(self.squares_size, row, col, batch=self.batch).sprite)
