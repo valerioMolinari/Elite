@@ -4,16 +4,19 @@ from random import randint
 from threading import Thread
 import numpy as np
 from os import system
+import json
+import pyglet
+import math
 
 class World:
-    def __init__(self, squares_size: int, configuration: tuple = None) -> None:
-        self.WIDTH = int(NSScreen.mainScreen().frame().size.width)
-        self.HEIGHT = int(NSScreen.mainScreen().frame().size.height) - 100
+    def __init__(self, width, height, squares_size: int, configuration: tuple = None) -> None:
+        self.WIDTH = width
+        self.HEIGHT = height
         self.squares_size = squares_size
         self.matrix = np.zeros((self.WIDTH // squares_size, self.HEIGHT // squares_size), dtype=np.uint8)
         self.shape = self.matrix.shape
+        self.population = configuration
         if configuration is not None:
-            self.population = configuration
             for row, column in configuration:
                 self.__give_birth(row, column)
         else:
@@ -57,7 +60,7 @@ class World:
         population = []
         for row in range(self.shape[0]):
             system("clear")
-            print(f"populating: {round(row / self.shape[0], 2) * 100}%")
+            print(f"populating: {round(row * 100 / self.shape[0], 2)}%")
             for col in range(self.shape[1]):
                 r = randint(0,1)
                 if r:
@@ -67,13 +70,14 @@ class World:
 
     def update(self) -> int:
         to_change = []
-        for row, col in self.population:
-            non_zero = self.__count_nonzero(self.__get_neighborhood(row, col))
-            if non_zero < 2 or non_zero > 3:
-                to_change.append((row, col, 0))
-            elif non_zero == 3:
-                to_change.append((row, col, 1))
-
+        for row in range(self.shape[0]):
+            for col in range(self.shape[1]):
+                neighborhood = self.__get_neighborhood(row, col)
+                non_zero = self.__count_nonzero(neighborhood)
+                if non_zero < 2 or non_zero > 3:
+                    to_change.append((row, col, 0))
+                elif non_zero == 3:
+                    to_change.append((row, col, 1))
         self.population = []
         for row, col, status in to_change:
             if status:
@@ -87,11 +91,46 @@ class World:
         callback()
         count = 0
         l = len(self.population)
+        batch = pyglet.graphics.Batch()
         cent = l // 100
+        cells = []
         for row, col in self.population:
-            if not count % cent:
+            if not cent:
+                system("clear")
+                print("populating: 100.0%")
+                print("drawing   : 100.0%")
+            elif not count % cent:
                 system("clear")
                 print("populating: 100.0%")
                 print(f"drawing   : {round(count * 100 / l, 2)}%")
-            Cell(row, col, self.squares_size).draw()
             count += 1
+            cells.append(Cell(self.squares_size, row, col, batch=batch).sprite)
+        batch.draw()
+
+class Drawer(Thread):
+    def __init__(self, start, end, squares_size, batch, batch_list):
+        Thread.__init__(self)
+        self.start = start
+        self.end = end
+        self.squares_size = squares_size
+        self.batch = batch
+        self.batch_list = batch_list
+
+    @staticmethod
+    def needed(x, y):
+        def is_int(n):
+            #print(n - int(n))
+            return not (n - int(n))
+        def nearest(x, y, z):
+            return y if x - z > z - y else x
+        size = x * y
+        z = math.sqrt(size)
+        if is_int(z):
+            return z
+        else:
+            z = int(z)
+            up = down = z
+            while not (is_int(size / up) or is_int(size / down)):
+                up   += 1
+                down -= 1
+            return nearest(up, down, z)
